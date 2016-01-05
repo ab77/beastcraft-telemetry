@@ -6,7 +6,11 @@ from influxdb import InfluxDBClient
 import os, time
 
 # ls /sys/bus/w1/devices
-DS18D20 = ['28-00000625bd01', '28-00000626bee8', '28-0000062841eb', '28-00000628c173', '28-021564e193ff']
+DS18D20 = [{'name': '28-00000625bd01', 'location': 'under the bed'},
+	   {'name': '28-00000626bee8', 'location': 'hab space'},
+	   {'name': '28-0000062841eb', 'location': 'boiler cupboard'},
+	   {'name': '28-00000628c173', 'location': 'electronics cupboard'},
+	   {'name': '28-021564e193ff', 'location': 'outside'}]
 
 def main(host='localhost', port=8086):
     user = 'admin'
@@ -18,7 +22,7 @@ def main(host='localhost', port=8086):
     os.system('modprobe w1-therm')
 
     for ts in DS18D20: 
-        temp_sensor = '/sys/bus/w1/devices/%s/w1_slave' % ts
+        temp_sensor = '/sys/bus/w1/devices/%s/w1_slave' % ts['name']
 
         def temp_raw():
             f = open(temp_sensor, 'r')
@@ -39,13 +43,14 @@ def main(host='localhost', port=8086):
                 return temp_c
 
         temp = read_temp()
-        print('sensor_id=%s, temp_c=%s' % (ts, temp))
+        print('sensor_id=%s, temp_c=%s' % (ts['name'], temp))
 
         t = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
         json_body = [{
             "measurement": "temp",
             "tags": {
-                "sensor": ts
+                "sensor": ts['name'],
+		"location": ts['location']
             },
             "time": t,
             "fields": {

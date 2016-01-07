@@ -21,6 +21,7 @@ def main(host='localhost', port=8086):
     os.system('modprobe w1-gpio')
     os.system('modprobe w1-therm')
 
+    l = []
     for ts in DS18D20: 
         temp_sensor = '/sys/bus/w1/devices/%s/w1_slave' % ts['name']
 
@@ -46,7 +47,7 @@ def main(host='localhost', port=8086):
         print('sensor_id=%s, temp_c=%s' % (ts['name'], temp))
 
         t = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
-        json_body = [{
+        json_body = {
             "measurement": "temp",
             "tags": {
                 "sensor": ts['name'],
@@ -56,10 +57,11 @@ def main(host='localhost', port=8086):
             "fields": {
                 "value": temp
             }
-        }]
+        }
+	l.append(json_body)
 
-        print("Write points: {0}".format(json_body))
-        client.write_points(json_body)
+    print("Write points: {0}".format(l))
+    client.write_points(l)
 
 def parse_args():
     parser = argparse.ArgumentParser(

@@ -23,8 +23,14 @@ This repository contains configuration specific to my environment, with five `DS
 2. update `DS18B201` sensor list and database name in `w1_thermy.py`
 3. [create database](https://influxdb.com/docs/v0.9/query_language/database_management.html#create-a-database-with-create-database) (e.g. grafana) for your metrics by running `influx -execute 'CREATE DATABASE grafana;`
 4. [create retention policy](https://influxdb.com/docs/v0.9/query_language/database_management.html#retention-policy-management) by running `CREATE RETENTION POLICY 'grafana_retention_policy' ON 'grafana' DURATION '4w' REPLICATION 3 DEFAULT`
-5. schedule `w1_therm.py` to run every x minutes using cron (e.g. `*/5 * * * * /opt/beastcraft-telemetry/w1_therm.py`)
-6. go to [http://localhost:3000](http://localhost:3000), add a new datasource and configure other options
-7. import BeastCraft.json dashboard and modify it to suit your needs or build your own from scratch
+
+#### Temperature Dashboard
+
+1. schedule `w1_therm.py` to run every x minutes using cron (e.g. `*/5 * * * * /opt/beastcraft-telemetry/w1_therm.py`)
+2. go to [http://localhost:3000](http://localhost:3000), add a new datasource and configure other options
+3. import temp.json dashboard and modify it to suit your needs or build your own from scratch
+
+#### UPS/Inverter Dashboard
+TBC
 
 -- ab1

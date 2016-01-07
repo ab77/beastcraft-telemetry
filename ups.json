@@ -1,7 +1,7 @@
 {
-  "id": 1,
-  "title": "BeastCraft",
-  "originalTitle": "BeastCraft",
+  "id": 2,
+  "title": "Power",
+  "originalTitle": "Power",
   "tags": [],
   "style": "dark",
   "timezone": "browser",
@@ -26,80 +26,8 @@
           "datasource": null,
           "editable": true,
           "error": false,
-          "format": "none",
-          "id": 7,
-          "interval": null,
-          "isNew": true,
-          "links": [],
-          "maxDataPoints": 100,
-          "nullPointMode": "connected",
-          "nullText": null,
-          "postfix": "",
-          "postfixFontSize": "50%",
-          "prefix": "",
-          "prefixFontSize": "50%",
-          "span": 3,
-          "sparkline": {
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "full": true,
-            "lineColor": "rgb(31, 120, 193)",
-            "show": true
-          },
-          "targets": [
-            {
-              "dsType": "influxdb",
-              "groupBy": [],
-              "measurement": "temp",
-              "query": "SELECT \"value\" FROM \"temp\" WHERE \"sensor\" = '28-021564e193ff' AND $timeFilter",
-              "refId": "A",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "value"
-                    ],
-                    "type": "field"
-                  }
-                ]
-              ],
-              "tags": [
-                {
-                  "key": "sensor",
-                  "operator": "=",
-                  "value": "28-021564e193ff"
-                }
-              ]
-            }
-          ],
-          "thresholds": "0,16,25,30",
-          "title": "outside",
-          "transparent": true,
-          "type": "singlestat",
-          "valueFontSize": "80%",
-          "valueMaps": [
-            {
-              "op": "=",
-              "text": "N/A",
-              "value": "null"
-            }
-          ],
-          "valueName": "avg"
-        },
-        {
-          "cacheTimeout": null,
-          "colorBackground": false,
-          "colorValue": false,
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
-          ],
-          "datasource": null,
-          "editable": true,
-          "error": false,
-          "format": "none",
-          "id": 5,
+          "format": "percent",
+          "id": 1,
           "interval": null,
           "isNew": true,
           "links": [],
@@ -120,9 +48,22 @@
           "targets": [
             {
               "dsType": "influxdb",
-              "groupBy": [],
-              "measurement": "temp",
-              "query": "SELECT \"value\" FROM \"temp\" WHERE \"sensor\" = '28-0000062841eb' AND $timeFilter",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "previous"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "battery.charge",
+              "query": "SELECT mean(\"value\") FROM \"battery.charge\" WHERE $timeFilter GROUP BY time($interval) fill(previous)",
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -132,20 +73,18 @@
                       "value"
                     ],
                     "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
                   }
                 ]
               ],
-              "tags": [
-                {
-                  "key": "sensor",
-                  "operator": "=",
-                  "value": "28-0000062841eb"
-                }
-              ]
+              "tags": []
             }
           ],
-          "thresholds": "",
-          "title": "boiler cupboard",
+          "thresholds": "0,50,80",
+          "title": "battery.charge",
           "type": "singlestat",
           "valueFontSize": "80%",
           "valueMaps": [
@@ -155,12 +94,14 @@
               "value": "null"
             }
           ],
-          "valueName": "avg"
+          "valueName": "current",
+          "decimals": null,
+          "transparent": true
         },
         {
           "cacheTimeout": null,
           "colorBackground": false,
-          "colorValue": false,
+          "colorValue": true,
           "colors": [
             "rgba(245, 54, 54, 0.9)",
             "rgba(237, 129, 40, 0.89)",
@@ -169,7 +110,7 @@
           "datasource": null,
           "editable": true,
           "error": false,
-          "format": "none",
+          "format": "volt",
           "id": 2,
           "interval": null,
           "isNew": true,
@@ -191,9 +132,22 @@
           "targets": [
             {
               "dsType": "influxdb",
-              "groupBy": [],
-              "measurement": "temp",
-              "query": "SELECT \"value\" FROM \"temp\" WHERE \"sensor\" = '28-00000625bd01' AND $timeFilter",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "previous"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "battery.voltage",
+              "query": "SELECT mean(\"value\") FROM \"battery.voltage\" WHERE $timeFilter GROUP BY time($interval) fill(previous)",
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -203,22 +157,20 @@
                       "value"
                     ],
                     "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
                   }
                 ]
               ],
-              "tags": [
-                {
-                  "key": "sensor",
-                  "operator": "=",
-                  "value": "28-00000625bd01"
-                }
-              ]
+              "tags": []
             }
           ],
-          "thresholds": "",
-          "title": "under the bed",
+          "thresholds": "11.4,11.9,12.7",
+          "title": "battery.voltage",
           "type": "singlestat",
-          "valueFontSize": "80%",
+          "valueFontSize": "50%",
           "valueMaps": [
             {
               "op": "=",
@@ -226,7 +178,9 @@
               "value": "null"
             }
           ],
-          "valueName": "avg"
+          "valueName": "current",
+          "decimals": 2,
+          "transparent": true
         },
         {
           "cacheTimeout": null,
@@ -240,7 +194,259 @@
           "datasource": null,
           "editable": true,
           "error": false,
-          "format": "none",
+          "format": "amp",
+          "id": 3,
+          "interval": null,
+          "isNew": true,
+          "links": [],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 2,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": true,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": true
+          },
+          "targets": [
+            {
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "previous"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "input.current.nominal",
+              "query": "SELECT mean(\"value\") FROM \"input.current.nominal\" WHERE $timeFilter GROUP BY time($interval) fill(previous)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": []
+            }
+          ],
+          "thresholds": "",
+          "title": "input.current",
+          "type": "singlestat",
+          "valueFontSize": "50%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current",
+          "decimals": 2,
+          "transparent": true
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "format": "hertz",
+          "id": 4,
+          "interval": null,
+          "isNew": true,
+          "links": [],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 2,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": true,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": true
+          },
+          "targets": [
+            {
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "previous"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "input.frequency",
+              "query": "SELECT mean(\"value\") FROM \"input.frequency\" WHERE $timeFilter GROUP BY time($interval) fill(previous)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": []
+            }
+          ],
+          "thresholds": "49.5,50.5",
+          "title": "input.frequency",
+          "type": "singlestat",
+          "valueFontSize": "50%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current",
+          "decimals": 2,
+          "transparent": true
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "format": "volt",
+          "id": 5,
+          "interval": null,
+          "isNew": true,
+          "links": [],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 2,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": true,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": true
+          },
+          "targets": [
+            {
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "previous"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "input.voltage",
+              "query": "SELECT mean(\"value\") FROM \"input.voltage\" WHERE $timeFilter GROUP BY time($interval) fill(previous)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": []
+            }
+          ],
+          "thresholds": "207,253",
+          "title": "input.voltage",
+          "type": "singlestat",
+          "valueFontSize": "50%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current",
+          "decimals": 2,
+          "transparent": true
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "format": "volt",
           "id": 6,
           "interval": null,
           "isNew": true,
@@ -262,182 +468,6 @@
           "targets": [
             {
               "dsType": "influxdb",
-              "groupBy": [],
-              "measurement": "temp",
-              "query": "SELECT \"value\" FROM \"temp\" WHERE \"sensor\" = '28-00000628c173' AND $timeFilter",
-              "refId": "A",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "value"
-                    ],
-                    "type": "field"
-                  }
-                ]
-              ],
-              "tags": [
-                {
-                  "key": "sensor",
-                  "operator": "=",
-                  "value": "28-00000628c173"
-                }
-              ]
-            }
-          ],
-          "thresholds": "",
-          "title": "electronics cupboard",
-          "type": "singlestat",
-          "valueFontSize": "80%",
-          "valueMaps": [
-            {
-              "op": "=",
-              "text": "N/A",
-              "value": "null"
-            }
-          ],
-          "valueName": "avg"
-        },
-        {
-          "cacheTimeout": null,
-          "colorBackground": false,
-          "colorValue": true,
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
-          ],
-          "datasource": null,
-          "decimals": 2,
-          "editable": true,
-          "error": false,
-          "format": "celsius",
-          "id": 4,
-          "interval": null,
-          "isNew": true,
-          "links": [],
-          "maxDataPoints": 100,
-          "nullPointMode": "connected",
-          "nullText": null,
-          "postfix": "",
-          "postfixFontSize": "50%",
-          "prefix": "",
-          "prefixFontSize": "50%",
-          "span": 3,
-          "sparkline": {
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "full": true,
-            "lineColor": "rgb(31, 120, 193)",
-            "show": true
-          },
-          "targets": [
-            {
-              "dsType": "influxdb",
-              "groupBy": [],
-              "measurement": "temp",
-              "query": "SELECT \"value\" FROM \"temp\" WHERE \"sensor\" = '28-00000626bee8' AND $timeFilter",
-              "refId": "A",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "value"
-                    ],
-                    "type": "field"
-                  }
-                ]
-              ],
-              "tags": [
-                {
-                  "key": "sensor",
-                  "operator": "=",
-                  "value": "28-00000626bee8"
-                }
-              ]
-            }
-          ],
-          "thresholds": "0,17,25,30",
-          "title": "hab space",
-          "transparent": true,
-          "type": "singlestat",
-          "valueFontSize": "80%",
-          "valueMaps": [
-            {
-              "op": "=",
-              "text": "N/A",
-              "value": "null"
-            }
-          ],
-          "valueName": "avg"
-        }
-      ],
-      "title": "Row"
-    },
-    {
-      "collapse": false,
-      "editable": true,
-      "height": "250px",
-      "panels": [
-        {
-          "aliasColors": {},
-          "bars": true,
-          "datasource": null,
-          "decimals": 3,
-          "editable": true,
-          "error": false,
-          "fill": 1,
-          "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
-            "threshold1": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2": null,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
-          "height": "",
-          "id": 1,
-          "interval": "",
-          "isNew": true,
-          "leftYAxisLabel": "",
-          "legend": {
-            "alignAsTable": true,
-            "avg": false,
-            "current": false,
-            "max": false,
-            "min": false,
-            "rightSide": true,
-            "show": true,
-            "total": false,
-            "values": false
-          },
-          "lines": false,
-          "linewidth": 2,
-          "links": [],
-          "nullPointMode": "connected",
-          "percentage": false,
-          "pointradius": 5,
-          "points": false,
-          "renderer": "flot",
-          "rightYAxisLabel": "",
-          "seriesOverrides": [
-            {
-              "alias": "temp",
-              "yaxis": 1
-            }
-          ],
-          "span": 12,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "alias": "",
-              "dsType": "influxdb",
               "groupBy": [
                 {
                   "params": [
@@ -447,19 +477,13 @@
                 },
                 {
                   "params": [
-                    "sensor"
-                  ],
-                  "type": "tag"
-                },
-                {
-                  "params": [
                     "previous"
                   ],
                   "type": "fill"
                 }
               ],
-              "measurement": "temp",
-              "query": "SELECT mean(\"value\") FROM \"temp\" WHERE $timeFilter GROUP BY time($interval), \"sensor\" fill(previous)",
+              "measurement": "output.voltage",
+              "query": "SELECT mean(\"value\") FROM \"output.voltage\" WHERE $timeFilter GROUP BY time($interval) fill(previous)",
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -479,32 +503,30 @@
               "tags": []
             }
           ],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "",
-          "tooltip": {
-            "shared": true,
-            "value_type": "cumulative"
-          },
-          "transparent": true,
-          "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "celsius",
-            "short"
-          ]
+          "thresholds": "207,253",
+          "title": "output.voltage",
+          "type": "singlestat",
+          "valueFontSize": "50%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current",
+          "decimals": 2,
+          "transparent": true
         }
       ],
-      "title": "New row"
+      "title": "Row"
     }
   ],
   "time": {
-    "from": "2016-01-03T13:14:42.905Z",
-    "to": "2016-01-03T14:44:25.289Z"
+    "from": "now-1h",
+    "to": "now"
   },
   "timepicker": {
-    "now": true,
     "refresh_intervals": [
       "5s",
       "10s",
@@ -527,7 +549,8 @@
       "2d",
       "7d",
       "30d"
-    ]
+    ],
+    "now": true
   },
   "templating": {
     "list": []
@@ -535,8 +558,8 @@
   "annotations": {
     "list": []
   },
-  "refresh": false,
+  "refresh": "5m",
   "schemaVersion": 8,
-  "version": 22,
+  "version": 6,
   "links": []
 }

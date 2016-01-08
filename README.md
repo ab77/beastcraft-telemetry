@@ -28,9 +28,13 @@ This repository contains configuration specific to my environment, with five `DS
 
 1. schedule `w1_therm.py` to run every x minutes using cron (e.g. `*/5 * * * * /opt/beastcraft-telemetry/w1_therm.py`)
 2. go to [http://localhost:3000](http://localhost:3000), add a new datasource and configure other options
-3. import temp.json dashboard and modify it to suit your needs or build your own from scratch
+3. import `temp.json` dashboard and modify it to suit your needs or build your own from scratch
 
 #### UPS/Inverter Dashboard
-TBC
+
+1. ensure [Network UPS Tools](http://www.networkupstools.org/) is correctly configured to work with the UPS (use `blazer_ser` driver)
+2. edit `ups.py` and adjust the default `upsname` (mine is `upsoem`) or pass from the command line using `--ups` parameter
+3. schedule `usp.py` to run every x minutes using cron (e.g. `*/5 * * * * /opt/beastcraft-telemetry/ups.py`)
+4. import `ups.json` dashboard and modify it to suit your needs or build your own from scratch
 
 -- ab1

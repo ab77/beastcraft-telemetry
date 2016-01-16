@@ -32,6 +32,7 @@ def main(host='localhost', port=8086):
     l = []
     for measurement, value in res.iteritems():
         t = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+        if not value: continue
         json_body = {
             "measurement": measurement,
             "tags": {
@@ -44,8 +45,11 @@ def main(host='localhost', port=8086):
         }
         l.append(json_body)
 
-    print("Write points: {0}".format(l))
-    dbclient.write_points(l)
+    
+    pprint(l)
+    
+    #print("Write points: {0}".format(l))
+    #dbclient.write_points(l)
 
 
 def parse_args():

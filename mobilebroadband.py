@@ -10,7 +10,7 @@ def main(host='localhost', port=8086):
     user = 'admin'
     password = 'admin'
     dbname = 'beastcraft'
-    client = InfluxDBClient(host, port, user, password, dbname)
+    dbclient = InfluxDBClient(host, port, user, password, dbname)
 
     host = '172.17.0.1'
     url = 'http://%s/goform/goform_get_cmd_process' % host

@@ -45,11 +45,8 @@ def main(host='localhost', port=8086):
         }
         l.append(json_body)
 
-    
-    pprint(l)
-    
-    #print("Write points: {0}".format(l))
-    #dbclient.write_points(l)
+    print("Write points: {0}".format(l))
+    dbclient.write_points(l)
 
 
 def parse_args():

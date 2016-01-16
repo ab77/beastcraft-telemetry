@@ -28,8 +28,25 @@ def main(host='localhost', port=8086):
                      headers=hdrs)
 
     res = json.loads(r.text, strict=False)
-    pprint(res)
-    client.write_points(res)
+
+    l = []
+    for measurement, value in res.iteritems():
+        t = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+        json_body = {
+            "measurement": measurement,
+            "tags": {
+                "modem": host,
+            },
+            "time": t,
+            "fields": {
+                "value": value
+            }
+        }
+        l.append(json_body)
+
+    print("Write points: {0}".format(l))
+    dbclient.write_points(l)
+
 
 def parse_args():
     parser = argparse.ArgumentParser(

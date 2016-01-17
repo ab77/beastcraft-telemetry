@@ -37,4 +37,33 @@ This repository contains configuration specific to my environment, with five `DS
 3. schedule `usp.py` to run every x minutes using cron (e.g. `*/5 * * * * /opt/beastcraft-telemetry/ups.py`)
 4. import `ups.json` dashboard and modify it to suit your needs or build your own from scratch
 
+
+#### Mobile Broadband Dashboard
+
+1. update `host` variable in `mobilebroadband.py` to match your ZTE MF823 modem IP address
+2. schedule `mobilebroadband.py` to run every x minutes using cron (e.g. `*/1 * * * * /opt/beastcraft-telemetry/mobilebroadband.py`)
+3. install `Nginx` and configure it as a front-end for both Grafana and ZTE web GUIs
+
+````
+pi@localhost ~ $ cat /etc/nginx/sites-enabled/grafana
+server {
+
+	listen 80;
+	server_name <your_host_name>;
+
+	location / {
+		proxy_pass http://localhost:3000/;
+	}
+
+	location /public/ {
+		alias /usr/share/grafana/public/;
+	}
+
+	location /goform/ {
+		proxy_set_header Referer http://<your_ZTE-MF823_modem_IP>/;
+		proxy_pass http://<your_ZTE-MF823_modem_IP>:80/goform/;
+	}
+}
+````
+
 -- ab1

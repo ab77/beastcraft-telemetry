@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+    #!/usr/bin/env python
 
 import argparse, requests
 
@@ -15,38 +15,41 @@ def main(host='localhost', port=8086):
     host = '172.17.0.1'
     url = 'http://%s/goform/goform_get_cmd_process' % host
     
-    qs = {'multi_data': 1,
-          'isTest': 'false',
-          'sms_received_flag_flag': 0,
-          'sts_received_flag_flag': 0,
-          'cmd': 'modem_main_state,pin_status,loginfo,new_version_state,current_upgrade_state,is_mandatory,sms_received_flag,sts_received_flag,signalbar,network_type,network_provider,ppp_status,EX_SSID1,ex_wifi_status,EX_wifi_profile,m_ssid_enable,sms_unread_num,RadioOff,simcard_roam,lan_ipaddr,station_mac,battery_charging,battery_vol_percent,battery_pers,spn_display_flag,plmn_display_flag,spn_name_data,spn_b1_flag,spn_b2_flag,realtime_tx_bytes,realtime_rx_bytes,realtime_time,realtime_tx_thrpt,realtime_rx_thrpt,monthly_rx_bytes,monthly_tx_bytes,monthly_time,date_month,data_volume_limit_switch,data_volume_limit_size,data_volume_alert_percent,data_volume_limit_unit,roam_setting_option,upg_roam_switch,hplmn'}
+    query_strings = [{'multi_data': 1,
+                      'isTest': 'false',
+                      'sms_received_flag_flag': 0,
+                      'sts_received_flag_flag': 0,
+                      'cmd': 'modem_main_state,pin_status,loginfo,new_version_state,current_upgrade_state,is_mandatory,sms_received_flag,sts_received_flag,signalbar,network_type,network_provider,ppp_status,EX_SSID1,ex_wifi_status,EX_wifi_profile,m_ssid_enable,sms_unread_num,RadioOff,simcard_roam,lan_ipaddr,station_mac,battery_charging,battery_vol_percent,battery_pers,spn_display_flag,plmn_display_flag,spn_name_data,spn_b1_flag,spn_b2_flag,realtime_tx_bytes,realtime_rx_bytes,realtime_time,realtime_tx_thrpt,realtime_rx_thrpt,monthly_rx_bytes,monthly_tx_bytes,monthly_time,date_month,data_volume_limit_switch,data_volume_limit_size,data_volume_alert_percent,data_volume_limit_unit,roam_setting_option,upg_roam_switch,hplmn'},
+                     {'isTest': 'false',
+                      'cmd': 'ConnectionMode'}]
 
     hdrs = {'Referer': 'http://%s/' % host}
 
-    r = requests.get(url,
-                     params=qs,
-                     headers=hdrs)
+    for query_string in query_strings:        
+        r = requests.get(url,
+                         params=query_string,
+                         headers=hdrs)
 
-    res = json.loads(r.text, strict=False)
+        res = json.loads(r.text, strict=False)
 
-    l = []
-    for measurement, value in res.iteritems():
-        t = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
-        if not value: continue
-        json_body = {
-            "measurement": measurement,
-            "tags": {
-                "modem": host,
-            },
-            "time": t,
-            "fields": {
-                "value": value
+        l = []
+        for measurement, value in res.iteritems():
+            t = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+            if not value: continue
+            json_body = {
+                "measurement": measurement,
+                "tags": {
+                    "modem": host,
+                },
+                "time": t,
+                "fields": {
+                    "value": value
+                }
             }
-        }
-        l.append(json_body)
+            l.append(json_body)
 
-    print("Write points: {0}".format(l))
-    dbclient.write_points(l)
+        print("Write points: {0}".format(l))
+        dbclient.write_points(l)
 
 
 def parse_args():

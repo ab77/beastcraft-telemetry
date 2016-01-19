@@ -147,7 +147,7 @@
           "postfixFontSize": "50%",
           "prefix": "",
           "prefixFontSize": "50%",
-          "span": 1,
+          "span": 2,
           "sparkline": {
             "fillColor": "rgba(31, 118, 189, 0.18)",
             "full": false,
@@ -207,7 +207,7 @@
           "postfixFontSize": "30%",
           "prefix": "",
           "prefixFontSize": "50%",
-          "span": 2,
+          "span": 1,
           "sparkline": {
             "fillColor": "rgba(31, 118, 189, 0.18)",
             "full": false,
@@ -402,7 +402,7 @@
           "postfixFontSize": "50%",
           "prefix": "",
           "prefixFontSize": "50%",
-          "span": 2,
+          "span": 1,
           "sparkline": {
             "fillColor": "rgba(31, 118, 189, 0.18)",
             "full": false,
@@ -718,6 +718,6 @@
   },
   "refresh": "1m",
   "schemaVersion": 8,
-  "version": 19,
+  "version": 22,
   "links": []
 }

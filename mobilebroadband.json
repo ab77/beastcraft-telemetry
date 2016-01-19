@@ -34,9 +34,9 @@
             {
               "includeVars": false,
               "targetBlank": true,
-              "title": "Disconnect",
+              "title": "State",
               "type": "absolute",
-              "url": "http://beastpi3.local.belodedenko.me/goform//goform_set_cmd_process?isTest=false&notCallback=true&goformId=DISCONNECT_NETWORK"
+              "url": "http://beastpi3.local.belodedenko.me/goform/goform_get_cmd_process?multi_data=1&isTest=false&sms_received_flag_flag=0&sts_received_flag_flag=0&cmd=modem_main_state%2Cpin_status%2Cloginfo%2Cnew_version_state%2Ccurrent_upgrade_state%2Cis_mandatory%2Csms_received_flag%2Csts_received_flag%2Csignalbar%2Cnetwork_type%2Cnetwork_provider%2Cppp_status%2CEX_SSID1%2Cex_wifi_status%2CEX_wifi_profile%2Cm_ssid_enable%2Csms_unread_num%2CRadioOff%2Csimcard_roam%2Clan_ipaddr%2Cstation_mac%2Cbattery_charging%2Cbattery_vol_percent%2Cbattery_pers%2Cspn_display_flag%2Cplmn_display_flag%2Cspn_name_data%2Cspn_b1_flag%2Cspn_b2_flag%2Crealtime_tx_bytes%2Crealtime_rx_bytes%2Crealtime_time%2Crealtime_tx_thrpt%2Crealtime_rx_thrpt%2Cmonthly_rx_bytes%2Cmonthly_tx_bytes%2Cmonthly_time%2Cdate_month%2Cdata_volume_limit_switch%2Cdata_volume_limit_size%2Cdata_volume_alert_percent%2Cdata_volume_limit_unit%2Croam_setting_option%2Cupg_roam_switch%2Chplmn"
             },
             {
               "dashboard": "http://beastpi3.local.belodedenko.me/goform//goform_set_cmd_process?isTest=false&notCallback=true&goformId=CONNECT_NETWORK",
@@ -46,22 +46,22 @@
               "url": "http://beastpi3.local.belodedenko.me/goform//goform_set_cmd_process?isTest=false&notCallback=true&goformId=CONNECT_NETWORK"
             },
             {
-              "type": "absolute",
               "targetBlank": true,
-              "url": "http://beastpi3.local.belodedenko.me/goform/goform_get_cmd_process?multi_data=1&isTest=false&sms_received_flag_flag=0&sts_received_flag_flag=0&cmd=modem_main_state%2Cpin_status%2Cloginfo%2Cnew_version_state%2Ccurrent_upgrade_state%2Cis_mandatory%2Csms_received_flag%2Csts_received_flag%2Csignalbar%2Cnetwork_type%2Cnetwork_provider%2Cppp_status%2CEX_SSID1%2Cex_wifi_status%2CEX_wifi_profile%2Cm_ssid_enable%2Csms_unread_num%2CRadioOff%2Csimcard_roam%2Clan_ipaddr%2Cstation_mac%2Cbattery_charging%2Cbattery_vol_percent%2Cbattery_pers%2Cspn_display_flag%2Cplmn_display_flag%2Cspn_name_data%2Cspn_b1_flag%2Cspn_b2_flag%2Crealtime_tx_bytes%2Crealtime_rx_bytes%2Crealtime_time%2Crealtime_tx_thrpt%2Crealtime_rx_thrpt%2Cmonthly_rx_bytes%2Cmonthly_tx_bytes%2Cmonthly_time%2Cdate_month%2Cdata_volume_limit_switch%2Cdata_volume_limit_size%2Cdata_volume_alert_percent%2Cdata_volume_limit_unit%2Croam_setting_option%2Cupg_roam_switch%2Chplmn",
-              "title": "State"
+              "title": "Disconnect",
+              "type": "absolute",
+              "url": "http://beastpi3.local.belodedenko.me/goform//goform_set_cmd_process?isTest=false&notCallback=true&goformId=DISCONNECT_NETWORK"
             },
             {
-              "type": "absolute",
-              "url": "http://172.17.0.1/",
               "targetBlank": true,
-              "title": "Modem"
+              "title": "Modem",
+              "type": "absolute",
+              "url": "http://172.17.0.1/"
             },
             {
-              "type": "absolute",
+              "targetBlank": true,
               "title": "Router",
-              "url": "https://172.16.100.1/",
-              "targetBlank": true
+              "type": "absolute",
+              "url": "https://172.16.100.1/"
             }
           ],
           "maxDataPoints": 100,
@@ -120,6 +120,142 @@
           "editable": true,
           "error": false,
           "format": "none",
+          "id": 8,
+          "interval": null,
+          "isNew": true,
+          "links": [
+            {
+              "type": "absolute",
+              "url": "http://beastpi3.local.belodedenko.me/goform/goform_set_cmd_process?isTest=false&notCallback=true&goformId=SET_CONNECTION_MODE&ConnectionMode=manual_dial",
+              "title": "Manual",
+              "targetBlank": true,
+              "params": "",
+              "includeVars": false
+            },
+            {
+              "type": "absolute",
+              "title": "Auto",
+              "url": "http://beastpi3.local.belodedenko.me/goform/goform_set_cmd_process?isTest=false&notCallback=true&goformId=SET_CONNECTION_MODE&ConnectionMode=auto_dial",
+              "targetBlank": true,
+              "params": ""
+            }
+          ],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 1,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": true
+          },
+          "targets": [
+            {
+              "dsType": "influxdb",
+              "groupBy": [],
+              "measurement": "connectionMode",
+              "query": "SELECT \"value\" FROM \"connectionMode\" WHERE $timeFilter",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  }
+                ]
+              ],
+              "tags": []
+            }
+          ],
+          "thresholds": "",
+          "title": "Dial",
+          "transparent": true,
+          "type": "singlestat",
+          "valueFontSize": "50%",
+          "valueMaps": [],
+          "valueName": "current"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "format": "none",
+          "id": 2,
+          "interval": null,
+          "isNew": true,
+          "links": [],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": " / 5",
+          "postfixFontSize": "30%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 2,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": true
+          },
+          "targets": [
+            {
+              "dsType": "influxdb",
+              "groupBy": [],
+              "measurement": "signalbar",
+              "query": "SELECT \"value\" FROM \"signalbar\" WHERE $timeFilter",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  }
+                ]
+              ],
+              "tags": []
+            }
+          ],
+          "thresholds": "0,2,3",
+          "title": "Signal",
+          "transparent": true,
+          "type": "singlestat",
+          "valueFontSize": "50%",
+          "valueMaps": [],
+          "valueName": "current"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "format": "none",
           "id": 4,
           "interval": null,
           "isNew": true,
@@ -131,7 +267,7 @@
           "postfixFontSize": "50%",
           "prefix": "",
           "prefixFontSize": "50%",
-          "span": 2,
+          "span": 1,
           "sparkline": {
             "fillColor": "rgba(31, 118, 189, 0.18)",
             "full": false,
@@ -163,7 +299,7 @@
           "title": "Type",
           "transparent": true,
           "type": "singlestat",
-          "valueFontSize": "80%",
+          "valueFontSize": "50%",
           "valueMaps": [],
           "valueName": "current"
         },
@@ -223,67 +359,7 @@
           "title": "Network",
           "transparent": true,
           "type": "singlestat",
-          "valueFontSize": "80%",
-          "valueMaps": [],
-          "valueName": "current"
-        },
-        {
-          "cacheTimeout": null,
-          "colorBackground": false,
-          "colorValue": true,
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
-          ],
-          "datasource": null,
-          "editable": true,
-          "error": false,
-          "format": "none",
-          "id": 2,
-          "interval": null,
-          "isNew": true,
-          "links": [],
-          "maxDataPoints": 100,
-          "nullPointMode": "connected",
-          "nullText": null,
-          "postfix": " / 5",
-          "postfixFontSize": "50%",
-          "prefix": "",
-          "prefixFontSize": "50%",
-          "span": 2,
-          "sparkline": {
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "show": true
-          },
-          "targets": [
-            {
-              "dsType": "influxdb",
-              "groupBy": [],
-              "measurement": "signalbar",
-              "query": "SELECT \"value\" FROM \"signalbar\" WHERE $timeFilter",
-              "refId": "A",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "value"
-                    ],
-                    "type": "field"
-                  }
-                ]
-              ],
-              "tags": []
-            }
-          ],
-          "thresholds": "0,2,3",
-          "title": "Signal",
-          "transparent": true,
-          "type": "singlestat",
-          "valueFontSize": "80%",
+          "valueFontSize": "50%",
           "valueMaps": [],
           "valueName": "current"
         },
@@ -303,7 +379,22 @@
           "id": 6,
           "interval": null,
           "isNew": true,
-          "links": [],
+          "links": [
+            {
+              "type": "absolute",
+              "url": "http://beastpi3.local.belodedenko.me/goform/goform_set_cmd_process?isTest=false&notCallback=true&goformId=SET_CONNECTION_MODE&roam_setting_option=on",
+              "title": "On",
+              "targetBlank": true,
+              "params": ""
+            },
+            {
+              "type": "absolute",
+              "title": "Off",
+              "url": "http://beastpi3.local.belodedenko.me/goform/goform_set_cmd_process?isTest=false&notCallback=true&goformId=SET_CONNECTION_MODE&roam_setting_option=off",
+              "targetBlank": true,
+              "params": ""
+            }
+          ],
           "maxDataPoints": 100,
           "nullPointMode": "connected",
           "nullText": null,
@@ -322,8 +413,8 @@
             {
               "dsType": "influxdb",
               "groupBy": [],
-              "measurement": "simcard_roam",
-              "query": "SELECT \"value\" FROM \"simcard_roam\" WHERE $timeFilter",
+              "measurement": "roam_setting_option",
+              "query": "SELECT \"value\" FROM \"roam_setting_option\" WHERE $timeFilter",
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -343,7 +434,7 @@
           "title": "Roam",
           "transparent": true,
           "type": "singlestat",
-          "valueFontSize": "80%",
+          "valueFontSize": "50%",
           "valueMaps": [],
           "valueName": "current"
         }
@@ -625,7 +716,8 @@
   "annotations": {
     "list": []
   },
+  "refresh": "1m",
   "schemaVersion": 8,
-  "version": 16,
+  "version": 19,
   "links": []
 }

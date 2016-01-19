@@ -28,38 +28,22 @@ This repository contains configuration specific to my environment, with five `DS
 
 1. schedule `w1_therm.py` to run every x minutes using cron (e.g. `*/5 * * * * /opt/beastcraft-telemetry/w1_therm.py`)
 2. go to [http://localhost:3000](http://localhost:3000), add a new datasource and configure other options
-3. import `temp.json` dashboard and modify it to suit your needs or build your own from scratch
+3. import `temp.json` dashboard and modify it to suit your needs or build your own from scratch (note: change external links)
 
 #### UPS/Inverter Dashboard
 
 1. ensure [Network UPS Tools](http://www.networkupstools.org/) is correctly configured to work with the UPS (use `blazer_ser` driver)
 2. edit `ups.py` and adjust the default `upsname` (mine is `upsoem`) or pass from the command line using `--ups` parameter
 3. schedule `usp.py` to run every x minutes using cron (e.g. `*/5 * * * * /opt/beastcraft-telemetry/ups.py`)
-4. import `ups.json` dashboard and modify it to suit your needs or build your own from scratch
+4. import `ups.json` dashboard and modify it to suit your needs or build your own from scratch (note: change external links)
 
 
 #### Mobile Broadband Dashboard
 
 1. update `host` variable in `mobilebroadband.py` to match your ZTE MF823 modem IP address
-2. update `mobilebroadband.json` dashboard to match router and modem web front-end IPs
-
-```
-            {
-              "type": "absolute",
-              "url": "http://<your_ZTE-MF823_modem_IP>/",
-              "targetBlank": true,
-              "title": "Modem"
-            },
-            {
-              "type": "absolute",
-              "title": "Router",
-              "url": "http|https://<your_A5-V11_router_IP>/",
-              "targetBlank": true
-            } 
-```
-
-3. schedule `mobilebroadband.py` to run every x minutes using cron (e.g. `*/1 * * * * /opt/beastcraft-telemetry/mobilebroadband.py`)
-4. install `Nginx` and configure it as a front-end for both Grafana and ZTE web GUIs
+2. schedule `mobilebroadband.py` to run every x minutes using cron (e.g. `*/1 * * * * /opt/beastcraft-telemetry/mobilebroadband.py`)
+3. install `Nginx` and configure it as a front-end for both Grafana and ZTE web GUIs
+4. import `mobilebroadband.json` dashboard and modify it to suit your needs or build your own from scratch (note: change external links)
 
 ````
 pi@localhost ~ $ cat /etc/nginx/sites-enabled/grafana

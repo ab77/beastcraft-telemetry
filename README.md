@@ -41,8 +41,25 @@ This repository contains configuration specific to my environment, with five `DS
 #### Mobile Broadband Dashboard
 
 1. update `host` variable in `mobilebroadband.py` to match your ZTE MF823 modem IP address
-2. schedule `mobilebroadband.py` to run every x minutes using cron (e.g. `*/1 * * * * /opt/beastcraft-telemetry/mobilebroadband.py`)
-3. install `Nginx` and configure it as a front-end for both Grafana and ZTE web GUIs
+2. update `mobilebroadband.json` dashboard to match router and modem web front-end IPs
+
+```
+            {
+              "type": "absolute",
+              "url": "http://<your_ZTE-MF823_modem_IP>/",
+              "targetBlank": true,
+              "title": "Modem"
+            },
+            {
+              "type": "absolute",
+              "title": "Router",
+              "url": "http|https://<your_A5-V11_router_IP>/",
+              "targetBlank": true
+            } 
+```
+
+3. schedule `mobilebroadband.py` to run every x minutes using cron (e.g. `*/1 * * * * /opt/beastcraft-telemetry/mobilebroadband.py`)
+4. install `Nginx` and configure it as a front-end for both Grafana and ZTE web GUIs
 
 ````
 pi@localhost ~ $ cat /etc/nginx/sites-enabled/grafana
@@ -65,5 +82,20 @@ server {
 	}
 }
 ````
+
+The ZTE MF823 has a REST API apart from the web GUI, which we are using to communicate with the modem from within the Grafana dashboard. The full list of command sisn't published, but looking at the modem's web interface with Chrome Developer Tools, the following commands are evident
+
+```
+# connect mobile network (HTTP GET)
+http://<modem_IP>/goform//goform_set_cmd_process?isTest=false&notCallback=true&goformId=CONNECT_NETWORK
+
+# disconnect mobile network (HTTP GET)
+http://<modem_IP>/goform//goform_set_cmd_process?isTest=false&notCallback=true&goformId=DISCONNECT_NETWORK
+
+# modem state (HTTP GET)
+http://<modem_IP>/goform/goform_get_cmd_process?multi_data=1&isTest=false&sms_received_flag_flag=0&sts_received_flag_flag=0&cmd=modem_main_state%2Cpin_status%2Cloginfo%2Cnew_version_state%2Ccurrent_upgrade_state%2Cis_mandatory%2Csms_received_flag%2Csts_received_flag%2Csignalbar%2Cnetwork_type%2Cnetwork_provider%2Cppp_status%2CEX_SSID1%2Cex_wifi_status%2CEX_wifi_profile%2Cm_ssid_enable%2Csms_unread_num%2CRadioOff%2Csimcard_roam%2Clan_ipaddr%2Cstation_mac%2Cbattery_charging%2Cbattery_vol_percent%2Cbattery_pers%2Cspn_display_flag%2Cplmn_display_flag%2Cspn_name_data%2Cspn_b1_flag%2Cspn_b2_flag%2Crealtime_tx_bytes%2Crealtime_rx_bytes%2Crealtime_time%2Crealtime_tx_thrpt%2Crealtime_rx_thrpt%2Cmonthly_rx_bytes%2Cmonthly_tx_bytes%2Cmonthly_time%2Cdate_month%2Cdata_volume_limit_switch%2Cdata_volume_limit_size%2Cdata_volume_alert_percent%2Cdata_volume_limit_unit%2Croam_setting_option%2Cupg_roam_switch%2Chplmn
+```
+
+All the API requests require the `Referer: http://<your_ZTE-MF823_modem_IP>/` request header present.
 
 -- ab1

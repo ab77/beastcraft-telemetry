@@ -55,13 +55,13 @@
               "targetBlank": true,
               "title": "Modem",
               "type": "absolute",
-              "url": "http://172.17.0.1/"
+              "url": "http://mf823.local.belodedenko.me/index.html"
             },
             {
               "targetBlank": true,
               "title": "Router",
               "type": "absolute",
-              "url": "https://172.16.100.1/"
+              "url": "https://beastroute1.local.belodedenko.me/"
             }
           ],
           "maxDataPoints": 100,

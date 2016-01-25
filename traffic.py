@@ -15,8 +15,32 @@ def main(cmd=None, host=None, port=None):
     for line in lines_iterator:
         l = line.replace('\n', '').strip().split(',')
         t = time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())
+
+        print l
         
         fields = ['sample', 'agent']
+
+## FLOW not supported
+##        if l[0] in 'FLOW':
+##            names = ['inputPort',
+##                     'outputPort',
+##                     'src_MAC',
+##                     'dst_MAC',
+##                     'ethernet_type',
+##                     'in_vlan',
+##                     'out_vlan',
+##                     'src_IP',
+##                     'dst_IP',
+##                     'IP_protocol',
+##                     'ip_tos',
+##                     'ip_ttl',
+##                     'tcp_udp_src_port_icmp_code',
+##                     'tcp_udp_dst_port_icmp_code',
+##                     'tcp_flags',
+##                     'packet_size',
+##                     'IP_size',
+##                     'sampling_rate']
+        
         if l[0] in 'CNTR':
             names = ['ifIndex',
                      'ifType',
@@ -38,59 +62,39 @@ def main(cmd=None, host=None, port=None):
                      'ifOutErrors',
                      'ifPromiscuousMode']
 
-##        if l[0] in 'FLOW':
-##            names = ['inputPort',
-##                     'outputPort',
-##                     'src_MAC',
-##                     'dst_MAC',
-##                     'ethernet_type',
-##                     'in_vlan',
-##                     'out_vlan',
-##                     'src_IP',
-##                     'dst_IP',
-##                     'IP_protocol',
-##                     'ip_tos',
-##                     'ip_ttl',
-##                     'tcp_udp_src_port_icmp_code',
-##                     'tcp_udp_dst_port_icmp_code',
-##                     'tcp_flags',
-##                     'packet_size',
-##                     'IP_size',
-##                     'sampling_rate']
-            
-        for name in names: fields.append(name)
-        d = dict(zip(fields, l))
+            for name in names: fields.append(name)
+            d = dict(zip(fields, l))
 
-        print d
+            print d
 
-        l = []
-        for k in ['ifInOctets', 'ifInUcastPkts', 'ifInMulticastPkts',
-                  'ifInBroadcastPkts', 'ifInDiscards', 'ifInErrors',
-                  'ifInUnknownProtos', 'ifOutOctets', 'ifOutUcastPkts',
-                  'ifOutMulticastPkts', 'ifOutBroadcastPkts', 'ifOutDiscards',
-                  'ifOutErrors']:
-            
-            json_body = {
-                'measurement': k,
-                'tags': {
-                    'sample': d['sample'] or None,
-                    'agent': d['agent'] or None,
-                    'ifIndex': d['ifIndex'] or None,
-                    'ifType': d['ifType'] or None,
-                    'ifSpeed': d['ifSpeed'] or None,
-                    'ifDirection': d['ifDirection'] or None,
-                    'ifStatus': d['ifStatus'] or None,
-                    'ifPromiscuousMode': d['ifPromiscuousMode'] or None                      
-                },
-                'time': t,
-                'fields': {
-                    'value': d[k]
+            l = []
+            for k in ['ifInOctets', 'ifInUcastPkts', 'ifInMulticastPkts',
+                      'ifInBroadcastPkts', 'ifInDiscards', 'ifInErrors',
+                      'ifInUnknownProtos', 'ifOutOctets', 'ifOutUcastPkts',
+                      'ifOutMulticastPkts', 'ifOutBroadcastPkts', 'ifOutDiscards',
+                      'ifOutErrors']:
+                
+                json_body = {
+                    'measurement': k,
+                    'tags': {
+                        'sample': d['sample'],
+                        'agent': d['agent'],
+                        'ifIndex': d['ifIndex'],
+                        'ifType': d['ifType'],
+                        'ifSpeed': d['ifSpeed'],
+                        'ifDirection': d['ifDirection'],
+                        'ifStatus': d['ifStatus'],
+                        'ifPromiscuousMode': d['ifPromiscuousMode']                      
+                    },
+                    'time': t,
+                    'fields': {
+                        'value': d[k]
+                    }
                 }
-            }
-            l.append(json_body)
+                l.append(json_body)
 
-        print('Write points: {0}'.format(l))
-        client.write_points(l)
+            print('Write points: {0}'.format(l))
+            client.write_points(l)
 
 
 def parse_args():

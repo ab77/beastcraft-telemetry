@@ -61,6 +61,8 @@ def main(cmd=None, host=None, port=None):
         for name in names: fields.append(name)
         d = dict(zip(fields, l))
 
+        print d
+
         l = []
         for k in ['ifInOctets', 'ifInUcastPkts', 'ifInMulticastPkts',
                   'ifInBroadcastPkts', 'ifInDiscards', 'ifInErrors',
@@ -71,14 +73,14 @@ def main(cmd=None, host=None, port=None):
             json_body = {
                 'measurement': k,
                 'tags': {
-                    'sample': d['sample'],
-                    'agent': d['agent'],
-                    'ifIndex': d['ifIndex'],
-                    'ifType': d['ifType'],
-                    'ifSpeed': d['ifSpeed'],
-                    'ifDirection': d['ifDirection'],
-                    'ifStatus': d['ifStatus'],
-                    'ifPromiscuousMode': d['ifPromiscuousMode']                       
+                    'sample': d['sample'] or None,
+                    'agent': d['agent'] or None,
+                    'ifIndex': d['ifIndex'] or None,
+                    'ifType': d['ifType'] or None,
+                    'ifSpeed': d['ifSpeed'] or None,
+                    'ifDirection': d['ifDirection'] or None,
+                    'ifStatus': d['ifStatus'] or None,
+                    'ifPromiscuousMode': d['ifPromiscuousMode'] or None                      
                 },
                 'time': t,
                 'fields': {

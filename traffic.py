@@ -16,30 +16,29 @@ def main(cmd=None, host=None, port=None):
         l = line.replace('\n', '').strip().split(',')
         t = time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())
 
-        print l
-        
         fields = ['sample', 'agent']
 
-## FLOW not supported
-##        if l[0] in 'FLOW':
-##            names = ['inputPort',
-##                     'outputPort',
-##                     'src_MAC',
-##                     'dst_MAC',
-##                     'ethernet_type',
-##                     'in_vlan',
-##                     'out_vlan',
-##                     'src_IP',
-##                     'dst_IP',
-##                     'IP_protocol',
-##                     'ip_tos',
-##                     'ip_ttl',
-##                     'tcp_udp_src_port_icmp_code',
-##                     'tcp_udp_dst_port_icmp_code',
-##                     'tcp_flags',
-##                     'packet_size',
-##                     'IP_size',
-##                     'sampling_rate']
+        if l[0] in 'FLOW':
+            names = ['inputPort',
+                     'outputPort',
+                     'src_MAC',
+                     'dst_MAC',
+                     'ethernet_type',
+                     'in_vlan',
+                     'out_vlan',
+                     'src_IP',
+                     'dst_IP',
+                     'IP_protocol',
+                     'ip_tos',
+                     'ip_ttl',
+                     'tcp_udp_src_port_icmp_code',
+                     'tcp_udp_dst_port_icmp_code',
+                     'tcp_flags',
+                     'packet_size',
+                     'IP_size',
+                     'sampling_rate']
+            
+            print 'SFLOW not currently supported'
         
         if l[0] in 'CNTR':
             names = ['ifIndex',
@@ -64,9 +63,7 @@ def main(cmd=None, host=None, port=None):
 
             for name in names: fields.append(name)
             d = dict(zip(fields, l))
-
-            print d
-
+            
             l = []
             for k in ['ifInOctets', 'ifInUcastPkts', 'ifInMulticastPkts',
                       'ifInBroadcastPkts', 'ifInDiscards', 'ifInErrors',
@@ -79,16 +76,16 @@ def main(cmd=None, host=None, port=None):
                     'tags': {
                         'sample': d['sample'],
                         'agent': d['agent'],
-                        'ifIndex': d['ifIndex'],
-                        'ifType': d['ifType'],
-                        'ifSpeed': d['ifSpeed'],
-                        'ifDirection': d['ifDirection'],
-                        'ifStatus': d['ifStatus'],
-                        'ifPromiscuousMode': d['ifPromiscuousMode']                      
+                        'ifIndex': int(d['ifIndex']),
+                        'ifType': int(d['ifType']),
+                        'ifSpeed': int(d['ifSpeed']),
+                        'ifDirection': int(d['ifDirection']),
+                        'ifStatus': int(d['ifStatus']),
+                        'ifPromiscuousMode': int(d['ifPromiscuousMode'])                     
                     },
                     'time': t,
                     'fields': {
-                        'value': d[k]
+                        'value': int(d[k])
                     }
                 }
                 l.append(json_body)

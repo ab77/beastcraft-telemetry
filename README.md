@@ -38,7 +38,9 @@ This repository contains configuration specific to my environment, with five `DS
 4. import `ups.json` dashboard and modify it to suit your needs or build your own from scratch (change URLs to suit your environment)
 
 #### Traffic Dashboard
-TBC
+1. install `sflowtool` using [this](http://blog.sflow.com/2011/12/sflowtool.html) or [this](http://blog.belodedenko.me/2014/06/pretty-dashboards-with-fortios-sflow.html) guide
+2. configure `traffic.py` to run in the background (e.g. using `supervisord`)
+3. import `traffic.json` dashboard and modify it to suit your needs or build your own from scratch
 
 #### Mobile Broadband Dashboard
 

@@ -2,7 +2,9 @@
   "id": 1,
   "title": "Temperature",
   "originalTitle": "Temperature",
-  "tags": [],
+  "tags": [
+    "temp"
+  ],
   "style": "dark",
   "timezone": "browser",
   "editable": true,
@@ -543,6 +545,6 @@
   },
   "refresh": "5m",
   "schemaVersion": 8,
-  "version": 37,
+  "version": 39,
   "links": []
 }

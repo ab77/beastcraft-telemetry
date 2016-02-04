@@ -2,7 +2,9 @@
   "id": 2,
   "title": "Power",
   "originalTitle": "Power",
-  "tags": [],
+  "tags": [
+    "power"
+  ],
   "style": "dark",
   "timezone": "browser",
   "editable": true,
@@ -92,11 +94,11 @@
             "rgba(50, 172, 45, 0.97)"
           ],
           "datasource": null,
-          "decimals": null,
+          "decimals": 1,
           "editable": true,
           "error": false,
-          "format": "percent",
-          "id": 1,
+          "format": "s",
+          "id": 13,
           "interval": null,
           "isNew": true,
           "links": [],
@@ -110,16 +112,17 @@
           "span": 3,
           "sparkline": {
             "fillColor": "rgba(31, 118, 189, 0.18)",
-            "full": true,
+            "full": false,
             "lineColor": "rgb(31, 120, 193)",
-            "show": true
+            "show": false
           },
           "targets": [
             {
+              "alias": "",
               "dsType": "influxdb",
               "groupBy": [],
-              "measurement": "battery.charge",
-              "query": "SELECT \"value\" FROM \"battery.charge\" WHERE $timeFilter",
+              "measurement": "battery.runtime",
+              "query": "SELECT \"value\" FROM \"battery.runtime\" WHERE $timeFilter",
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -135,16 +138,16 @@
               "tags": []
             }
           ],
-          "thresholds": "10,30,40",
-          "title": "battery.charge",
+          "thresholds": "0,300,900",
+          "title": "battery.runtime",
           "transparent": true,
           "type": "singlestat",
-          "valueFontSize": "80%",
+          "valueFontSize": "50%",
           "valueMaps": [
             {
               "op": "=",
-              "text": "N/A",
-              "value": "null"
+              "text": "",
+              "value": ""
             }
           ],
           "valueName": "current"
@@ -174,7 +177,7 @@
           "postfixFontSize": "50%",
           "prefix": "",
           "prefixFontSize": "50%",
-          "span": 3,
+          "span": 2,
           "sparkline": {
             "fillColor": "rgba(31, 118, 189, 0.18)",
             "full": true,
@@ -202,11 +205,78 @@
               "tags": []
             }
           ],
-          "thresholds": "11.5,11.8,12.0",
+          "thresholds": "0,11.31,11.9",
           "title": "battery.voltage",
           "transparent": true,
           "type": "singlestat",
           "valueFontSize": "50%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "datasource": null,
+          "decimals": null,
+          "editable": true,
+          "error": false,
+          "format": "percent",
+          "id": 1,
+          "interval": null,
+          "isNew": true,
+          "links": [],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 2,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": true,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": true
+          },
+          "targets": [
+            {
+              "dsType": "influxdb",
+              "groupBy": [],
+              "measurement": "battery.charge",
+              "query": "SELECT \"value\" FROM \"battery.charge\" WHERE $timeFilter",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  }
+                ]
+              ],
+              "tags": []
+            }
+          ],
+          "thresholds": "0,10,40",
+          "title": "battery.charge",
+          "transparent": true,
+          "type": "singlestat",
+          "valueFontSize": "80%",
           "valueMaps": [
             {
               "op": "=",
@@ -241,7 +311,7 @@
           "postfixFontSize": "50%",
           "prefix": "",
           "prefixFontSize": "50%",
-          "span": 3,
+          "span": 2,
           "sparkline": {
             "fillColor": "rgba(31, 118, 189, 0.18)",
             "full": true,
@@ -776,6 +846,110 @@
         }
       ],
       "title": "New row"
+    },
+    {
+      "collapse": false,
+      "editable": true,
+      "height": "250px",
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": 100,
+            "leftMin": 0,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 12,
+          "isNew": true,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 12,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "previous"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "battery.charge",
+              "query": "SELECT mean(\"value\") FROM \"battery.charge\" WHERE $timeFilter GROUP BY time($interval) fill(previous)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": []
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "battery.charge",
+          "tooltip": {
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "transparent": true,
+          "type": "graph",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "percent",
+            "short"
+          ]
+        }
+      ],
+      "title": "New row"
     }
   ],
   "time": {
@@ -816,6 +990,6 @@
   },
   "refresh": "1m",
   "schemaVersion": 8,
-  "version": 19,
+  "version": 30,
   "links": []
 }

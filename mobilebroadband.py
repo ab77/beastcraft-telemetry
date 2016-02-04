@@ -32,7 +32,18 @@ def main(host='localhost', port=8086):
 
         res = json.loads(r.text, strict=False)
 
-        l = []
+        for k,v in res.iteritems():
+            try:
+                res[k] = float(v)
+            except ValueError:
+                pass
+            
+            try:
+                res[k] = int(v)
+            except ValueError:
+                pass
+
+	l = []
         for measurement, value in res.iteritems():
             t = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
             if not value: continue

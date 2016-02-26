@@ -1,8 +1,9 @@
 #!/usr/bin/env python 
 
 from influxdb import InfluxDBClient
-import os, time, json, gps, argparse, requests
+import os, time, json, gps, argparse, requests, calendar
 from pprint import pprint
+from datetime import datetime
 
 SLEEP_WAIT = 300 # seconds wait between readings
 
@@ -19,6 +20,7 @@ def main(host='localhost', port=8086):
     for report in session:
       report = report.__dict__
       if report['class'] == 'TPV':
+	report['epoch'] = calendar.timegm(datetime.strptime(report['time'], "%Y-%m-%dT%H:%M:%S.%fZ").timetuple())	
         report['geo'] = '%s,%s' % (report['lat'], report['lon'])
 	l = []
         for measurement, value in report.iteritems():

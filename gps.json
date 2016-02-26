@@ -27,14 +27,23 @@
             "rgba(50, 172, 45, 0.97)"
           ],
           "datasource": null,
-          "decimals": 6,
+          "decimals": 7,
           "editable": true,
           "error": false,
           "format": "none",
           "id": 1,
           "interval": null,
           "isNew": true,
-          "links": [],
+          "links": [
+            {
+              "dashboard": "https://www.google.co.uk/maps",
+              "params": "q=$gps_coordinates",
+              "targetBlank": true,
+              "title": "Google Maps",
+              "type": "absolute",
+              "url": "https://www.google.co.uk/maps"
+            }
+          ],
           "maxDataPoints": 100,
           "nullPointMode": "connected",
           "nullText": null,
@@ -111,14 +120,22 @@
             "rgba(50, 172, 45, 0.97)"
           ],
           "datasource": null,
-          "decimals": 6,
+          "decimals": 9,
           "editable": true,
           "error": false,
           "format": "none",
           "id": 2,
           "interval": null,
           "isNew": true,
-          "links": [],
+          "links": [
+            {
+              "params": "q=$gps_coordinates",
+              "targetBlank": true,
+              "title": "Google Maps",
+              "type": "absolute",
+              "url": "https://www.google.co.uk/maps"
+            }
+          ],
           "maxDataPoints": 100,
           "nullPointMode": "connected",
           "nullText": null,
@@ -357,89 +374,12 @@
       "title": "Time Position Velocity"
     },
     {
-      "title": "Quality Accuracy 1/1",
-      "height": "250px",
-      "editable": true,
       "collapse": false,
+      "editable": true,
+      "height": "250px",
       "panels": [
         {
-          "title": "Fix",
-          "error": false,
-          "span": 3,
-          "editable": true,
-          "type": "singlestat",
-          "isNew": true,
-          "id": 7,
-          "links": [],
-          "datasource": null,
-          "maxDataPoints": 100,
-          "interval": null,
-          "targets": [
-            {
-              "refId": "A",
-              "dsType": "influxdb",
-              "resultFormat": "time_series",
-              "tags": [],
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "null"
-                  ]
-                }
-              ],
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "last",
-                    "params": []
-                  }
-                ]
-              ],
-              "measurement": "mode",
-              "query": "SELECT last(\"value\") FROM \"mode\" WHERE $timeFilter GROUP BY time($interval) fill(null)"
-            }
-          ],
           "cacheTimeout": null,
-          "format": "none",
-          "prefix": "",
-          "postfix": "",
-          "nullText": null,
-          "valueMaps": [
-            {
-              "value": "3",
-              "op": "=",
-              "text": "3D Fix"
-            },
-            {
-              "value": "2",
-              "op": "=",
-              "text": "2D Fix"
-            },
-            {
-              "value": "1",
-              "op": "=",
-              "text": "No Fix"
-            }
-          ],
-          "nullPointMode": "connected",
-          "valueName": "current",
-          "prefixFontSize": "50%",
-          "valueFontSize": "80%",
-          "postfixFontSize": "50%",
-          "thresholds": "1,2,3",
           "colorBackground": false,
           "colorValue": true,
           "colors": [
@@ -447,81 +387,173 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "format": "none",
+          "id": 7,
+          "interval": null,
+          "isNew": true,
+          "links": [],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 3,
           "sparkline": {
-            "show": false,
+            "fillColor": "rgba(31, 118, 189, 0.18)",
             "full": false,
             "lineColor": "rgb(31, 120, 193)",
-            "fillColor": "rgba(31, 118, 189, 0.18)"
-          }
-        },
-        {
-          "title": "epx (lon err)",
-          "error": false,
-          "span": 3,
-          "editable": true,
-          "type": "singlestat",
-          "isNew": true,
-          "id": 9,
-          "links": [],
-          "datasource": null,
-          "maxDataPoints": 100,
-          "interval": null,
+            "show": false
+          },
           "targets": [
             {
-              "refId": "A",
               "dsType": "influxdb",
-              "resultFormat": "time_series",
-              "tags": [],
               "groupBy": [
                 {
-                  "type": "time",
                   "params": [
                     "$interval"
-                  ]
+                  ],
+                  "type": "time"
                 },
                 {
-                  "type": "fill",
                   "params": [
                     "null"
-                  ]
+                  ],
+                  "type": "fill"
                 }
               ],
+              "measurement": "mode",
+              "query": "SELECT last(\"value\") FROM \"mode\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "refId": "A",
+              "resultFormat": "time_series",
               "select": [
                 [
                   {
-                    "type": "field",
                     "params": [
                       "value"
-                    ]
+                    ],
+                    "type": "field"
                   },
                   {
-                    "type": "last",
-                    "params": []
+                    "params": [],
+                    "type": "last"
                   }
                 ]
+              ],
+              "tags": []
+            }
+          ],
+          "thresholds": "1,2,3",
+          "title": "Fix",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "3D Fix",
+              "value": "3"
+            },
+            {
+              "op": "=",
+              "text": "2D Fix",
+              "value": "2"
+            },
+            {
+              "op": "=",
+              "text": "No Fix",
+              "value": "1"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "format": "lengthm",
+          "id": 9,
+          "interval": null,
+          "isNew": true,
+          "links": [],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 3,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "targets": [
+            {
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
               ],
               "measurement": "epx",
-              "query": "SELECT last(\"value\") FROM \"epx\" WHERE $timeFilter GROUP BY time($interval) fill(null)"
+              "query": "SELECT last(\"value\") FROM \"epx\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "tags": []
             }
           ],
-          "cacheTimeout": null,
-          "format": "lengthm",
-          "prefix": "",
-          "postfix": "",
-          "nullText": null,
+          "thresholds": "",
+          "title": "epx (lon err)",
+          "type": "singlestat",
+          "valueFontSize": "80%",
           "valueMaps": [
             {
-              "value": "null",
               "op": "=",
-              "text": "N/A"
+              "text": "N/A",
+              "value": "null"
             }
           ],
-          "nullPointMode": "connected",
-          "valueName": "current",
-          "prefixFontSize": "50%",
-          "valueFontSize": "80%",
-          "postfixFontSize": "50%",
-          "thresholds": "",
+          "valueName": "current"
+        },
+        {
+          "cacheTimeout": null,
           "colorBackground": false,
           "colorValue": false,
           "colors": [
@@ -529,81 +561,81 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "format": "lengthm",
+          "id": 10,
+          "interval": null,
+          "isNew": true,
+          "links": [],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 3,
           "sparkline": {
-            "show": false,
+            "fillColor": "rgba(31, 118, 189, 0.18)",
             "full": false,
             "lineColor": "rgb(31, 120, 193)",
-            "fillColor": "rgba(31, 118, 189, 0.18)"
-          }
-        },
-        {
-          "title": "epy (lat err)",
-          "error": false,
-          "span": 3,
-          "editable": true,
-          "type": "singlestat",
-          "isNew": true,
-          "id": 10,
-          "links": [],
-          "datasource": null,
-          "maxDataPoints": 100,
-          "interval": null,
+            "show": false
+          },
           "targets": [
             {
-              "refId": "A",
               "dsType": "influxdb",
-              "resultFormat": "time_series",
-              "tags": [],
               "groupBy": [
                 {
-                  "type": "time",
                   "params": [
                     "$interval"
-                  ]
+                  ],
+                  "type": "time"
                 },
                 {
-                  "type": "fill",
                   "params": [
                     "null"
-                  ]
+                  ],
+                  "type": "fill"
                 }
-              ],
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "last",
-                    "params": []
-                  }
-                ]
               ],
               "measurement": "epy",
-              "query": "SELECT last(\"value\") FROM \"epy\" WHERE $timeFilter GROUP BY time($interval) fill(null)"
+              "query": "SELECT last(\"value\") FROM \"epy\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "tags": []
             }
           ],
-          "cacheTimeout": null,
-          "format": "lengthm",
-          "prefix": "",
-          "postfix": "",
-          "nullText": null,
+          "thresholds": "",
+          "title": "epy (lat err)",
+          "type": "singlestat",
+          "valueFontSize": "80%",
           "valueMaps": [
             {
-              "value": "null",
               "op": "=",
-              "text": "N/A"
+              "text": "N/A",
+              "value": "null"
             }
           ],
-          "nullPointMode": "connected",
-          "valueName": "current",
-          "prefixFontSize": "50%",
-          "valueFontSize": "80%",
-          "postfixFontSize": "50%",
-          "thresholds": "",
+          "valueName": "current"
+        },
+        {
+          "cacheTimeout": null,
           "colorBackground": false,
           "colorValue": false,
           "colors": [
@@ -611,171 +643,171 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "format": "lengthm",
+          "id": 11,
+          "interval": null,
+          "isNew": true,
+          "links": [],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 3,
           "sparkline": {
-            "show": false,
+            "fillColor": "rgba(31, 118, 189, 0.18)",
             "full": false,
             "lineColor": "rgb(31, 120, 193)",
-            "fillColor": "rgba(31, 118, 189, 0.18)"
-          }
-        },
-        {
-          "title": "epv (alt err)",
-          "error": false,
-          "span": 3,
-          "editable": true,
-          "type": "singlestat",
-          "isNew": true,
-          "id": 11,
-          "links": [],
-          "datasource": null,
-          "maxDataPoints": 100,
-          "interval": null,
+            "show": false
+          },
           "targets": [
             {
-              "refId": "A",
               "dsType": "influxdb",
-              "resultFormat": "time_series",
-              "tags": [],
               "groupBy": [
                 {
-                  "type": "time",
                   "params": [
                     "$interval"
-                  ]
+                  ],
+                  "type": "time"
                 },
                 {
-                  "type": "fill",
                   "params": [
                     "null"
-                  ]
+                  ],
+                  "type": "fill"
                 }
-              ],
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "last",
-                    "params": []
-                  }
-                ]
               ],
               "measurement": "epv",
-              "query": "SELECT last(\"value\") FROM \"epv\" WHERE $timeFilter GROUP BY time($interval) fill(null)"
+              "query": "SELECT last(\"value\") FROM \"epv\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "tags": []
             }
           ],
-          "cacheTimeout": null,
-          "format": "lengthm",
-          "prefix": "",
-          "postfix": "",
-          "nullText": null,
+          "thresholds": "",
+          "title": "epv (alt err)",
+          "type": "singlestat",
+          "valueFontSize": "80%",
           "valueMaps": [
             {
-              "value": "null",
               "op": "=",
-              "text": "N/A"
+              "text": "N/A",
+              "value": "null"
             }
           ],
-          "nullPointMode": "connected",
-          "valueName": "current",
-          "prefixFontSize": "50%",
-          "valueFontSize": "80%",
-          "postfixFontSize": "50%",
-          "thresholds": "",
-          "colorBackground": false,
-          "colorValue": false,
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
-          ],
-          "sparkline": {
-            "show": false,
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "fillColor": "rgba(31, 118, 189, 0.18)"
-          }
+          "valueName": "current"
         }
-      ]
+      ],
+      "title": "Quality Accuracy 1/1"
     },
     {
-      "title": "Quality Accuracy 2/2",
-      "height": "250px",
-      "editable": true,
       "collapse": false,
+      "editable": true,
+      "height": "250px",
       "panels": [
         {
-          "title": "Climb",
-          "error": false,
-          "span": 3,
-          "editable": true,
-          "type": "singlestat",
-          "isNew": true,
-          "id": 14,
-          "links": [],
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
           "datasource": null,
-          "maxDataPoints": 100,
+          "editable": true,
+          "error": false,
+          "format": "velocityms",
+          "id": 14,
           "interval": null,
+          "isNew": true,
+          "links": [],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "80%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 3,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
           "targets": [
             {
-              "refId": "A",
               "dsType": "influxdb",
-              "resultFormat": "time_series",
-              "tags": [],
               "groupBy": [
                 {
-                  "type": "time",
                   "params": [
                     "$interval"
-                  ]
+                  ],
+                  "type": "time"
                 },
                 {
-                  "type": "fill",
                   "params": [
                     "null"
-                  ]
+                  ],
+                  "type": "fill"
                 }
-              ],
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "last",
-                    "params": []
-                  }
-                ]
               ],
               "measurement": "climb",
-              "query": "SELECT last(\"value\") FROM \"climb\" WHERE $timeFilter GROUP BY time($interval) fill(null)"
+              "query": "SELECT last(\"value\") FROM \"climb\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "tags": []
             }
           ],
-          "cacheTimeout": null,
-          "format": "velocityms",
-          "prefix": "",
-          "postfix": "",
-          "nullText": null,
+          "thresholds": "",
+          "title": "Climb",
+          "type": "singlestat",
+          "valueFontSize": "80%",
           "valueMaps": [
             {
-              "value": "null",
               "op": "=",
-              "text": "N/A"
+              "text": "N/A",
+              "value": "null"
             }
           ],
-          "nullPointMode": "connected",
-          "valueName": "current",
-          "prefixFontSize": "50%",
-          "valueFontSize": "80%",
-          "postfixFontSize": "80%",
-          "thresholds": "",
+          "valueName": "current"
+        },
+        {
+          "cacheTimeout": null,
           "colorBackground": false,
           "colorValue": false,
           "colors": [
@@ -783,81 +815,81 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "format": "none",
+          "id": 13,
+          "interval": null,
+          "isNew": true,
+          "links": [],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": " °N",
+          "postfixFontSize": "80%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 3,
           "sparkline": {
-            "show": false,
+            "fillColor": "rgba(31, 118, 189, 0.18)",
             "full": false,
             "lineColor": "rgb(31, 120, 193)",
-            "fillColor": "rgba(31, 118, 189, 0.18)"
-          }
-        },
-        {
-          "title": "Course",
-          "error": false,
-          "span": 3,
-          "editable": true,
-          "type": "singlestat",
-          "isNew": true,
-          "id": 13,
-          "links": [],
-          "datasource": null,
-          "maxDataPoints": 100,
-          "interval": null,
+            "show": false
+          },
           "targets": [
             {
-              "refId": "A",
               "dsType": "influxdb",
-              "resultFormat": "time_series",
-              "tags": [],
               "groupBy": [
                 {
-                  "type": "time",
                   "params": [
                     "$interval"
-                  ]
+                  ],
+                  "type": "time"
                 },
                 {
-                  "type": "fill",
                   "params": [
                     "null"
-                  ]
+                  ],
+                  "type": "fill"
                 }
-              ],
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "last",
-                    "params": []
-                  }
-                ]
               ],
               "measurement": "track",
-              "query": "SELECT last(\"value\") FROM \"track\" WHERE $timeFilter GROUP BY time($interval) fill(null)"
+              "query": "SELECT last(\"value\") FROM \"track\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "tags": []
             }
           ],
-          "cacheTimeout": null,
-          "format": "none",
-          "prefix": "",
-          "postfix": " °N",
-          "nullText": null,
+          "thresholds": "",
+          "title": "Course",
+          "type": "singlestat",
+          "valueFontSize": "80%",
           "valueMaps": [
             {
-              "value": "null",
               "op": "=",
-              "text": "N/A"
+              "text": "N/A",
+              "value": "null"
             }
           ],
-          "nullPointMode": "connected",
-          "valueName": "current",
-          "prefixFontSize": "50%",
-          "valueFontSize": "80%",
-          "postfixFontSize": "80%",
-          "thresholds": "",
+          "valueName": "current"
+        },
+        {
+          "cacheTimeout": null,
           "colorBackground": false,
           "colorValue": false,
           "colors": [
@@ -865,163 +897,81 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "format": "none",
+          "id": 8,
+          "interval": null,
+          "isNew": true,
+          "links": [],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 3,
           "sparkline": {
-            "show": false,
+            "fillColor": "rgba(31, 118, 189, 0.18)",
             "full": false,
             "lineColor": "rgb(31, 120, 193)",
-            "fillColor": "rgba(31, 118, 189, 0.18)"
-          }
-        },
-        {
-          "title": "ept (time err)",
-          "error": false,
-          "span": 3,
-          "editable": true,
-          "type": "singlestat",
-          "isNew": true,
-          "id": 8,
-          "links": [],
-          "datasource": null,
-          "maxDataPoints": 100,
-          "interval": null,
+            "show": false
+          },
           "targets": [
             {
-              "refId": "A",
               "dsType": "influxdb",
-              "resultFormat": "time_series",
-              "tags": [],
               "groupBy": [
                 {
-                  "type": "time",
                   "params": [
                     "$interval"
-                  ]
+                  ],
+                  "type": "time"
                 },
                 {
-                  "type": "fill",
                   "params": [
                     "null"
-                  ]
+                  ],
+                  "type": "fill"
                 }
-              ],
-              "select": [
-                [
-                  {
-                    "type": "field",
-                    "params": [
-                      "value"
-                    ]
-                  },
-                  {
-                    "type": "last",
-                    "params": []
-                  }
-                ]
               ],
               "measurement": "ept",
-              "query": "SELECT last(\"value\") FROM \"ept\" WHERE $timeFilter GROUP BY time($interval) fill(null)"
-            }
-          ],
-          "cacheTimeout": null,
-          "format": "none",
-          "prefix": "",
-          "postfix": "",
-          "nullText": null,
-          "valueMaps": [
-            {
-              "value": "null",
-              "op": "=",
-              "text": "N/A"
-            }
-          ],
-          "nullPointMode": "connected",
-          "valueName": "current",
-          "prefixFontSize": "50%",
-          "valueFontSize": "80%",
-          "postfixFontSize": "50%",
-          "thresholds": "",
-          "colorBackground": false,
-          "colorValue": false,
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
-          ],
-          "sparkline": {
-            "show": false,
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "fillColor": "rgba(31, 118, 189, 0.18)"
-          }
-        },
-        {
-          "title": "eps (speed err)",
-          "error": false,
-          "span": 3,
-          "editable": true,
-          "type": "singlestat",
-          "isNew": true,
-          "id": 12,
-          "links": [],
-          "datasource": null,
-          "maxDataPoints": 100,
-          "interval": null,
-          "targets": [
-            {
+              "query": "SELECT last(\"value\") FROM \"ept\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
               "refId": "A",
-              "dsType": "influxdb",
               "resultFormat": "time_series",
-              "tags": [],
-              "groupBy": [
-                {
-                  "type": "time",
-                  "params": [
-                    "$interval"
-                  ]
-                },
-                {
-                  "type": "fill",
-                  "params": [
-                    "null"
-                  ]
-                }
-              ],
               "select": [
                 [
                   {
-                    "type": "field",
                     "params": [
                       "value"
-                    ]
+                    ],
+                    "type": "field"
                   },
                   {
-                    "type": "last",
-                    "params": []
+                    "params": [],
+                    "type": "last"
                   }
                 ]
               ],
-              "measurement": "eps",
-              "query": "SELECT last(\"value\") FROM \"eps\" WHERE $timeFilter GROUP BY time($interval) fill(null)"
+              "tags": []
             }
           ],
-          "cacheTimeout": null,
-          "format": "lengthm",
-          "prefix": "",
-          "postfix": "",
-          "nullText": null,
+          "thresholds": "",
+          "title": "ept (time err)",
+          "type": "singlestat",
+          "valueFontSize": "80%",
           "valueMaps": [
             {
-              "value": "null",
               "op": "=",
-              "text": "N/A"
+              "text": "N/A",
+              "value": "null"
             }
           ],
-          "nullPointMode": "connected",
-          "valueName": "current",
-          "prefixFontSize": "50%",
-          "valueFontSize": "80%",
-          "postfixFontSize": "50%",
-          "thresholds": "",
+          "valueName": "current"
+        },
+        {
+          "cacheTimeout": null,
           "colorBackground": false,
           "colorValue": false,
           "colors": [
@@ -1029,14 +979,81 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "format": "lengthm",
+          "id": 12,
+          "interval": null,
+          "isNew": true,
+          "links": [],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "span": 3,
           "sparkline": {
-            "show": false,
+            "fillColor": "rgba(31, 118, 189, 0.18)",
             "full": false,
             "lineColor": "rgb(31, 120, 193)",
-            "fillColor": "rgba(31, 118, 189, 0.18)"
-          }
+            "show": false
+          },
+          "targets": [
+            {
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "eps",
+              "query": "SELECT last(\"value\") FROM \"eps\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "value"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "last"
+                  }
+                ]
+              ],
+              "tags": []
+            }
+          ],
+          "thresholds": "",
+          "title": "eps (speed err)",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
         }
-      ]
+      ],
+      "title": "Quality Accuracy 2/2"
     },
     {
       "collapse": false,
@@ -1278,13 +1295,40 @@
     ]
   },
   "templating": {
-    "list": []
+    "list": [
+      {
+        "allFormat": "glob",
+        "current": {
+          "text": "51.4390785,-0.145225833",
+          "value": "51.4390785,-0.145225833",
+          "tags": []
+        },
+        "datasource": null,
+        "hideLabel": true,
+        "includeAll": false,
+        "label": "gps_coordinates",
+        "multi": false,
+        "multiFormat": "glob",
+        "name": "gps_coordinates",
+        "options": [
+          {
+            "text": "51.4390785,-0.145225833",
+            "value": "51.4390785,-0.145225833",
+            "selected": true
+          }
+        ],
+        "query": "SELECT last(\"value\") FROM \"geo\"",
+        "refresh": true,
+        "regex": "([0-9\\.]+,[0-9\\.\\-]+)",
+        "type": "query"
+      }
+    ]
   },
   "annotations": {
     "list": []
   },
   "refresh": "5m",
   "schemaVersion": 8,
-  "version": 19,
+  "version": 30,
   "links": []
 }

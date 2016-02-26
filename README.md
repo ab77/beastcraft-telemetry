@@ -158,7 +158,8 @@ All the API requests require the `Referer: http://<your_ZTE-MF823_modem_IP>/` re
 
 #### GPS Dashboard
 1. install `gpsd` ([docs](http://www.catb.org/gpsd/)) using [this](http://www.danmandle.com/blog/getting-gpsd-to-work-with-python/) or [this](http://blog.perrygeo.net/2007/05/27/python-gpsd-bindings/) guide.
-2. configure geo.py to run in the background (e.g. using supervisord)
-3. import gps.json dashboard and modify it to suit your needs or build your own from scratch
+2. configure `geo.py` to run in the background (e.g. using supervisord)
+3. import `gps.json` dashboard and modify it to suit your needs or build your own from scratch
+
 
 [![ab1](https://avatars2.githubusercontent.com/u/2033996?v=3&s=96)](http://ab77.github.io/)

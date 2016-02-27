@@ -1,11 +1,12 @@
 #!/usr/bin/env python 
 
 from influxdb import InfluxDBClient
-import os, time, json, gps, argparse, requests, calendar
+import sys, os, time, json, gps, argparse, requests, calendar
 from pprint import pprint
 from datetime import datetime
+import numpy as np
 
-SLEEP_WAIT = 300 # seconds wait between readings
+WAIT_TIME = 60 # seconds
 
 
 def main(host='localhost', port=8086):
@@ -15,34 +16,75 @@ def main(host='localhost', port=8086):
     dbclient = InfluxDBClient(host, port, user, password, dbname)
     
     session = gps.gps(host='localhost', port='2947')
-
     session.stream(gps.WATCH_ENABLE|gps.WATCH_NEWSTYLE)
+    start_time = time.time() - WAIT_TIME
+    reports = []
     for report in session:
-      report = report.__dict__
-      if report['class'] == 'TPV':
-	report['epoch'] = calendar.timegm(datetime.strptime(report['time'], "%Y-%m-%dT%H:%M:%S.%fZ").timetuple())	
-        report['geo'] = '%s,%s' % (report['lat'], report['lon'])
-	l = []
-        for measurement, value in report.iteritems():
-            t = time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())
-            if measurement not in ['class', 'tag', 'device']:
-              json_body = {
-                  'measurement': measurement,
-                  'tags': {
-                      'class': report['class'],
-                      'tag': report['tag'],
-                      'device': report['device']
-                  },
-                  'time': t,
-                  'fields': {
-                      'value': value
-                  }
-              }
-              l.append(json_body)
+        report = report.__dict__
+        if report['class'] == 'TPV':	
+            reports.append(report)
+            if time.time() - start_time > WAIT_TIME:                
+                write_db(dbclient, summarise_rpt(reports))
+                reports = []
+                start_time = time.time()
 
-        print('Write points: {0}'.format(l))
-        dbclient.write_points(l)
-        time.sleep(SLEEP_WAIT)
+
+def average_val(rpts, name):
+    l =  [rpt[name] for rpt in rpts]
+    return reduce(lambda x, y: x + y, l) / len(l)
+
+
+def median_val(rpts, name):
+    l =  [rpt[name] for rpt in rpts]
+    return np.percentile(l, 50)
+
+    
+def summarise_rpt(rpts):
+    report = dict()
+    report['lat'] = median_val(rpts, 'lat')
+    report['lon'] = median_val(rpts, 'lon')
+    report['epx'] = median_val(rpts, 'epx')
+    report['epy'] = median_val(rpts, 'epy')
+    report['epv'] = median_val(rpts, 'epv')
+    report['ept'] = median_val(rpts, 'ept')
+    report['eps'] = median_val(rpts, 'eps')
+    report['climb'] = median_val(rpts, 'climb')
+    report['alt'] = median_val(rpts, 'alt')
+    report['speed'] = median_val(rpts, 'speed')
+    report['tag'] = [rpt['tag'] for rpt in rpts][-1]
+    report['time'] = [rpt['time'] for rpt in rpts][-1]
+    report['device'] = [rpt['device'] for rpt in rpts][-1]
+    report['class'] = [rpt['class'] for rpt in rpts][-1]
+    report['mode'] = [rpt['mode'] for rpt in rpts][-1]
+    report['track'] = [rpt['track'] for rpt in rpts][-1]
+    report['geo'] = '%s,%s' % (report['lat'], report['lon'])
+    report['epoch'] = calendar.timegm(datetime.strptime(report['time'],
+                                                        '%Y-%m-%dT%H:%M:%S.%fZ').timetuple())    
+
+    return report
+
+    
+def write_db(dbc, rpt):
+    l = []
+    for measurement, value in rpt.iteritems():
+        t = time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())
+        if measurement not in ['class', 'tag', 'device']:
+          json_body = {
+              'measurement': measurement,
+              'tags': {
+                  'class': rpt['class'],
+                  'tag': rpt['tag'],
+                  'device': rpt['device']
+              },
+              'time': t,
+              'fields': {
+                  'value': value
+              }
+          }
+          l.append(json_body)
+    
+    print('Write points: {0}'.format(l))
+    dbc.write_points(l)
 
 
 def parse_args():

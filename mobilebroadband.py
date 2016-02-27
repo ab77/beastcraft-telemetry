@@ -6,6 +6,9 @@ from influxdb import InfluxDBClient
 import os, time, json
 from pprint import pprint
 
+WAIT_TIME = 60 # seconds
+
+
 def main(host='localhost', port=8086):
     user = 'admin'
     password = 'admin'
@@ -25,42 +28,44 @@ def main(host='localhost', port=8086):
 
     hdrs = {'Referer': 'http://%s/' % host}
 
-    for query_string in query_strings:        
-        r = requests.get(url,
-                         params=query_string,
-                         headers=hdrs)
+    while True:
+        for query_string in query_strings:        
+            r = requests.get(url,
+                             params=query_string,
+                             headers=hdrs)
 
-        res = json.loads(r.text, strict=False)
+            res = json.loads(r.text, strict=False)
 
-        for k,v in res.iteritems():
-            try:
-                res[k] = float(v)
-            except ValueError:
-                pass
-            
-            try:
-                res[k] = int(v)
-            except ValueError:
-                pass
+            for k,v in res.iteritems():
+                try:
+                    res[k] = float(v)
+                except ValueError:
+                    pass
+                
+                try:
+                    res[k] = int(v)
+                except ValueError:
+                    pass
 
-	l = []
-        for measurement, value in res.iteritems():
-            t = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
-            if not value: continue
-            json_body = {
-                "measurement": measurement,
-                "tags": {
-                    "modem": host,
-                },
-                "time": t,
-                "fields": {
-                    "value": value
+            l = []
+            for measurement, value in res.iteritems():
+                t = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+                if not value: continue
+                json_body = {
+                    "measurement": measurement,
+                    "tags": {
+                        "modem": host,
+                    },
+                    "time": t,
+                    "fields": {
+                        "value": value
+                    }
                 }
-            }
-            l.append(json_body)
+                l.append(json_body)
 
-        print("Write points: {0}".format(l))
-        dbclient.write_points(l)
+            print("Write points: {0}".format(l))
+            dbclient.write_points(l)
+            time.sleep(WAIT_TIME)
 
 
 def parse_args():

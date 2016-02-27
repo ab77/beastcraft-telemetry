@@ -3,6 +3,9 @@
 from influxdb import InfluxDBClient
 import os, time, PyNUT, argparse
 
+WAIT_TIME = 60 # seconds
+
+
 def main(host='localhost', port=8086, ups='upsoem'):
     user = 'admin'
     password = 'admin'
@@ -10,36 +13,40 @@ def main(host='localhost', port=8086, ups='upsoem'):
     dbclient = InfluxDBClient(host, port, user, password, dbname)
 
     nutclient = PyNUT.PyNUTClient()
-    nutstats = nutclient.GetUPSVars(ups)
+    
+    while True:
+        nutstats = nutclient.GetUPSVars(ups)
 
-    for k,v in nutstats.iteritems():
-        try:
-            nutstats[k] = float(v)
-        except ValueError:
-            pass
+        for k,v in nutstats.iteritems():
+            try:
+                nutstats[k] = float(v)
+            except ValueError:
+                pass
 
-        try:
-            nutstats[k] = int(v)
-        except ValueError:
-            pass
+            try:
+                nutstats[k] = int(v)
+            except ValueError:
+                pass
 
-    l = []
-    for measurement, value in nutstats.iteritems():
-        t = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
-        json_body = {
-            "measurement": measurement,
-            "tags": {
-                "ups": ups,
-            },
-            "time": t,
-            "fields": {
-                "value": value
+        l = []
+        for measurement, value in nutstats.iteritems():
+            t = time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())
+            json_body = {
+                'measurement': measurement,
+                'tags': {
+                    'ups': ups,
+                },
+                'time': t,
+                'fields': {
+                    'value': value
+                }
             }
-        }
-        l.append(json_body)
+            l.append(json_body)
 
-    print("Write points: {0}".format(l))
-    dbclient.write_points(l)
+        print("Write points: {0}".format(l))
+        dbclient.write_points(l)
+        time.sleep(WAIT_TIME)
+
 
 def parse_args():
     parser = argparse.ArgumentParser(

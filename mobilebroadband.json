@@ -15,7 +15,7 @@
     {
       "collapse": false,
       "editable": true,
-      "height": "250px",
+      "height": "0",
       "panels": [
         {
           "cacheTimeout": null,
@@ -109,7 +109,8 @@
           "type": "singlestat",
           "valueFontSize": "80%",
           "valueMaps": [],
-          "valueName": "current"
+          "valueName": "current",
+          "height": "0"
         },
         {
           "cacheTimeout": null,
@@ -185,7 +186,8 @@
           "type": "singlestat",
           "valueFontSize": "50%",
           "valueMaps": [],
-          "valueName": "current"
+          "valueName": "current",
+          "height": "0"
         },
         {
           "cacheTimeout": null,
@@ -245,7 +247,8 @@
           "type": "singlestat",
           "valueFontSize": "50%",
           "valueMaps": [],
-          "valueName": "current"
+          "valueName": "current",
+          "height": "0"
         },
         {
           "cacheTimeout": null,
@@ -305,7 +308,8 @@
           "type": "singlestat",
           "valueFontSize": "50%",
           "valueMaps": [],
-          "valueName": "current"
+          "valueName": "current",
+          "height": "0"
         },
         {
           "cacheTimeout": null,
@@ -365,7 +369,8 @@
           "type": "singlestat",
           "valueFontSize": "50%",
           "valueMaps": [],
-          "valueName": "current"
+          "valueName": "current",
+          "height": "0"
         },
         {
           "cacheTimeout": null,
@@ -440,7 +445,8 @@
           "type": "singlestat",
           "valueFontSize": "50%",
           "valueMaps": [],
-          "valueName": "current"
+          "valueName": "current",
+          "height": "0"
         }
       ],
       "title": "Stats"
@@ -490,7 +496,7 @@
           "points": false,
           "renderer": "flot",
           "seriesOverrides": [],
-          "span": 8,
+          "span": 6,
           "stack": false,
           "steppedLine": false,
           "targets": [
@@ -572,7 +578,7 @@
           "postfixFontSize": "50%",
           "prefix": "",
           "prefixFontSize": "50%",
-          "span": 2,
+          "span": 3,
           "sparkline": {
             "fillColor": "rgba(31, 118, 189, 0.18)",
             "full": false,
@@ -638,7 +644,7 @@
           "postfixFontSize": "50%",
           "prefix": "",
           "prefixFontSize": "50%",
-          "span": 2,
+          "span": 3,
           "sparkline": {
             "fillColor": "rgba(31, 118, 189, 0.18)",
             "full": false,
@@ -721,6 +727,6 @@
   },
   "refresh": "1m",
   "schemaVersion": 8,
-  "version": 44,
+  "version": 46,
   "links": []
 }

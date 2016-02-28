@@ -14,7 +14,7 @@
     {
       "collapse": false,
       "editable": true,
-      "height": "250px",
+      "height": "0",
       "panels": [
         {
           "cacheTimeout": null,
@@ -89,7 +89,8 @@
               "value": "null"
             }
           ],
-          "valueName": "current"
+          "valueName": "current",
+          "height": "0"
         },
         {
           "cacheTimeout": null,
@@ -161,7 +162,8 @@
               "value": "null"
             }
           ],
-          "valueName": "current"
+          "valueName": "current",
+          "height": "0"
         },
         {
           "cacheTimeout": null,
@@ -233,7 +235,8 @@
               "value": "null"
             }
           ],
-          "valueName": "current"
+          "valueName": "current",
+          "height": "0"
         },
         {
           "cacheTimeout": null,
@@ -305,7 +308,8 @@
               "value": "null"
             }
           ],
-          "valueName": "current"
+          "valueName": "current",
+          "height": "0"
         },
         {
           "cacheTimeout": null,
@@ -378,7 +382,8 @@
               "value": "null"
             }
           ],
-          "valueName": "current"
+          "valueName": "current",
+          "height": "0"
         }
       ],
       "title": "Row"
@@ -543,8 +548,8 @@
   "annotations": {
     "list": []
   },
-  "refresh": "5m",
+  "refresh": "1m",
   "schemaVersion": 8,
-  "version": 39,
+  "version": 41,
   "links": []
 }

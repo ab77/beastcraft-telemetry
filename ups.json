@@ -30,6 +30,7 @@
           "editable": true,
           "error": false,
           "format": "none",
+          "height": "0",
           "id": 8,
           "interval": null,
           "isNew": true,
@@ -82,8 +83,7 @@
               "value": ""
             }
           ],
-          "valueName": "current",
-          "height": "0"
+          "valueName": "current"
         },
         {
           "cacheTimeout": null,
@@ -99,6 +99,7 @@
           "editable": true,
           "error": false,
           "format": "s",
+          "height": "0",
           "id": 13,
           "interval": null,
           "isNew": true,
@@ -151,8 +152,7 @@
               "value": ""
             }
           ],
-          "valueName": "current",
-          "height": "0"
+          "valueName": "current"
         },
         {
           "cacheTimeout": null,
@@ -168,6 +168,7 @@
           "editable": true,
           "error": false,
           "format": "volt",
+          "height": "0",
           "id": 2,
           "interval": null,
           "isNew": true,
@@ -219,8 +220,7 @@
               "value": "null"
             }
           ],
-          "valueName": "current",
-          "height": "0"
+          "valueName": "current"
         },
         {
           "cacheTimeout": null,
@@ -236,6 +236,7 @@
           "editable": true,
           "error": false,
           "format": "percent",
+          "height": "0",
           "id": 1,
           "interval": null,
           "isNew": true,
@@ -287,8 +288,7 @@
               "value": "null"
             }
           ],
-          "valueName": "current",
-          "height": "0"
+          "valueName": "current"
         },
         {
           "cacheTimeout": null,
@@ -304,6 +304,7 @@
           "editable": true,
           "error": false,
           "format": "percent",
+          "height": "0",
           "id": 9,
           "interval": null,
           "isNew": true,
@@ -355,11 +356,10 @@
               "value": "null"
             }
           ],
-          "valueName": "current",
-          "height": "0"
+          "valueName": "current"
         }
       ],
-      "title": "Row"
+      "title": "Singlestats 1/2"
     },
     {
       "collapse": false,
@@ -380,6 +380,7 @@
           "editable": true,
           "error": false,
           "format": "volt",
+          "height": "0",
           "id": 5,
           "interval": null,
           "isNew": true,
@@ -431,8 +432,7 @@
               "value": "null"
             }
           ],
-          "valueName": "current",
-          "height": "0"
+          "valueName": "current"
         },
         {
           "cacheTimeout": null,
@@ -448,6 +448,7 @@
           "editable": true,
           "error": false,
           "format": "volt",
+          "height": "0",
           "id": 6,
           "interval": null,
           "isNew": true,
@@ -499,8 +500,7 @@
               "value": "null"
             }
           ],
-          "valueName": "current",
-          "height": "0"
+          "valueName": "current"
         },
         {
           "cacheTimeout": null,
@@ -516,6 +516,7 @@
           "editable": true,
           "error": false,
           "format": "hertz",
+          "height": "0",
           "id": 4,
           "interval": null,
           "isNew": true,
@@ -567,8 +568,7 @@
               "value": "null"
             }
           ],
-          "valueName": "current",
-          "height": "0"
+          "valueName": "current"
         },
         {
           "cacheTimeout": null,
@@ -584,6 +584,7 @@
           "editable": true,
           "error": false,
           "format": "celsius",
+          "height": "0",
           "id": 7,
           "interval": null,
           "isNew": true,
@@ -635,11 +636,10 @@
               "value": "null"
             }
           ],
-          "valueName": "current",
-          "height": "0"
+          "valueName": "current"
         }
       ],
-      "title": "New row"
+      "title": "Singelstats 2/2"
     },
     {
       "collapse": false,
@@ -690,7 +690,7 @@
           "renderer": "flot",
           "rightYAxisLabel": "",
           "seriesOverrides": [],
-          "span": 12,
+          "span": 6,
           "stack": false,
           "steppedLine": false,
           "targets": [
@@ -747,15 +747,7 @@
             "volt",
             "none"
           ]
-        }
-      ],
-      "title": "New row"
-    },
-    {
-      "collapse": false,
-      "editable": true,
-      "height": "250px",
-      "panels": [
+        },
         {
           "aliasColors": {},
           "bars": false,
@@ -796,7 +788,7 @@
           "points": false,
           "renderer": "flot",
           "seriesOverrides": [],
-          "span": 12,
+          "span": 6,
           "stack": false,
           "steppedLine": false,
           "targets": [
@@ -854,7 +846,7 @@
           ]
         }
       ],
-      "title": "New row"
+      "title": "Graphs 1/2"
     },
     {
       "collapse": false,
@@ -958,12 +950,12 @@
           ]
         }
       ],
-      "title": "New row"
+      "title": "Graphs 2/2"
     }
   ],
   "time": {
-    "from": "now-1h",
-    "to": "now"
+    "from": "2016-02-28T18:50:01.307Z",
+    "to": "2016-02-28T19:04:46.553Z"
   },
   "timepicker": {
     "now": true,
@@ -997,8 +989,8 @@
   "annotations": {
     "list": []
   },
-  "refresh": "1m",
+  "refresh": false,
   "schemaVersion": 8,
-  "version": 31,
+  "version": 33,
   "links": []
 }

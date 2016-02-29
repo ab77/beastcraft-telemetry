@@ -690,7 +690,7 @@
           "renderer": "flot",
           "rightYAxisLabel": "",
           "seriesOverrides": [],
-          "span": 6,
+          "span": 4,
           "stack": false,
           "steppedLine": false,
           "targets": [
@@ -788,7 +788,7 @@
           "points": false,
           "renderer": "flot",
           "seriesOverrides": [],
-          "span": 6,
+          "span": 4,
           "stack": false,
           "steppedLine": false,
           "targets": [
@@ -844,15 +844,7 @@
             "percent",
             "short"
           ]
-        }
-      ],
-      "title": "Graphs 1/2"
-    },
-    {
-      "collapse": false,
-      "editable": true,
-      "height": "250px",
-      "panels": [
+        },
         {
           "aliasColors": {},
           "bars": false,
@@ -892,7 +884,7 @@
           "points": false,
           "renderer": "flot",
           "seriesOverrides": [],
-          "span": 12,
+          "span": 4,
           "stack": false,
           "steppedLine": false,
           "targets": [
@@ -950,12 +942,12 @@
           ]
         }
       ],
-      "title": "Graphs 2/2"
+      "title": "Graphs"
     }
   ],
   "time": {
-    "from": "2016-02-28T18:50:01.307Z",
-    "to": "2016-02-28T19:04:46.553Z"
+    "from": "now-1h",
+    "to": "now"
   },
   "timepicker": {
     "now": true,
@@ -989,8 +981,8 @@
   "annotations": {
     "list": []
   },
-  "refresh": false,
+  "refresh": "1m",
   "schemaVersion": 8,
-  "version": 33,
+  "version": 35,
   "links": []
 }

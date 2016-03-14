@@ -5,6 +5,10 @@ import sys, os, time, json, gps, argparse, requests, calendar
 from pprint import pprint
 from datetime import datetime
 import numpy as np
+import dns.query
+import dns.tsigkeyring
+import dns.update
+import dns.rdatatype
 
 WAIT_TIME = 60 # seconds
 
@@ -85,6 +89,18 @@ def write_db(dbc, rpt):
     
     print('Write points: {0}'.format(l))
     dbc.write_points(l)
+    update_dns(rpt['geo'])
+
+
+def update_dns(coords):
+    keyring = dns.tsigkeyring.from_text({
+        'beastcraft.belodedenko.me' : 'sLzBbVaBpgwYzY0uNv+SaA=='
+    })  
+    
+    update = dns.update.Update('beastcraft.belodedenko.me', keyring=keyring)
+    update.replace('geo', 300, dns.rdatatype.TXT, '"%s"' % coords)
+
+    return dns.query.tcp(update, 'localhost')
 
 
 def parse_args():

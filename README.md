@@ -26,28 +26,34 @@ This repository contains configuration specific to my environment, with five `DS
 
 #### Temperature Dashboard
 
-1. schedule `w1_therm.py` to run every x minutes using cron (e.g. `*/5 * * * * /opt/beastcraft-telemetry/w1_therm.py`)
+![temperature dashboard](https://raw.githubusercontent.com/ab77/beastcraft-telemetry/master/static/temperature.png)
+
+1. add `w1_therm.conf` to `/etc/supervisor/conf.d/` and reload `supervisor` process
 2. go to [http://localhost:3000](http://localhost:3000), add a new datasource and configure other options
 3. import `temp.json` dashboard and modify it to suit your needs or build your own from scratch (change URLs to suit your environment)
 
 #### UPS/Inverter Dashboard
 
+![power dashboard](https://raw.githubusercontent.com/ab77/beastcraft-telemetry/master/static/power.png)
+
 1. ensure [Network UPS Tools](http://www.networkupstools.org/) is correctly configured to work with the UPS (use `blazer_ser` driver)
 2. edit `ups.py` and adjust the default `upsname` (mine is `upsoem`) or pass from the command line using `--ups` parameter
-3. schedule `usp.py` to run every x minutes using cron (e.g. `*/5 * * * * /opt/beastcraft-telemetry/ups.py`)
+3. add `ups.conf` to `/etc/supervisor/conf.d/` and reload `supervisor` process
 4. import `ups.json` dashboard and modify it to suit your needs or build your own from scratch (change URLs to suit your environment)
 
 #### Traffic Dashboard
 
 1. install `sflowtool` using [this](http://blog.sflow.com/2011/12/sflowtool.html) or [this](http://blog.belodedenko.me/2014/06/pretty-dashboards-with-fortios-sflow.html) guide
-2. configure `traffic.py` to run in the background (e.g. using `supervisord`)
+2. add `traffic.conf` to `/etc/supervisor/conf.d/` and reload `supervisor` process
 3. import `traffic.json` dashboard and modify it to suit your needs or build your own from scratch
 
 #### Mobile Broadband Dashboard
 
+![mobile dashboard](https://raw.githubusercontent.com/ab77/beastcraft-telemetry/master/static/mobilebroadband.png)
+
 1. update `host` variable in `mobilebroadband.py` to match your ZTE MF823 modem IP address
-2. schedule `mobilebroadband.py` to run every x minutes using cron (e.g. `*/1 * * * * /opt/beastcraft-telemetry/mobilebroadband.py`)
-3. install `Nginx` and configure it as a reverse proxy for both Grafana and ZTE web GUIs (the later is required to set the `Referer` header)
+2. add `mobilebroadband.conf` to `/etc/supervisor/conf.d/` and reload `supervisor` process
+3. install `nginx` or `Caddyserver` and configure it as a reverse proxy for both Grafana and ZTE web GUIs (the later is required to set the `Referer` header)
 4. import `mobilebroadband.json` dashboard and modify it to suit your needs or build your own from scratch (change URLs to suit your environment)
 
 ````
@@ -157,8 +163,11 @@ http://<modem_IP>/goform/goform_get_cmd_process?isTest=false&cmd=IPPortFilterEna
 All the API requests require the `Referer: http://<your_ZTE-MF823_modem_IP>/` request header present. No additional headers are required.
 
 #### GPS Dashboard
+
+![GPS dashboard](https://raw.githubusercontent.com/ab77/beastcraft-telemetry/master/static/gps.png)
+
 1. install `gpsd` ([docs](http://www.catb.org/gpsd/)) using [this](http://www.danmandle.com/blog/getting-gpsd-to-work-with-python/) or [this](http://blog.perrygeo.net/2007/05/27/python-gpsd-bindings/) guide.
-2. configure `geo.py` to run in the background (e.g. using supervisord)
+2. add `geo.conf` to `/etc/supervisor/conf.d/` and reload `supervisor` process
 3. import `gps.json` dashboard and modify it to suit your needs or build your own from scratch
 
 

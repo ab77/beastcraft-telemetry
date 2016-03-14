@@ -14,7 +14,7 @@
     {
       "collapse": false,
       "editable": true,
-      "height": "250px",
+      "height": "0",
       "panels": [
         {
           "cacheTimeout": null,
@@ -30,6 +30,7 @@
           "editable": true,
           "error": false,
           "format": "none",
+          "height": "0",
           "id": 8,
           "interval": null,
           "isNew": true,
@@ -98,6 +99,7 @@
           "editable": true,
           "error": false,
           "format": "s",
+          "height": "0",
           "id": 13,
           "interval": null,
           "isNew": true,
@@ -166,6 +168,7 @@
           "editable": true,
           "error": false,
           "format": "volt",
+          "height": "0",
           "id": 2,
           "interval": null,
           "isNew": true,
@@ -233,6 +236,7 @@
           "editable": true,
           "error": false,
           "format": "percent",
+          "height": "0",
           "id": 1,
           "interval": null,
           "isNew": true,
@@ -300,6 +304,7 @@
           "editable": true,
           "error": false,
           "format": "percent",
+          "height": "0",
           "id": 9,
           "interval": null,
           "isNew": true,
@@ -354,12 +359,12 @@
           "valueName": "current"
         }
       ],
-      "title": "Row"
+      "title": "Singlestats 1/2"
     },
     {
       "collapse": false,
       "editable": true,
-      "height": "250px",
+      "height": "0",
       "panels": [
         {
           "cacheTimeout": null,
@@ -375,6 +380,7 @@
           "editable": true,
           "error": false,
           "format": "volt",
+          "height": "0",
           "id": 5,
           "interval": null,
           "isNew": true,
@@ -442,6 +448,7 @@
           "editable": true,
           "error": false,
           "format": "volt",
+          "height": "0",
           "id": 6,
           "interval": null,
           "isNew": true,
@@ -509,6 +516,7 @@
           "editable": true,
           "error": false,
           "format": "hertz",
+          "height": "0",
           "id": 4,
           "interval": null,
           "isNew": true,
@@ -576,6 +584,7 @@
           "editable": true,
           "error": false,
           "format": "celsius",
+          "height": "0",
           "id": 7,
           "interval": null,
           "isNew": true,
@@ -630,7 +639,7 @@
           "valueName": "current"
         }
       ],
-      "title": "New row"
+      "title": "Singelstats 2/2"
     },
     {
       "collapse": false,
@@ -681,7 +690,7 @@
           "renderer": "flot",
           "rightYAxisLabel": "",
           "seriesOverrides": [],
-          "span": 12,
+          "span": 4,
           "stack": false,
           "steppedLine": false,
           "targets": [
@@ -738,15 +747,7 @@
             "volt",
             "none"
           ]
-        }
-      ],
-      "title": "New row"
-    },
-    {
-      "collapse": false,
-      "editable": true,
-      "height": "250px",
-      "panels": [
+        },
         {
           "aliasColors": {},
           "bars": false,
@@ -787,7 +788,7 @@
           "points": false,
           "renderer": "flot",
           "seriesOverrides": [],
-          "span": 12,
+          "span": 4,
           "stack": false,
           "steppedLine": false,
           "targets": [
@@ -843,15 +844,7 @@
             "percent",
             "short"
           ]
-        }
-      ],
-      "title": "New row"
-    },
-    {
-      "collapse": false,
-      "editable": true,
-      "height": "250px",
-      "panels": [
+        },
         {
           "aliasColors": {},
           "bars": false,
@@ -891,7 +884,7 @@
           "points": false,
           "renderer": "flot",
           "seriesOverrides": [],
-          "span": 12,
+          "span": 4,
           "stack": false,
           "steppedLine": false,
           "targets": [
@@ -949,7 +942,7 @@
           ]
         }
       ],
-      "title": "New row"
+      "title": "Graphs"
     }
   ],
   "time": {
@@ -990,6 +983,6 @@
   },
   "refresh": "1m",
   "schemaVersion": 8,
-  "version": 30,
+  "version": 35,
   "links": []
 }

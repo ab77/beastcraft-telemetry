@@ -1124,11 +1124,12 @@
           "renderer": "flot",
           "rightYAxisLabel": "",
           "seriesOverrides": [],
-          "span": 12,
+          "span": 6,
           "stack": false,
           "steppedLine": false,
           "targets": [
             {
+              "alias": "altitude",
               "dsType": "influxdb",
               "groupBy": [
                 {
@@ -1162,10 +1163,10 @@
                   }
                 ]
               ],
-              "tags": [],
-              "alias": "altitude"
+              "tags": []
             },
             {
+              "alias": "error",
               "dsType": "influxdb",
               "groupBy": [
                 {
@@ -1199,8 +1200,7 @@
                   }
                 ]
               ],
-              "tags": [],
-              "alias": "error"
+              "tags": []
             }
           ],
           "timeFrom": null,
@@ -1262,11 +1262,12 @@
           "renderer": "flot",
           "rightYAxisLabel": "",
           "seriesOverrides": [],
-          "span": 12,
+          "span": 6,
           "stack": false,
           "steppedLine": false,
           "targets": [
             {
+              "alias": "speed",
               "dsType": "influxdb",
               "groupBy": [
                 {
@@ -1300,10 +1301,10 @@
                   }
                 ]
               ],
-              "tags": [],
-              "alias": "speed"
+              "tags": []
             },
             {
+              "alias": "error",
               "dsType": "influxdb",
               "groupBy": [
                 {
@@ -1337,8 +1338,7 @@
                   }
                 ]
               ],
-              "tags": [],
-              "alias": "error"
+              "tags": []
             }
           ],
           "timeFrom": null,
@@ -1396,8 +1396,8 @@
       {
         "allFormat": "glob",
         "current": {
-          "text": "51.439082333,-0.145140833",
-          "value": "51.439082333,-0.145140833"
+          "text": "",
+          "value": ""
         },
         "datasource": null,
         "hideLabel": false,
@@ -1408,8 +1408,8 @@
         "name": "gps_coordinates",
         "options": [
           {
-            "text": "51.439082333,-0.145140833",
-            "value": "51.439082333,-0.145140833",
+            "text": "",
+            "value": "",
             "selected": true
           }
         ],
@@ -1425,6 +1425,6 @@
   },
   "refresh": "1m",
   "schemaVersion": 8,
-  "version": 40,
+  "version": 41,
   "links": []
 }

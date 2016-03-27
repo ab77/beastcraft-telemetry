@@ -92,7 +92,7 @@ def write_db(dbc, rpt, domain=None, key=None):
     update_dns(coords=rpt['geo'], domain=domain, key=key)
 
 
-def update_dns(coords=coords, domain=None, key=None):
+def update_dns(coords=None, domain=None, key=None):
     if not domain and not key and not coords:
         return None
 

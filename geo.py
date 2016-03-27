@@ -92,24 +92,30 @@ def write_db(dbc, rpt):
     update_dns(rpt['geo'])
 
 
-def update_dns(coords):
+def update_dns(coords=coords, domain=domain, key=key):
+    if not domain and not key and not coords:
+        return None
+
     keyring = dns.tsigkeyring.from_text({
-        'beastcraft.belodedenko.me' : 'sLzBbVaBpgwYzY0uNv+SaA=='
+        domain : key
     })  
     
-    update = dns.update.Update('beastcraft.belodedenko.me', keyring=keyring)
+    update = dns.update.Update(domain, keyring=keyring)
     update.replace('geo', 300, dns.rdatatype.TXT, '"%s"' % coords)
 
     return dns.query.tcp(update, 'localhost')
 
 
 def parse_args():
-    parser = argparse.ArgumentParser(
-        description='example code to play with InfluxDB')
+    parser = argparse.ArgumentParser(description='GPSd InfluxDB loader')
     parser.add_argument('--host', type=str, required=False, default='localhost',
                         help='hostname of InfluxDB http API')
     parser.add_argument('--port', type=int, required=False, default=8086,
                         help='port of InfluxDB http API')
+    parser.add_argument('--domain', type=str, required=False, default=None,
+                        help='DNS domain to update with geo TXT record')                        
+    parser.add_argument('--key', type=str, required=False, default=None,
+                        help='DNSSEC key')
     return parser.parse_args()
 
 

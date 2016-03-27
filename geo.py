@@ -94,9 +94,10 @@ def write_db(dbc, rpt, domain=None, key=None):
 
 def update_dns(coords=None, domain=None, key=None):
     if domain and key and coords:
+        print('Update DNS: {0}'.format(coords))
         keyring = dns.tsigkeyring.from_text({
             domain : key
-        })  
+        })
         
         update = dns.update.Update(domain, keyring=keyring)
         update.replace('geo', 300, dns.rdatatype.TXT, '"%s"' % coords)

@@ -93,17 +93,17 @@ def write_db(dbc, rpt, domain=None, key=None):
 
 
 def update_dns(coords=None, domain=None, key=None):
-    if not domain and not key and not coords:
-        return None
-
-    keyring = dns.tsigkeyring.from_text({
-        domain : key
-    })  
+    if domain and key and coords:
+        keyring = dns.tsigkeyring.from_text({
+            domain : key
+        })  
+        
+        update = dns.update.Update(domain, keyring=keyring)
+        update.replace('geo', 300, dns.rdatatype.TXT, '"%s"' % coords)
     
-    update = dns.update.Update(domain, keyring=keyring)
-    update.replace('geo', 300, dns.rdatatype.TXT, '"%s"' % coords)
-
-    return dns.query.tcp(update, 'localhost')
+        return dns.query.tcp(update, 'localhost')
+    else:
+        return None
 
 
 def parse_args():

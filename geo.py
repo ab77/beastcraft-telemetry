@@ -13,7 +13,7 @@ import dns.rdatatype
 WAIT_TIME = 60 # seconds
 
 
-def main(host='localhost', port=8086):
+def main(host='localhost', port=8086, domain=None, key=None):
     user = 'admin'
     password = 'admin'
     dbname = 'beastcraft'
@@ -28,7 +28,7 @@ def main(host='localhost', port=8086):
         if report['class'] == 'TPV':	
             reports.append(report)
             if time.time() - start_time > WAIT_TIME:                
-                write_db(dbclient, summarise_rpt(reports))
+                write_db(dbclient, summarise_rpt(reports), domain=domain, key=key)
                 reports = []
                 start_time = time.time()
 
@@ -68,7 +68,7 @@ def summarise_rpt(rpts):
     return report
 
     
-def write_db(dbc, rpt):
+def write_db(dbc, rpt, domain=None, key=None):
     l = []
     for measurement, value in rpt.iteritems():
         t = time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())
@@ -89,10 +89,10 @@ def write_db(dbc, rpt):
     
     print('Write points: {0}'.format(l))
     dbc.write_points(l)
-    update_dns(rpt['geo'])
+    update_dns(coords=rpt['geo'], domain=domain, key=key)
 
 
-def update_dns(coords=coords, domain=domain, key=key):
+def update_dns(coords=coords, domain=None, key=None):
     if not domain and not key and not coords:
         return None
 
@@ -121,4 +121,7 @@ def parse_args():
 
 if __name__ == '__main__':
     args = parse_args()
-    main(host=args.host, port=args.port)
+    main(host=args.host,
+         port=args.port,
+         domain=args.domain,
+         key=args.key)

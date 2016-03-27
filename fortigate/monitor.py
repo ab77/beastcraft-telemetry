@@ -7,11 +7,12 @@ from os import O_NONBLOCK, read
 import argparse
 
 
-def set_defaut_route(p=None, iface='wifi'):
-    p.stdin.write('configure router static\nedit 1\nset device %s\nend\n' % iface)
+def set_defaut_route(p=None, iface='wifi', gw='0.0.0.0'):
+    print 'setting default route iface=%s gw=%s\n' % (iface, gw)
+    p.stdin.write('config router static\nedit 1\nset device %s\nset gateway %s\nend\n' % (iface, gw))
 
     
-def main(user='admin', host=None, port=22, iface=None, backup=None):
+def main(user='admin', host=None, port=22, iface=None, backup=None, gwip=None):
     # assume interface is online
     iface_status = 'alive'
     # run the shell as a subprocess:
@@ -32,10 +33,8 @@ def main(user='admin', host=None, port=22, iface=None, backup=None):
                 print '%s %s %s' % (line.split()[2], line.split()[3], line.split()[4])
                 if line.split()[4] == 'die' and iface_status == 'alive':
                     iface_status = line.split()[4]
-                    print 'set default route to %s\n' % backup
-                    set_defaut_route(p=p, iface=backup)
+                    set_defaut_route(p=p, iface=backup, gw=args.gwip)
                 if line.split()[4] == 'alive' and iface_status == 'die':
-                    print 'set default route to %s\n' % iface
                     set_defaut_route(p=p, iface=iface)
                     iface_status = line.split()[4]
                     
@@ -56,6 +55,8 @@ def parse_args():
                         help='FortiGate interface to monitor (e.g. wifi)')
     parser.add_argument('--backup', type=str, required=True, default=None,
                         help='FortiGate interface to fail-over to (e.g. wan2)')
+    parser.add_argument('--gwip', type=str, required=True, default=None,
+                        help='Backup interface gateway ipaddr')
     return parser.parse_args()
 
 
@@ -65,4 +66,5 @@ if __name__ == '__main__':
          host=args.host,
          port=args.port,
          iface=args.iface,
-         backup=args.backup)
+         backup=args.backup,
+         gwip=args.gwip)

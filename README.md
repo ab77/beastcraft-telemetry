@@ -223,7 +223,7 @@ Send times: 0
               Packet sent: 172161  Packet received: 169386
 ```
 
-To automate this, I've written a simple Python script, which can be run on a nearby Linux host, to poll the firewall every few seconds and check the interface status. Should the primary interface go down, the script modifies the defult route to send traffic to the backup interface:
+To automate this, I've written a simple Python script, which can be run on a nearby Linux host, to poll the firewall every few seconds and check the interface status. Should the primary interface go down, the script modifies the default route to send traffic to the backup interface:
 
 ```
 usage: monitor.py [-h] --host HOST [--port PORT] [--user USER] --iface IFACE

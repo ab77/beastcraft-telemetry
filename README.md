@@ -172,7 +172,15 @@ All the API requests require the `Referer: http://<your_ZTE-MF823_modem_IP>/` re
 
 #### FortiWifi Interface Monitor
 
-A side effect of configuring FortiWifi-40C WiFi Controller in `WiFi Client` mode in order to bridge to wireless networks, is that the `wifi` internal interface is always up, regardless of whether or not it is connected to the upstream wireless network. This means that if a backup interface is to be used (e.g. Mobile Broadband), the `wifi` interface default route will never be released and the backup one will never kick in. A less elegant solution is to use FortiOS `link-monitor` function in conjunction with a custom script running somewhere nearby to manupulate networ routes depending on interface availability.
+A `FortiWifi` firewall can be configured as a wireless bridge as follows[n1]:
+
+```
+config system global
+    set wireless-mode client
+end
+```
+
+A side effect of doing this, is that the resulting `wifi` internal interface is always up, regardless of whether or not it is connected to the upstream wireless network. This means that if a backup interface is to be used (e.g. Mobile Broadband), the `wifi` interface default route will never be released and the backup one will never kick in. A less elegant solution is to use FortiOS `link-monitor` function in conjunction with a custom script running somewhere nearby to manipulate network routes depending on interface availability.
 
 For example, if a `wifi` interface is used as a primary network link and a `wan2` interface is used for backup, the following `link-monitor` configuration is set on the device:
 
@@ -189,7 +197,7 @@ config system link-monitor
 end
 ````
 
-Statu check is performed for running `diag sys link-monitor status wifi` command and inspecting the output:
+Status check is performed for running `diag sys link-monitor status wifi` command and inspecting the output:
 
 ```
 Link Monitor: wifi Status: alive Create time: Fri Mar 18 14:55:41 2016

@@ -242,3 +242,7 @@ optional arguments:
 ```
 
 [![ab1](https://avatars2.githubusercontent.com/u/2033996?v=3&s=96)](http://ab77.github.io/)
+
+###### Footnotes
+
+[n1] [FortiWifi Client mode (wireless bridge)](https://stuff.purdon.ca/?page_id=183)

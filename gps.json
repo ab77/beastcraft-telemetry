@@ -1321,7 +1321,7 @@
                 }
               ],
               "measurement": "eps",
-              "query": "SELECT mean(\"value\") FROM \"eps\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "query": "SELECT mean(\"value\")  / 1000 FROM \"eps\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
               "refId": "B",
               "resultFormat": "time_series",
               "select": [
@@ -1335,6 +1335,12 @@
                   {
                     "params": [],
                     "type": "mean"
+                  },
+                  {
+                    "params": [
+                      " / 1000"
+                    ],
+                    "type": "math"
                   }
                 ]
               ],
@@ -1396,8 +1402,8 @@
       {
         "allFormat": "glob",
         "current": {
-          "text": "",
-          "value": ""
+          "text": "51.0,-0.1",
+          "value": "51.0,-0.1"
         },
         "datasource": null,
         "hideLabel": false,
@@ -1408,8 +1414,8 @@
         "name": "gps_coordinates",
         "options": [
           {
-            "text": "",
-            "value": "",
+            "text": "51.0,-0.1",
+            "value": "51.0,-0.1",
             "selected": true
           }
         ],
@@ -1425,6 +1431,6 @@
   },
   "refresh": "1m",
   "schemaVersion": 8,
-  "version": 41,
+  "version": 42,
   "links": []
 }

@@ -170,5 +170,67 @@ All the API requests require the `Referer: http://<your_ZTE-MF823_modem_IP>/` re
 2. add `geo.conf` to `/etc/supervisor/conf.d/` and reload `supervisor` process
 3. import `gps.json` dashboard and modify it to suit your needs or build your own from scratch
 
+#### FortiWifi Interface Monitor
+
+A side effect of configuring FortiWifi-40C WiFi Controller in `WiFi Client` mode in order to bridge to wireless networks, is that the `wifi` internal interface is always up, regardless of whether or not it is connected to the upstream wireless network. This means that if a backup interface is to be used (e.g. Mobile Broadband), the `wifi` interface default route will never be released and the backup one will never kick in. A less elegant solution is to use FortiOS `link-monitor` function in conjunction with a custom script running somewhere nearby to manupulate networ routes depending on interface availability.
+
+For example, if a `wifi` interface is used as a primary network link and a `wan2` interface is used for backup, the following `link-monitor` configuration is set on the device:
+
+```
+config system link-monitor
+    edit "wan2"
+        set srcintf "wan2"
+        set server "8.8.8.8" "8.8.4.4"
+    next
+    edit "wifi"
+        set srcintf "wifi"
+        set server "8.8.8.8" "8.8.4.4"
+    next
+end
+````
+
+Statu check is performed for running `diag sys link-monitor status wifi` command and inspecting the output:
+
+```
+Link Monitor: wifi Status: alive Create time: Fri Mar 18 14:55:41 2016
+Source interface: wifi (18)
+Interval: 5, Timeout 1
+Fail times: 0/5
+Send times: 0
+  Peer: 8.8.4.4(8.8.4.4)
+        Source IP(172.16.99.11)
+        Route: 172.16.99.11->8.8.4.4/32, gwy(172.16.99.254)
+    protocol: ping, state: alive
+              Latency(recent/average): 20.55/23.82 ms Jitter: 267.41
+              Recovery times(0/5)
+              Continuous sending times after the first recovery time 0
+              Packet sent: 172173  Packet received: 167884
+  Peer: 8.8.8.8(8.8.8.8)
+        Source IP(172.16.99.11)
+        Route: 172.16.99.11->8.8.8.8/32, gwy(172.16.99.254)
+    protocol: ping, state: alive
+              Latency(recent/average): 20.41/29.20 ms Jitter: 266.55
+              Recovery times(1/5)
+              Continuous sending times after the first recovery time 1
+              Packet sent: 172161  Packet received: 169386
+```
+
+To automate this, I've written a simple Python script, which can be run on a nearby Linux host, to poll the firewall every few seconds and check the interface status. Should the primary interface go down, the script modifies the defult route to send traffic to the backup interface:
+
+```
+usage: monitor.py [-h] --host HOST [--port PORT] [--user USER] --iface IFACE
+                  --backup BACKUP --gwip GWIP
+
+FortiGate interface monitor
+
+optional arguments:
+  -h, --help       show this help message and exit
+  --host HOST      FortiGate appliance hostname or IP
+  --port PORT      SSH port of the FortiGate appliance
+  --user USER      FortiGate admin username
+  --iface IFACE    FortiGate interface to monitor (e.g. wifi)
+  --backup BACKUP  FortiGate interface to fail-over to (e.g. wan2)
+  --gwip GWIP      Backup interface gateway ipaddr
+```
 
 [![ab1](https://avatars2.githubusercontent.com/u/2033996?v=3&s=96)](http://ab77.github.io/)

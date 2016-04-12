@@ -10,7 +10,7 @@ I've built all the pre-requisites (except [Go](http://www.aymerick.com/2013/09/2
     sudo service influxdb start
     sudo update-rc.d influxdb defaults 95 10
 
-Install pre-built Node.js for Raspberry Pi using the handy (Adafruit)[https://learn.adafruit.com/node-embedded-development/installing-node-dot-js] guide.
+Install pre-built Node.js for Raspberry Pi using the handy [Adafruit](https://learn.adafruit.com/node-embedded-development/installing-node-dot-js) guide.
 
     # install Grafana
     wget https://s3.eu-central-1.amazonaws.com/beastcraft-telemetry/grafana_3.0.0-pre1_armhf.deb

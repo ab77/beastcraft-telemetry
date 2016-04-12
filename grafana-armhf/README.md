@@ -1,6 +1,6 @@
 # Grafana (armhf)
 
-[grafana_3.0.0-pre1_armhf.deb](https://s3.eu-central-1.amazonaws.com/beastcraft-telemetry/grafana_3.0.0-pre1_armhf.deb)
+* [grafana_3.0.0-pre1_armhf.deb](https://s3.eu-central-1.amazonaws.com/beastcraft-telemetry/grafana_3.0.0-pre1_armhf.deb)
 
 
 ### Build

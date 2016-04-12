@@ -5,14 +5,16 @@ Santak `IPV-2012C` UPS, `DS18B20` one-wire temperature, ZTE `MF823` hostless mod
 I've built all the pre-requisites (except [Go](http://www.aymerick.com/2013/09/24/go_language_on_raspberrypi.html)) thanks to [InfluxDB, Telegraf and Grafana on a Raspberry Pi 2](http://www.aymerick.com/2015/10/07/influxdb-telegraf-grafana-raspberry-pi.html) guide. Still took a good part of two days.
 
     # install InfluxDB
-    sudo dpkg -i influxdb-armhf/influxdb_0.10.3-1_armhf.deb
+    wget https://s3.eu-central-1.amazonaws.com/beastcraft-telemetry/influxdb_0.10.3-1_armhf.deb
+    sudo dpkg -i influxdb_0.10.3-1_armhf.deb
     sudo service influxdb start
     sudo update-rc.d influxdb defaults 95 10
 
 Install pre-built Node.js for Raspberry Pi using the handy (Adafruit)[https://learn.adafruit.com/node-embedded-development/installing-node-dot-js] guide.
 
     # install Grafana
-    sudo dpkg -i grafana-armhf/grafana_3.0.0-pre1_armhf.deb
+    wget https://s3.eu-central-1.amazonaws.com/beastcraft-telemetry/grafana_3.0.0-pre1_armhf.deb
+    sudo dpkg -i grafana_3.0.0-pre1_armhf.deb
     sudo service grafana-server start
     sudo update-rc.d grafana-server defaults 95 10
     

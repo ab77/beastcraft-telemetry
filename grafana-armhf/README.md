@@ -46,8 +46,9 @@ go run build.go build package
 dpkg -i dist/*.deb
 ```
 
-References:
+#### References
 
+* http://www.aymerick.com/2013/09/24/go_language_on_raspberrypi.html
 * http://www.aymerick.com/2015/10/07/influxdb-telegraf-grafana-raspberry-pi.html
 * https://hwwong168.wordpress.com/2015/11/19/building-grafana-for-raspberry-pi-2/
 * http://giatro.me/2015/09/30/install-influxdb-and-grafana-on-raspberry-pi.html

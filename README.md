@@ -2,7 +2,7 @@
 Santak `IPV-2012C` UPS, `DS18B20` one-wire temperature, ZTE `MF823` hostless modem + `A5-V11` (MiFi) router and `U-blox7` USB GPS monitoring with Grafana and Python on a Raspberry Pi 2 inside a motorhome.
 
 ### Installation
-I've built InfluxDB and Grafanates thanks to a number of existing [guides](https://github.com/ab77/beastcraft-telemetry/tree/master/grafana-armhf).
+I've built InfluxDB and Grafanates thanks to a number of existing [guides](https://github.com/ab77/beastcraft-telemetry/blob/master/grafana-armhf/README.md#references).
 
     # install InfluxDB
     wget https://s3.eu-central-1.amazonaws.com/beastcraft-telemetry/influxdb_0.10.3-1_armhf.deb

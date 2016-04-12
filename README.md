@@ -21,7 +21,7 @@ This repository contains configuration specific to my environment, with five `DS
 
 1. run `pip install -r requirement.txt`
 2. update `DS18B201` sensor list and database name in `w1_thermy.py`
-3. [create database](https://docs.influxdata.com/influxdb/v0.12/introduction/getting_started/) (e.g. `grafana`) for your metrics by running `influx -execute 'CREATE DATABASE grafana;`
+3. [create database](https://docs.influxdata.com/influxdb/v0.12/introduction/getting_started/) (e.g. `grafana`) for your metrics by running `influx -execute 'CREATE DATABASE grafana;'`
 4. optionally [create retention policy](https://docs.influxdata.com/influxdb/v0.12/guides/downsampling_and_retention/) otherwise `default` (store forever) RP applies
 
 #### Temperature Dashboard

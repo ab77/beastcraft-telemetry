@@ -18,6 +18,7 @@ update-alternatives --config g++
 
 # get sources
 gvm use go1.5
+gvm pkgset create grafana
 gvm pkgset use grafana
 cd ~/.gvm/pkgsets/go1.5/grafana
 export GOPATH=`pwd`

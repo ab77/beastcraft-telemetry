@@ -40,7 +40,6 @@ npm install npm -g
 npm install
 npm install -g grunt-cli
 npm rebuild node-sass
-grunt --force
 go run build.go build package
 
 # install

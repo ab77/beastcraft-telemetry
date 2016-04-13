@@ -182,7 +182,7 @@ server 127.127.28.0 minpoll 4 prefer
 fudge  127.127.28.0 refid PPS
 ```
 
-Then, `service restart ntp` and run `ntpq -p` to et something like this:
+Then, `service restart ntp` and run `ntpq -p` to get something like this:
 
 ```
      remote           refid      st t when poll reach   delay   offset  jitter

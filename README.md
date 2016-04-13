@@ -182,6 +182,15 @@ server 127.127.28.0 minpoll 4 prefer
 fudge  127.127.28.0 refid PPS
 ```
 
+Then, `service restart ntp` and run `ntpq -p` to et something like this:
+
+```
+     remote           refid      st t when poll reach   delay   offset  jitter
+==============================================================================
+ GPS_NMEA(0)     .NMEA.           0 l    -   16    0    0.000    0.000   0.000
+*SHM(0)          .PPS.            0 l    1   16  377    0.000   -1.495  23.328
+```
+
 #### FortiWifi Interface Monitor
 
 A `FortiWifi` firewall can be configured as a wireless bridge as follows[n1]:

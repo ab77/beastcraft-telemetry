@@ -3,11 +3,11 @@
 ### Debian
 
 * [grafana_3.0.0-pre1_armhf.deb](https://s3.eu-central-1.amazonaws.com/beastcraft-telemetry/grafana_3.0.0-pre1_armhf.deb)
-* unstable [grafana_3.0.0-beta41460636578_armhf.deb](https://s3.eu-central-1.amazonaws.com/beastcraft-telemetry/grafana_3.0.0-beta41460636578_armhf.deb)
+* (unstable-bleeding-edge) [grafana_3.0.0-beta41460636578_armhf.deb](https://s3.eu-central-1.amazonaws.com/beastcraft-telemetry/grafana_3.0.0-beta41460636578_armhf.deb)
 
 ### Fedora/CentOS
 
-* unstable [grafana-3.0.0-beta41460636578.armv7l.rpm](https://s3.eu-central-1.amazonaws.com/beastcraft-telemetry/grafana-3.0.0-beta41460636578.armv7l.rpm)
+* (unstable-bleeding-edge) [grafana-3.0.0-beta41460636578.armv7l.rpm](https://s3.eu-central-1.amazonaws.com/beastcraft-telemetry/grafana-3.0.0-beta41460636578.armv7l.rpm)
 
 ### Build
 

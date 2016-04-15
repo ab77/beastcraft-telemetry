@@ -16,7 +16,6 @@ def main(host='localhost', port=8086, ups='upsoem'):
         try:
             nutclient = PyNUT.PyNUTClient()
         except socket.error, e:
-            raise
             print '%s connecting to nut-server, retrying in %d seconds' % (repr(e), WAIT_TIME)
             time.sleep(WAIT_TIME)
     

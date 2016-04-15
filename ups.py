@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 from influxdb import InfluxDBClient
-import os, time, PyNUT, argparse
+import os, time, PyNUT, argparse, socket
 
 WAIT_TIME = 60 # seconds
 
@@ -12,7 +12,13 @@ def main(host='localhost', port=8086, ups='upsoem'):
     dbname = 'beastcraft'
     dbclient = InfluxDBClient(host, port, user, password, dbname)
 
-    nutclient = PyNUT.PyNUTClient()
+    while True:
+        try:
+            nutclient = PyNUT.PyNUTClient()
+        except socket.error, e:
+            raise
+            print '%s connecting to nut-server, retrying in %d seconds' % (repr(e), WAIT_TIME)
+            time.sleep(WAIT_TIME)
     
     while True:
         nutstats = nutclient.GetUPSVars(ups)

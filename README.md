@@ -172,24 +172,7 @@ All the API requests require the `Referer: http://<your_ZTE-MF823_modem_IP>/` re
 2. add `geo.conf` to `/etc/supervisor/conf.d/` and reload `supervisor` process
 3. import `gps.json` dashboard and modify it to suit your needs or build your own from scratch
 
-To synchronise time using GPS receiver and NTP, add the following lines to `/etc/ntp.conf`:
-
-```
-# GPS receiver time source
-server 127.127.20.0 minpoll 4
-fudge  127.127.20.0 time1 0.183 refid NMEA
-server 127.127.28.0 minpoll 4 prefer
-fudge  127.127.28.0 refid PPS
-```
-
-Then, `service restart ntp` and run `ntpq -p` to get something like this:
-
-```
-     remote           refid      st t when poll reach   delay   offset  jitter
-==============================================================================
- GPS_NMEA(0)     .NMEA.           0 l    -   16    0    0.000    0.000   0.000
-*SHM(0)          .PPS.            0 l    1   16  377    0.000   -1.495  23.328
-```
+To synchronise time using GPS receiver and NTP, read the following concise article [Connecting u-blox NEO-6M GPS to Raspberry Pi](https://bigdanzblog.wordpress.com/2015/01/18/connecting-u-blox-neo-6m-gps-to-raspberry-pi/).
 
 #### FortiWifi Interface Monitor
 

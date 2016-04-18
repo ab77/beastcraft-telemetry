@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Beastcraft-telemetry by ab77</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Beastcraft-telemetry</h1>
+      <h2 class="project-tagline">Santak IPV-2012C UPS, DS18B20 one-wire temperature, ZTE MF823 hostless modem + A5-V11 (MiFi) router and U-blox7 USB GPS monitoring with Grafana and Python on a Raspberry Pi 2 inside a motorhome</h2>
+      <a href="https://github.com/ab77/beastcraft-telemetry" class="btn">View on GitHub</a>
+      <a href="https://github.com/ab77/beastcraft-telemetry/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/ab77/beastcraft-telemetry/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="beastcraft-telemetry" class="anchor" href="#beastcraft-telemetry" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>beastcraft-telemetry</h1>
+
+<p>Santak <code>IPV-2012C</code> UPS, <code>DS18B20</code> one-wire temperature, ZTE <code>MF823</code> hostless modem + <code>A5-V11</code> (MiFi) router and <code>U-blox7</code> USB GPS monitoring with Grafana and Python on a Raspberry Pi 2 inside a motorhome.</p>
+
+<h3>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installation</h3>
+
+<p>I've built InfluxDB and Grafanates thanks to a number of existing <a href="https://github.com/ab77/beastcraft-telemetry/blob/master/grafana-armhf/README.md#references">guides</a>.</p>
+
+<pre><code># install InfluxDB
+wget https://s3.eu-central-1.amazonaws.com/beastcraft-telemetry/influxdb_0.10.3-1_armhf.deb
+sudo dpkg -i influxdb_0.10.3-1_armhf.deb
+sudo service influxdb start
+sudo update-rc.d influxdb defaults 95 10
+</code></pre>
+
+<p>Install pre-built Node.js for Raspberry Pi using the handy <a href="https://learn.adafruit.com/node-embedded-development/installing-node-dot-js">Adafruit</a> guide.</p>
+
+<pre><code># install Grafana
+wget https://s3.eu-central-1.amazonaws.com/beastcraft-telemetry/grafana_3.0.0-pre1_armhf.deb
+sudo dpkg -i grafana_3.0.0-pre1_armhf.deb
+sudo service grafana-server start
+sudo update-rc.d grafana-server defaults 95 10
+</code></pre>
+
+<h3>
+<a id="configuration" class="anchor" href="#configuration" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Configuration</h3>
+
+<p>This repository contains configuration specific to my environment, with five <code>DS18B20</code> sensors in total. To personalise it:</p>
+
+<ol>
+<li>run <code>pip install -r requirement.txt</code>
+</li>
+<li>update <code>DS18B201</code> sensor list and database name in <code>w1_thermy.py</code>
+</li>
+<li>
+<a href="https://docs.influxdata.com/influxdb/v0.12/introduction/getting_started/">create database</a> (e.g. <code>grafana</code>) for your metrics by running <code>influx -execute 'CREATE DATABASE grafana;'</code>
+</li>
+<li>optionally <a href="https://docs.influxdata.com/influxdb/v0.12/guides/downsampling_and_retention/">create retention policy</a> otherwise <code>default</code> (store forever) RP applies</li>
+</ol>
+
+<h4>
+<a id="temperature-dashboard" class="anchor" href="#temperature-dashboard" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Temperature Dashboard</h4>
+
+<p><img src="https://raw.githubusercontent.com/ab77/beastcraft-telemetry/master/static/temperature.png" alt="temperature dashboard"></p>
+
+<ol>
+<li>add <code>w1_therm.conf</code> to <code>/etc/supervisor/conf.d/</code> and reload <code>supervisor</code> process</li>
+<li>go to <a href="http://localhost:3000">http://localhost:3000</a>, add a new datasource and configure other options</li>
+<li>import <code>temp.json</code> dashboard and modify it to suit your needs or build your own from scratch (change URLs to suit your environment)</li>
+</ol>
+
+<h4>
+<a id="upsinverter-dashboard" class="anchor" href="#upsinverter-dashboard" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>UPS/Inverter Dashboard</h4>
+
+<p><img src="https://raw.githubusercontent.com/ab77/beastcraft-telemetry/master/static/power.png" alt="power dashboard"></p>
+
+<ol>
+<li>ensure <a href="http://www.networkupstools.org/">Network UPS Tools</a> is correctly configured to work with the UPS (use <code>blazer_ser</code> driver)</li>
+<li>edit <code>ups.py</code> and adjust the default <code>upsname</code> (mine is <code>upsoem</code>) or pass from the command line using <code>--ups</code> parameter</li>
+<li>add <code>ups.conf</code> to <code>/etc/supervisor/conf.d/</code> and reload <code>supervisor</code> process</li>
+<li>import <code>ups.json</code> dashboard and modify it to suit your needs or build your own from scratch (change URLs to suit your environment)</li>
+</ol>
+
+<h4>
+<a id="traffic-dashboard" class="anchor" href="#traffic-dashboard" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Traffic Dashboard</h4>
+
+<ol>
+<li>install <code>sflowtool</code> using <a href="http://blog.sflow.com/2011/12/sflowtool.html">this</a> or <a href="http://blog.belodedenko.me/2014/06/pretty-dashboards-with-fortios-sflow.html">this</a> guide</li>
+<li>add <code>traffic.conf</code> to <code>/etc/supervisor/conf.d/</code> and reload <code>supervisor</code> process</li>
+<li>import <code>traffic.json</code> dashboard and modify it to suit your needs or build your own from scratch</li>
+</ol>
+
+<h4>
+<a id="mobile-broadband-dashboard" class="anchor" href="#mobile-broadband-dashboard" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Mobile Broadband Dashboard</h4>
+
+<p><img src="https://raw.githubusercontent.com/ab77/beastcraft-telemetry/master/static/mobilebroadband.png" alt="mobile dashboard"></p>
+
+<ol>
+<li>update <code>host</code> variable in <code>mobilebroadband.py</code> to match your ZTE MF823 modem IP address</li>
+<li>add <code>mobilebroadband.conf</code> to <code>/etc/supervisor/conf.d/</code> and reload <code>supervisor</code> process</li>
+<li>install <code>nginx</code> or <code>Caddyserver</code> and configure it as a reverse proxy for both Grafana and ZTE web GUIs (the later is required to set the <code>Referer</code> header)</li>
+<li>import <code>mobilebroadband.json</code> dashboard and modify it to suit your needs or build your own from scratch (change URLs to suit your environment)</li>
+</ol>
+
+<pre><code>pi@localhost ~ $ cat /etc/nginx/sites-enabled/grafana
+server {
+
+    listen 80;
+    server_name &lt;your_host_name&gt;;
+
+    location / {
+        proxy_pass http://localhost:3000/;
+    }
+
+    location /public/ {
+        alias /usr/share/grafana/public/;
+    }
+
+    location /goform/ {
+        proxy_set_header Referer http://&lt;your_ZTE-MF823_modem_IP&gt;/;
+        proxy_pass http://&lt;your_ZTE-MF823_modem_IP&gt;:80/goform/;
+    }
+}
+</code></pre>
+
+<p>The ZTE MF823 has a REST API apart from the web GUI, which we are using to communicate with the modem from within the Grafana dashboard. The full list of command sisn't published, but looking at the modem's web interface with Chrome Developer Tools, the following commands were evident.</p>
+
+<pre><code># connect mobile network (HTTP GET)
+http://&lt;modem_IP&gt;/goform//goform_set_cmd_process?isTest=false&amp;notCallback=true&amp;goformId=CONNECT_NETWORK
+
+# disconnect mobile network (HTTP GET)
+http://&lt;modem_IP&gt;/goform//goform_set_cmd_process?isTest=false&amp;notCallback=true&amp;goformId=DISCONNECT_NETWORK
+
+# modem state (HTTP GET)
+http://&lt;modem_IP&gt;/goform/goform_get_cmd_process?multi_data=1&amp;isTest=false&amp;sms_received_flag_flag=0&amp;sts_received_flag_flag=0&amp;cmd=modem_main_state%2Cpin_status%2Cloginfo%2Cnew_version_state%2Ccurrent_upgrade_state%2Cis_mandatory%2Csms_received_flag%2Csts_received_flag%2Csignalbar%2Cnetwork_type%2Cnetwork_provider%2Cppp_status%2CEX_SSID1%2Cex_wifi_status%2CEX_wifi_profile%2Cm_ssid_enable%2Csms_unread_num%2CRadioOff%2Csimcard_roam%2Clan_ipaddr%2Cstation_mac%2Cbattery_charging%2Cbattery_vol_percent%2Cbattery_pers%2Cspn_display_flag%2Cplmn_display_flag%2Cspn_name_data%2Cspn_b1_flag%2Cspn_b2_flag%2Crealtime_tx_bytes%2Crealtime_rx_bytes%2Crealtime_time%2Crealtime_tx_thrpt%2Crealtime_rx_thrpt%2Cmonthly_rx_bytes%2Cmonthly_tx_bytes%2Cmonthly_time%2Cdate_month%2Cdata_volume_limit_switch%2Cdata_volume_limit_size%2Cdata_volume_alert_percent%2Cdata_volume_limit_unit%2Croam_setting_option%2Cupg_roam_switch%2Chplmn
+
+# ConnectionMode (dial mode auto|manual)
+http://&lt;modem_IP&gt;/goform/goform_get_cmd_process?isTest=false&amp;cmd=ConnectionMode
+
+# enable roaming
+http://&lt;modem_IP&gt;/goform/goform_set_cmd_process?isTest=false&amp;notCallback=true&amp;goformId=SET_CONNECTION_MODE&amp;roam_setting_option=on
+
+# disable roaming
+http://&lt;modem_IP&gt;/goform/goform_set_cmd_process?isTest=false&amp;notCallback=true&amp;goformId=SET_CONNECTION_MODE&amp;roam_setting_option=off
+
+# enable auto-dial
+http://&lt;modem_IP&gt;/goform/goform/goform_set_cmd_process?isTest=false&amp;notCallback=true&amp;goformId=SET_CONNECTION_MODE&amp;ConnectionMode=auto_dial
+
+# disable auto-dial
+http://&lt;modem_IP&gt;/goform/goform/goform_set_cmd_process?isTest=false&amp;notCallback=true&amp;goformId=SET_CONNECTION_MODE&amp;ConnectionMode=manual_dial
+
+# upgrade_result
+http://&lt;modem_IP&gt;/goform/goform_get_cmd_process?isTest=false&amp;cmd=upgrade_result
+
+# current_upgrade_state
+http://&lt;modem_IP&gt;/goform/goform_get_cmd_process?isTest=false&amp;cmd=current_upgrade_state
+
+# sms_data_total
+http://&lt;modem_IP&gt;/goform/goform_get_cmd_process?isTest=false&amp;cmd=sms_data_total&amp;page=0&amp;data_per_page=500&amp;mem_store=1&amp;tags=10&amp;order_by=order+by+id+desc
+
+# sms_capacity_info
+http://&lt;modem_IP&gt;/goform/goform_get_cmd_process?isTest=false&amp;cmd=sms_capacity_info
+
+# sms_parameter_info
+http://&lt;modem_IP&gt;/goform/goform_get_cmd_process?isTest=false&amp;cmd=sms_parameter_info
+
+# pbm_init_flag
+http://&lt;modem_IP&gt;/goform/goform_get_cmd_process?isTest=false&amp;cmd=pbm_init_flag
+
+# pbm_capacity_info&amp;pbm_location=pbm_sim
+http://&lt;modem_IP&gt;/goform/goform_get_cmd_process?isTest=false&amp;cmd=pbm_capacity_info&amp;pbm_location=pbm_sim
+
+# mem__data_total
+http://&lt;modem_IP&gt;/goform/goform_get_cmd_process?isTest=false&amp;mem_store=2&amp;cmd=pbm_data_total&amp;page=0&amp;data_per_page=2000&amp;orderBy=name&amp;isAsc=true
+
+# m_ssid_enable
+http://&lt;modem_IP&gt;/goform/goform_get_cmd_process?isTest=false&amp;cmd=m_ssid_enable%2CSSID1%2CAuthMode%2CHideSSID%2CWPAPSK1%2CMAX_Access_num%2CEncrypType%2Cm_SSID%2Cm_AuthMode%2Cm_HideSSID%2Cm_WPAPSK1%2Cm_MAX_Access_num%2Cm_EncrypType&amp;multi_data=1
+
+# pbm_capacity_info&amp;pbm_location=pbm_native
+http://&lt;modem_IP&gt;/goform/goform_get_cmd_process?isTest=false&amp;cmd=pbm_capacity_info&amp;pbm_location=pbm_native
+
+# sim_imsi
+http://&lt;modem_IP&gt;/goform/goform_get_cmd_process?isTest=false&amp;multi_data=1&amp;cmd=sim_imsi%2Csim_imsi_lists
+
+# wifi_coverage
+http://&lt;modem_IP&gt;/goform/goform_get_cmd_process?isTest=false&amp;cmd=wifi_coverage%2Cm_ssid_enable%2Cimei%2Cweb_version%2Cwa_inner_version%2Chardware_version%2CMAX_Access_num%2CSSID1%2Cm_SSID%2Cm_HideSSID%2Cm_MAX_Access_num%2Clan_ipaddr%2Cwan_active_band%2Cmac_address%2Cmsisdn%2CLocalDomain%2Cwan_ipaddr%2Cipv6_wan_ipaddr%2Cipv6_pdp_type%2Cpdp_type%2Cppp_status%2Csim_iccid%2Csim_imsi%2Crmcc%2Crmnc%2Crssi%2Crscp%2Clte_rsrp%2Cecio%2Clte_snr%2Cnetwork_type%2Clte_rssi%2Clac_code%2Ccell_id%2Clte_pci%2Cdns_mode%2Cprefer_dns_manual%2Cstandby_dns_manual%2Cprefer_dns_auto%2Cstandby_dns_auto%2Cipv6_dns_mode%2Cipv6_prefer_dns_manual%2Cipv6_standby_dns_manual%2Cipv6_prefer_dns_auto%2Cipv6_standby_dns_auto%2Cmodel_name&amp;multi_data=1
+
+# current_network_mode
+http://&lt;modem_IP&gt;/goform/goform_get_cmd_process?isTest=false&amp;cmd=current_network_mode%2Cm_netselect_save%2Cnet_select_mode%2Cm_netselect_contents%2Cnet_select%2Cppp_status%2Cmodem_main_state%2Clte_band_lock%2Cwcdma_band_lock&amp;multi_data=1
+
+# APN_config0
+http://&lt;modem_IP&gt;/goform/goform_get_cmd_process?isTest=false&amp;cmd=APN_config0%2CAPN_config1%2CAPN_config2%2CAPN_config3%2CAPN_config4%2CAPN_config5%2CAPN_config6%2CAPN_config7%2CAPN_config8%2CAPN_config9%2CAPN_config10%2CAPN_config11%2CAPN_config12%2CAPN_config13%2CAPN_config14%2CAPN_config15%2CAPN_config16%2CAPN_config17%2CAPN_config18%2CAPN_config19%2Cipv6_APN_config0%2Cipv6_APN_config1%2Cipv6_APN_config2%2Cipv6_APN_config3%2Cipv6_APN_config4%2Cipv6_APN_config5%2Cipv6_APN_config6%2Cipv6_APN_config7%2Cipv6_APN_config8%2Cipv6_APN_config9%2Cipv6_APN_config10%2Cipv6_APN_config11%2Cipv6_APN_config12%2Cipv6_APN_config13%2Cipv6_APN_config14%2Cipv6_APN_config15%2Cipv6_APN_config16%2Cipv6_APN_config17%2Cipv6_APN_config18%2Cipv6_APN_config19%2Cm_profile_name%2Cprofile_name%2Cwan_dial%2Capn_select%2Cpdp_type%2Cpdp_select%2Cpdp_addr%2Cindex%2CCurrent_index%2Capn_auto_config%2Cipv6_apn_auto_config%2Capn_mode%2Cwan_apn%2Cppp_auth_mode%2Cppp_username%2Cppp_passwd%2Cdns_mode%2Cprefer_dns_manual%2Cstandby_dns_manual%2Cipv6_wan_apn%2Cipv6_pdp_type%2Cipv6_ppp_auth_mode%2Cipv6_ppp_username%2Cipv6_ppp_passwd%2Cipv6_dns_mode%2Cipv6_prefer_dns_manual%2Cipv6_standby_dns_manual&amp;multi_data=1
+
+# lan_ipaddr
+http://&lt;modem_IP&gt;/goform/goform_get_cmd_process?isTest=false&amp;cmd=lan_ipaddr%2Clan_netmask%2Cmac_address%2CdhcpEnabled%2CdhcpStart%2CdhcpEnd%2CdhcpLease_hour&amp;multi_data=1
+
+# DMZEnable
+http://&lt;modem_IP&gt;/goform/goform_get_cmd_process?isTest=false&amp;cmd=DMZEnable%2CDMZIPAddress&amp;multi_data=1
+
+# PortMapEnable
+http://&lt;modem_IP&gt;/goform/goform_get_cmd_process?isTest=false&amp;cmd=PortMapEnable%2CPortMapRules_0%2CPortMapRules_1%2CPortMapRules_2%2CPortMapRules_3%2CPortMapRules_4%2CPortMapRules_5%2CPortMapRules_6%2CPortMapRules_7%2CPortMapRules_8%2CPortMapRules_9&amp;multi_data=1
+
+# IPPortFilterEnable
+http://&lt;modem_IP&gt;/goform/goform_get_cmd_process?isTest=false&amp;cmd=IPPortFilterEnable%2CDefaultFirewallPolicy%2CIPPortFilterRules_0%2CIPPortFilterRules_1%2CIPPortFilterRules_2%2CIPPortFilterRules_3%2CIPPortFilterRules_4%2CIPPortFilterRules_5%2CIPPortFilterRules_6%2CIPPortFilterRules_7%2CIPPortFilterRules_8%2CIPPortFilterRules_9%2CIPPortFilterRulesv6_0%2CIPPortFilterRulesv6_1%2CIPPortFilterRulesv6_2%2CIPPortFilterRulesv6_3%2CIPPortFilterRulesv6_4%2CIPPortFilterRulesv6_5%2CIPPortFilterRulesv6_6%2CIPPortFilterRulesv6_7%2CIPPortFilterRulesv6_8%2CIPPortFilterRulesv6_9&amp;multi_data=1
+</code></pre>
+
+<p>All the API requests require the <code>Referer: http://&lt;your_ZTE-MF823_modem_IP&gt;/</code> request header present. No additional headers are required.</p>
+
+<h4>
+<a id="gps-dashboard" class="anchor" href="#gps-dashboard" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>GPS Dashboard</h4>
+
+<p><img src="https://raw.githubusercontent.com/ab77/beastcraft-telemetry/master/static/gps.png" alt="GPS dashboard"></p>
+
+<ol>
+<li>install <code>gpsd</code> (<a href="http://www.catb.org/gpsd/">docs</a>) using <a href="http://www.danmandle.com/blog/getting-gpsd-to-work-with-python/">this</a> or <a href="http://blog.perrygeo.net/2007/05/27/python-gpsd-bindings/">this</a> guide.</li>
+<li>add <code>geo.conf</code> to <code>/etc/supervisor/conf.d/</code> and reload <code>supervisor</code> process</li>
+<li>import <code>gps.json</code> dashboard and modify it to suit your needs or build your own from scratch</li>
+</ol>
+
+<p>To synchronise time using GPS receiver and NTP, read the following concise article <a href="https://bigdanzblog.wordpress.com/2015/01/18/connecting-u-blox-neo-6m-gps-to-raspberry-pi/">Connecting u-blox NEO-6M GPS to Raspberry Pi</a>.</p>
+
+<h4>
+<a id="fortiwifi-interface-monitor" class="anchor" href="#fortiwifi-interface-monitor" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>FortiWifi Interface Monitor</h4>
+
+<p>A <code>FortiWifi</code> firewall can be configured as a wireless bridge as follows[n1]:</p>
+
+<pre><code>config system global
+    set wireless-mode client
+end
+</code></pre>
+
+<p>A side effect of doing this, is that the resulting <code>wifi</code> internal interface is always up, regardless of whether or not it is connected to the upstream wireless network. This means that if a backup interface is to be used (e.g. Mobile Broadband), the <code>wifi</code> interface default route will never be released and the backup one will never kick in. A less elegant solution is to use FortiOS <code>link-monitor</code> function in conjunction with a custom script running somewhere nearby to manipulate network routes depending on interface availability.</p>
+
+<p>For example, if a <code>wifi</code> interface is used as a primary network link and a <code>wan2</code> interface is used for backup, the following <code>link-monitor</code> configuration is set on the device:</p>
+
+<pre><code>config system link-monitor
+    edit "wan2"
+        set srcintf "wan2"
+        set server "8.8.8.8" "8.8.4.4"
+    next
+    edit "wifi"
+        set srcintf "wifi"
+        set server "8.8.8.8" "8.8.4.4"
+    next
+end
+</code></pre>
+
+<p>Status check is performed for running <code>diag sys link-monitor status wifi</code> command and inspecting the output:</p>
+
+<pre><code>Link Monitor: wifi Status: alive Create time: Fri Mar 18 14:55:41 2016
+Source interface: wifi (18)
+Interval: 5, Timeout 1
+Fail times: 0/5
+Send times: 0
+  Peer: 8.8.4.4(8.8.4.4)
+        Source IP(172.16.99.11)
+        Route: 172.16.99.11-&gt;8.8.4.4/32, gwy(172.16.99.254)
+    protocol: ping, state: alive
+              Latency(recent/average): 20.55/23.82 ms Jitter: 267.41
+              Recovery times(0/5)
+              Continuous sending times after the first recovery time 0
+              Packet sent: 172173  Packet received: 167884
+  Peer: 8.8.8.8(8.8.8.8)
+        Source IP(172.16.99.11)
+        Route: 172.16.99.11-&gt;8.8.8.8/32, gwy(172.16.99.254)
+    protocol: ping, state: alive
+              Latency(recent/average): 20.41/29.20 ms Jitter: 266.55
+              Recovery times(1/5)
+              Continuous sending times after the first recovery time 1
+              Packet sent: 172161  Packet received: 169386
+</code></pre>
+
+<p>To automate this, I've written a simple Python script, which can be run on a nearby Linux host, to poll the firewall every few seconds and check the interface status. Should the primary interface go down, the script modifies the default route to send traffic to the backup interface:</p>
+
+<pre><code>usage: monitor.py [-h] --host HOST [--port PORT] [--user USER] --iface IFACE
+                  --backup BACKUP --gwip GWIP
+
+FortiGate interface monitor
+
+optional arguments:
+  -h, --help       show this help message and exit
+  --host HOST      FortiGate appliance hostname or IP
+  --port PORT      SSH port of the FortiGate appliance
+  --user USER      FortiGate admin username
+  --iface IFACE    FortiGate interface to monitor (e.g. wifi)
+  --backup BACKUP  FortiGate interface to fail-over to (e.g. wan2)
+  --gwip GWIP      Backup interface gateway ipaddr
+</code></pre>
+
+<p><a href="http://ab77.github.io/"><img src="https://avatars2.githubusercontent.com/u/2033996?v=3&amp;s=96" alt="ab1"></a></p>
+
+<h6>
+<a id="footnotes" class="anchor" href="#footnotes" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Footnotes</h6>
+
+<p>[n1] <a href="https://stuff.purdon.ca/?page_id=183">FortiWifi Client mode (wireless bridge)</a></p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/ab77/beastcraft-telemetry">Beastcraft-telemetry</a> is maintained by <a href="https://github.com/ab77">ab77</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>

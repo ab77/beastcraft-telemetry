@@ -28,7 +28,7 @@ gvm pkgset create grafana
 gvm pkgset use grafana
 cd ~/.gvm/pkgsets/go1.5/grafana
 export GOPATH=`pwd`
-go get github.com/grafana/grafana
+go get github.com/grafana/grafana || go get -u github.com/grafana/grafana
 cd $GOPATH/src/github.com/grafana/grafana
 
 # remove PhantomJS dependency

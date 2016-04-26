@@ -55,13 +55,14 @@
               "url": "http://dash.beastcraft.belodedenko.me/goform//goform_set_cmd_process?isTest=false&notCallback=true&goformId=DISCONNECT_NETWORK"
             },
             {
+              "dashboard": "OpenWRT",
               "targetBlank": true,
               "title": "Router",
               "type": "absolute",
-              "url": "https://beastroute1.beastcraft.belodedenko.me/"
+              "url": "http://beastroute1-web.beastcraft.belodedenko.me/"
             },
             {
-              "dashboard": "http:/172.17.0.1/",
+              "dashboard": "MF823",
               "targetBlank": true,
               "title": "Modem",
               "type": "absolute",

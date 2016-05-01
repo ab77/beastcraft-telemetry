@@ -54,7 +54,7 @@ This repository contains configuration specific to my environment, with five `DS
 ![mobile dashboard](https://raw.githubusercontent.com/ab77/beastcraft-telemetry/master/static/mobilebroadband.png)
 
 1. update `host` variable in `mobilebroadband.py` to match your ZTE MF823 modem IP address
-2. add `mobilebroadband.conf` to `/etc/supervisor/conf.d/` and reload `supervisor` process
+2. add `mobilebroadband.conf` to `/etc/supervisor/conf.d/`, change DNS details and reload `supervisor` process
 3. install `nginx` or `Caddyserver` and configure it as a reverse proxy for both Grafana and ZTE web GUIs (the later is required to set the `Referer` header)
 4. import `mobilebroadband.json` dashboard and modify it to suit your needs or build your own from scratch (change URLs to suit your environment)
 
@@ -163,6 +163,15 @@ http://<modem_IP>/goform/goform_get_cmd_process?isTest=false&cmd=IPPortFilterEna
 ```
 
 All the API requests require the `Referer: http://<your_ZTE-MF823_modem_IP>/` request header present. No additional headers are required.
+
+#### Satellite Internet Dashboard
+
+![mobile dashboard](https://raw.githubusercontent.com/ab77/beastcraft-telemetry/master/static/sat.png)
+
+1. update `host` variable in `satinternet.py` to match the Newtec S3P (NTC2252) modem ipaddr
+2. add `satinternet.conf` to `/etc/supervisor/conf.d/` and reload `supervisor` process
+3. install `nginx` or `Caddyserver` and configure it as a reverse proxy for Newtec Sat3Play web GUI
+4. import `satinternet.json` dashboard and modify it to suit your needs or build your own from scratch (change URLs to suit your environment)
 
 #### GPS Dashboard
 

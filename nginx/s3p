@@ -1,0 +1,9 @@
+server {
+
+	listen 80;
+	server_name s3p-web.beastcraft.belodedenko.me;
+	
+	location / {
+		proxy_pass http://s3p.beastcraft.belodedenko.me/;
+	}
+}

@@ -1,0 +1,18 @@
+server {
+
+	listen 80;
+	server_name dash.beastcraft.belodedenko.me;
+	
+	location / {
+		proxy_pass http://localhost:3000/;
+	}
+
+	location /public/ {
+		alias /usr/share/grafana/public/;
+	}
+
+	location /goform/ {
+		proxy_set_header Referer http://172.17.0.1/;
+		proxy_pass http://172.17.0.1:80/goform/;
+	}
+}

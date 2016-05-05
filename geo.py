@@ -14,24 +14,29 @@ WAIT_TIME = 60 # seconds
 
 
 def main(host='localhost', port=8086, domain=None, key=None):
-    user = 'admin'
-    password = 'admin'
-    dbname = 'beastcraft'
-    dbclient = InfluxDBClient(host, port, user, password, dbname)
-    
-    session = gps.gps(host='localhost', port='2947')
-    session.stream(gps.WATCH_ENABLE|gps.WATCH_NEWSTYLE)
-    start_time = time.time() - WAIT_TIME
-    reports = []
-    for report in session:
-        report = report.__dict__
-        if report['class'] == 'TPV':	
-            reports.append(report)
-            if time.time() - start_time > WAIT_TIME:                
-                write_db(dbclient, summarise_rpt(reports), domain=domain, key=key)
-                reports = []
-                start_time = time.time()
-
+    try:
+        user = 'admin'
+        password = 'admin'
+        dbname = 'beastcraft'
+        dbclient = InfluxDBClient(host, port, user, password, dbname)
+        
+        session = gps.gps(host='localhost', port='2947')
+        session.stream(gps.WATCH_ENABLE|gps.WATCH_NEWSTYLE)
+        start_time = time.time() - WAIT_TIME
+        reports = []
+        for report in session:
+            report = report.__dict__
+            if report['class'] == 'TPV':	
+                reports.append(report)
+                if time.time() - start_time > WAIT_TIME:                
+                    write_db(dbclient, summarise_rpt(reports), domain=domain, key=key)
+                    reports = []
+                    start_time = time.time()
+                    
+    except Exception, e:
+        print '%s retrieving GPS stats, retrying in %d seconds' % (repr(e), WAIT_TIME)
+        time.sleep(WAIT_TIME)
+        
 
 def average_val(rpts, name):
     l =  [rpt[name] for rpt in rpts]

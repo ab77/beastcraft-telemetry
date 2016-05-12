@@ -91,7 +91,13 @@
           "transparent": true,
           "type": "singlestat",
           "valueFontSize": "80%",
-          "valueMaps": [],
+          "valueMaps": [
+            {
+              "value": "null",
+              "op": "=",
+              "text": "N/A"
+            }
+          ],
           "valueName": "current"
         },
         {
@@ -161,7 +167,13 @@
           "transparent": true,
           "type": "singlestat",
           "valueFontSize": "50%",
-          "valueMaps": [],
+          "valueMaps": [
+            {
+              "value": "null",
+              "op": "=",
+              "text": "N/A"
+            }
+          ],
           "valueName": "current"
         },
         {
@@ -231,7 +243,13 @@
           "transparent": true,
           "type": "singlestat",
           "valueFontSize": "50%",
-          "valueMaps": [],
+          "valueMaps": [
+            {
+              "value": "null",
+              "op": "=",
+              "text": "N/A"
+            }
+          ],
           "valueName": "current"
         },
         {
@@ -301,7 +319,13 @@
           "transparent": true,
           "type": "singlestat",
           "valueFontSize": "50%",
-          "valueMaps": [],
+          "valueMaps": [
+            {
+              "value": "null",
+              "op": "=",
+              "text": "N/A"
+            }
+          ],
           "valueName": "current"
         },
         {
@@ -371,7 +395,13 @@
           "transparent": true,
           "type": "singlestat",
           "valueFontSize": "50%",
-          "valueMaps": [],
+          "valueMaps": [
+            {
+              "value": "null",
+              "op": "=",
+              "text": "N/A"
+            }
+          ],
           "valueName": "current"
         }
       ],
@@ -455,7 +485,8 @@
               "value": "null"
             }
           ],
-          "valueName": "current"
+          "valueName": "current",
+          "transparent": true
         },
         {
           "cacheTimeout": null,
@@ -530,7 +561,8 @@
               "value": "null"
             }
           ],
-          "valueName": "current"
+          "valueName": "current",
+          "transparent": true
         },
         {
           "cacheTimeout": null,
@@ -605,7 +637,8 @@
               "value": "null"
             }
           ],
-          "valueName": "current"
+          "valueName": "current",
+          "transparent": true
         }
       ],
       "title": "Graphs"
@@ -649,6 +682,6 @@
   },
   "refresh": "1m",
   "schemaVersion": 12,
-  "version": 9,
+  "version": 12,
   "links": []
 }

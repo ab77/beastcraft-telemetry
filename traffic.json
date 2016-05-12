@@ -20,17 +20,11 @@
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": null,
+          "datasource": "BeastCraft",
           "editable": true,
           "error": false,
           "fill": 1,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 0,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -39,7 +33,6 @@
           "id": 3,
           "interval": "1m",
           "isNew": true,
-          "leftYAxisLabel": "",
           "legend": {
             "avg": false,
             "current": false,
@@ -122,7 +115,8 @@
                   "operator": "=",
                   "value": "9"
                 }
-              ]
+              ],
+              "policy": "default"
             },
             {
               "alias": "outBytes",
@@ -183,7 +177,8 @@
                   "operator": "=",
                   "value": "9"
                 }
-              ]
+              ],
+              "policy": "default"
             }
           ],
           "timeFrom": null,
@@ -191,16 +186,31 @@
           "title": "",
           "tooltip": {
             "shared": true,
-            "value_type": "cumulative"
+            "value_type": "cumulative",
+            "msResolution": false
           },
           "transparent": true,
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "bits",
-            "short"
-          ]
+          "yaxes": [
+            {
+              "show": true,
+              "min": 0,
+              "max": null,
+              "logBase": 1,
+              "format": "bits",
+              "label": ""
+            },
+            {
+              "show": true,
+              "min": null,
+              "max": null,
+              "logBase": 1,
+              "format": "short"
+            }
+          ],
+          "xaxis": {
+            "show": true
+          }
         }
       ],
       "title": "LAN"
@@ -213,17 +223,11 @@
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": null,
+          "datasource": "BeastCraft",
           "editable": true,
           "error": false,
           "fill": 1,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 0,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -232,7 +236,6 @@
           "id": 2,
           "interval": "1m",
           "isNew": true,
-          "leftYAxisLabel": "",
           "legend": {
             "avg": false,
             "current": false,
@@ -315,7 +318,8 @@
                   "operator": "=",
                   "value": "2"
                 }
-              ]
+              ],
+              "policy": "default"
             },
             {
               "alias": "outBytes",
@@ -376,7 +380,8 @@
                   "operator": "=",
                   "value": "2"
                 }
-              ]
+              ],
+              "policy": "default"
             }
           ],
           "timeFrom": null,
@@ -384,16 +389,31 @@
           "title": "",
           "tooltip": {
             "shared": true,
-            "value_type": "cumulative"
+            "value_type": "cumulative",
+            "msResolution": false
           },
           "transparent": true,
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "bits",
-            "short"
-          ]
+          "yaxes": [
+            {
+              "show": true,
+              "min": 0,
+              "max": null,
+              "logBase": 1,
+              "format": "bits",
+              "label": ""
+            },
+            {
+              "show": true,
+              "min": null,
+              "max": null,
+              "logBase": 1,
+              "format": "short"
+            }
+          ],
+          "xaxis": {
+            "show": true
+          }
         }
       ],
       "title": "Mobile"
@@ -411,12 +431,6 @@
           "error": false,
           "fill": 1,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": 0,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -425,7 +439,6 @@
           "id": 1,
           "interval": "1m",
           "isNew": true,
-          "leftYAxisLabel": "",
           "legend": {
             "avg": false,
             "current": false,
@@ -581,12 +594,26 @@
           },
           "transparent": true,
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "bits",
-            "short"
-          ]
+          "yaxes": [
+            {
+              "show": true,
+              "min": 0,
+              "max": null,
+              "logBase": 1,
+              "format": "bits",
+              "label": ""
+            },
+            {
+              "show": true,
+              "min": null,
+              "max": null,
+              "logBase": 1,
+              "format": "short"
+            }
+          ],
+          "xaxis": {
+            "show": true
+          }
         }
       ],
       "title": "Satellite"
@@ -629,7 +656,7 @@
     "list": []
   },
   "refresh": "1m",
-  "schemaVersion": 8,
-  "version": 12,
+  "schemaVersion": 12,
+  "version": 1,
   "links": []
 }

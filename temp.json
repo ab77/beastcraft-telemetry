@@ -25,11 +25,19 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
-          "datasource": null,
+          "datasource": "BeastCraft",
           "decimals": 2,
           "editable": true,
           "error": false,
           "format": "celsius",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
+          "height": "100px",
           "id": 7,
           "interval": null,
           "isNew": true,
@@ -53,7 +61,9 @@
               "dsType": "influxdb",
               "groupBy": [],
               "measurement": "temp",
+              "policy": "default",
               "query": "SELECT \"value\" FROM \"temp\" WHERE \"sensor\" = '28-021564e193ff' AND $timeFilter",
+              "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -75,7 +85,7 @@
               ]
             }
           ],
-          "thresholds": "0,16,25,30",
+          "thresholds": "16,25,30",
           "timeFrom": null,
           "timeShift": null,
           "title": "outside",
@@ -89,8 +99,7 @@
               "value": "null"
             }
           ],
-          "valueName": "current",
-          "height": "0"
+          "valueName": "current"
         },
         {
           "cacheTimeout": null,
@@ -101,11 +110,19 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
-          "datasource": null,
+          "datasource": "BeastCraft",
           "decimals": 2,
           "editable": true,
           "error": false,
           "format": "celsius",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
+          "height": "100px",
           "id": 5,
           "interval": null,
           "isNew": true,
@@ -129,7 +146,9 @@
               "dsType": "influxdb",
               "groupBy": [],
               "measurement": "temp",
+              "policy": "default",
               "query": "SELECT \"value\" FROM \"temp\" WHERE \"sensor\" = '28-0000062841eb' AND $timeFilter",
+              "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -153,6 +172,7 @@
           ],
           "thresholds": "",
           "title": "boiler cupboard",
+          "transparent": true,
           "type": "singlestat",
           "valueFontSize": "50%",
           "valueMaps": [
@@ -162,8 +182,7 @@
               "value": "null"
             }
           ],
-          "valueName": "current",
-          "height": "0"
+          "valueName": "current"
         },
         {
           "cacheTimeout": null,
@@ -174,11 +193,19 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
-          "datasource": null,
+          "datasource": "BeastCraft",
           "decimals": 2,
           "editable": true,
           "error": false,
           "format": "celsius",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
+          "height": "100px",
           "id": 2,
           "interval": null,
           "isNew": true,
@@ -202,7 +229,9 @@
               "dsType": "influxdb",
               "groupBy": [],
               "measurement": "temp",
+              "policy": "default",
               "query": "SELECT \"value\" FROM \"temp\" WHERE \"sensor\" = '28-00000625bd01' AND $timeFilter",
+              "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -226,6 +255,7 @@
           ],
           "thresholds": "",
           "title": "under the bed",
+          "transparent": true,
           "type": "singlestat",
           "valueFontSize": "50%",
           "valueMaps": [
@@ -235,8 +265,7 @@
               "value": "null"
             }
           ],
-          "valueName": "current",
-          "height": "0"
+          "valueName": "current"
         },
         {
           "cacheTimeout": null,
@@ -247,11 +276,19 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
-          "datasource": null,
+          "datasource": "BeastCraft",
           "decimals": 2,
           "editable": true,
           "error": false,
           "format": "celsius",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
+          "height": "100px",
           "id": 6,
           "interval": null,
           "isNew": true,
@@ -275,7 +312,9 @@
               "dsType": "influxdb",
               "groupBy": [],
               "measurement": "temp",
+              "policy": "default",
               "query": "SELECT \"value\" FROM \"temp\" WHERE \"sensor\" = '28-00000628c173' AND $timeFilter",
+              "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -299,6 +338,7 @@
           ],
           "thresholds": "",
           "title": "electronics cupboard",
+          "transparent": true,
           "type": "singlestat",
           "valueFontSize": "50%",
           "valueMaps": [
@@ -308,8 +348,7 @@
               "value": "null"
             }
           ],
-          "valueName": "current",
-          "height": "0"
+          "valueName": "current"
         },
         {
           "cacheTimeout": null,
@@ -320,11 +359,19 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
-          "datasource": null,
+          "datasource": "BeastCraft",
           "decimals": 2,
           "editable": true,
           "error": false,
           "format": "celsius",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
+          "height": "100px",
           "id": 4,
           "interval": null,
           "isNew": true,
@@ -348,6 +395,7 @@
               "dsType": "influxdb",
               "groupBy": [],
               "measurement": "temp",
+              "policy": "default",
               "query": "SELECT \"value\" FROM \"temp\" WHERE \"sensor\" = '28-00000626bee8' AND $timeFilter",
               "refId": "A",
               "resultFormat": "time_series",
@@ -370,7 +418,7 @@
               ]
             }
           ],
-          "thresholds": "0,17,25,30",
+          "thresholds": "17,25,30",
           "title": "hab space",
           "transparent": true,
           "type": "singlestat",
@@ -382,8 +430,7 @@
               "value": "null"
             }
           ],
-          "valueName": "current",
-          "height": "0"
+          "valueName": "current"
         }
       ],
       "title": "Row"
@@ -396,18 +443,12 @@
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": null,
+          "datasource": "BeastCraft",
           "decimals": 3,
           "editable": true,
           "error": false,
           "fill": 1,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": null,
-            "leftMin": null,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -417,7 +458,6 @@
           "id": 1,
           "interval": "",
           "isNew": true,
-          "leftYAxisLabel": "",
           "legend": {
             "alignAsTable": false,
             "avg": false,
@@ -437,7 +477,6 @@
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
-          "rightYAxisLabel": "",
           "seriesOverrides": [
             {
               "alias": "temp",
@@ -472,6 +511,7 @@
                 }
               ],
               "measurement": "temp",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"temp\" WHERE $timeFilter GROUP BY time($interval), \"location\" fill(previous)",
               "refId": "A",
               "resultFormat": "time_series",
@@ -496,16 +536,32 @@
           "timeShift": null,
           "title": "",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
           "transparent": true,
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "celsius",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "celsius",
+              "label": "",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": "",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         }
       ],
@@ -549,7 +605,7 @@
     "list": []
   },
   "refresh": "1m",
-  "schemaVersion": 8,
-  "version": 41,
+  "schemaVersion": 12,
+  "version": 7,
   "links": []
 }

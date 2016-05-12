@@ -30,7 +30,14 @@
           "editable": true,
           "error": false,
           "format": "none",
-          "height": "0",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
+          "height": "100px",
           "id": 1,
           "interval": null,
           "isNew": true,
@@ -61,7 +68,9 @@
               "dsType": "influxdb",
               "groupBy": [],
               "measurement": "Modem_State",
-              "query": "SELECT \"value\" FROM \"Modem_State\" WHERE $timeFilter",
+              "policy": "default",
+              "query": "SELECT last(\"value\") FROM \"Modem_State\" WHERE $timeFilter",
+              "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -98,7 +107,14 @@
           "editable": true,
           "error": false,
           "format": "none",
-          "height": "0",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
+          "height": "100px",
           "id": 8,
           "interval": null,
           "isNew": true,
@@ -122,7 +138,9 @@
               "dsType": "influxdb",
               "groupBy": [],
               "measurement": "Software_state",
-              "query": "SELECT \"value\" FROM \"Software_state\" WHERE $timeFilter",
+              "policy": "default",
+              "query": "SELECT last(\"value\") FROM \"Software_state\" WHERE $timeFilter",
+              "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -159,7 +177,14 @@
           "editable": true,
           "error": false,
           "format": "none",
-          "height": "0",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
+          "height": "100px",
           "id": 2,
           "interval": null,
           "isNew": true,
@@ -183,7 +208,9 @@
               "dsType": "influxdb",
               "groupBy": [],
               "measurement": "Ethernet_Interface_State",
-              "query": "SELECT \"value\" FROM \"Ethernet_Interface_State\" WHERE $timeFilter",
+              "policy": "default",
+              "query": "SELECT last(\"value\") FROM \"Ethernet_Interface_State\" WHERE $timeFilter",
+              "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -220,7 +247,14 @@
           "editable": true,
           "error": false,
           "format": "none",
-          "height": "0",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
+          "height": "100px",
           "id": 11,
           "interval": null,
           "isNew": true,
@@ -244,7 +278,9 @@
               "dsType": "influxdb",
               "groupBy": [],
               "measurement": "Satellite_Interface_State",
-              "query": "SELECT \"value\" FROM \"Satellite_Interface_State\" WHERE $timeFilter",
+              "policy": "default",
+              "query": "SELECT last(\"value\") FROM \"Satellite_Interface_State\" WHERE $timeFilter",
+              "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -281,7 +317,14 @@
           "editable": true,
           "error": false,
           "format": "none",
-          "height": "0",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
+          "height": "100px",
           "id": 3,
           "interval": null,
           "isNew": true,
@@ -305,7 +348,9 @@
               "dsType": "influxdb",
               "groupBy": [],
               "measurement": "network_name",
-              "query": "SELECT \"value\" FROM \"network_name\" WHERE $timeFilter",
+              "policy": "default",
+              "query": "SELECT last(\"value\") FROM \"network_name\" WHERE $timeFilter",
+              "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -351,6 +396,13 @@
           "editable": true,
           "error": false,
           "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 9,
           "interval": null,
           "isNew": true,
@@ -374,7 +426,9 @@
               "dsType": "influxdb",
               "groupBy": [],
               "measurement": "signal_strength_dbm",
-              "query": "SELECT \"value\" FROM \"signal_strength_dbm\" WHERE $timeFilter",
+              "policy": "default",
+              "query": "SELECT last(\"value\") FROM \"signal_strength_dbm\" WHERE $timeFilter",
+              "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -417,6 +471,13 @@
           "editable": true,
           "error": false,
           "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 10,
           "interval": null,
           "isNew": true,
@@ -440,7 +501,9 @@
               "dsType": "influxdb",
               "groupBy": [],
               "measurement": "signal_strength",
-              "query": "SELECT \"value\" FROM \"signal_strength\" WHERE $timeFilter",
+              "policy": "default",
+              "query": "SELECT last(\"value\") FROM \"signal_strength\" WHERE $timeFilter",
+              "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -483,6 +546,13 @@
           "editable": true,
           "error": false,
           "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 12,
           "interval": null,
           "isNew": true,
@@ -506,7 +576,9 @@
               "dsType": "influxdb",
               "groupBy": [],
               "measurement": "orbital_position",
-              "query": "SELECT \"value\" FROM \"orbital_position\" WHERE $timeFilter",
+              "policy": "default",
+              "query": "SELECT last(\"value\") FROM \"orbital_position\" WHERE $timeFilter",
+              "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -576,588 +648,7 @@
     "list": []
   },
   "refresh": "1m",
-  "schemaVersion": 8,
-  "version": 7,
-  "links": []
-}{
-  "id": 6,
-  "title": "Satellite Internet",
-  "originalTitle": "Satellite Internet",
-  "tags": [
-    "broadband",
-    "satellite"
-  ],
-  "style": "dark",
-  "timezone": "browser",
-  "editable": true,
-  "hideControls": false,
-  "sharedCrosshair": false,
-  "rows": [
-    {
-      "collapse": false,
-      "editable": true,
-      "height": "0",
-      "panels": [
-        {
-          "cacheTimeout": null,
-          "colorBackground": false,
-          "colorValue": false,
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
-          ],
-          "datasource": "BeastCraft",
-          "editable": true,
-          "error": false,
-          "format": "none",
-          "height": "0",
-          "id": 1,
-          "interval": null,
-          "isNew": true,
-          "links": [
-            {
-              "targetBlank": true,
-              "title": "Modem",
-              "type": "absolute",
-              "url": "http://s3p-web.beastcraft.belodedenko.me/"
-            }
-          ],
-          "maxDataPoints": 100,
-          "nullPointMode": "connected",
-          "nullText": null,
-          "postfix": "",
-          "postfixFontSize": "50%",
-          "prefix": "",
-          "prefixFontSize": "50%",
-          "span": 4,
-          "sparkline": {
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "show": false
-          },
-          "targets": [
-            {
-              "dsType": "influxdb",
-              "groupBy": [],
-              "measurement": "Modem_State",
-              "query": "SELECT \"value\" FROM \"Modem_State\" WHERE $timeFilter",
-              "refId": "A",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "value"
-                    ],
-                    "type": "field"
-                  }
-                ]
-              ],
-              "tags": []
-            }
-          ],
-          "thresholds": "",
-          "title": "Status",
-          "transparent": true,
-          "type": "singlestat",
-          "valueFontSize": "80%",
-          "valueMaps": [],
-          "valueName": "current"
-        },
-        {
-          "cacheTimeout": null,
-          "colorBackground": false,
-          "colorValue": false,
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
-          ],
-          "datasource": "BeastCraft",
-          "editable": true,
-          "error": false,
-          "format": "none",
-          "height": "0",
-          "id": 8,
-          "interval": null,
-          "isNew": true,
-          "links": [],
-          "maxDataPoints": 100,
-          "nullPointMode": "connected",
-          "nullText": null,
-          "postfix": "",
-          "postfixFontSize": "50%",
-          "prefix": "",
-          "prefixFontSize": "50%",
-          "span": 2,
-          "sparkline": {
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "show": true
-          },
-          "targets": [
-            {
-              "dsType": "influxdb",
-              "groupBy": [],
-              "measurement": "Software_state",
-              "query": "SELECT \"value\" FROM \"Software_state\" WHERE $timeFilter",
-              "refId": "A",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "value"
-                    ],
-                    "type": "field"
-                  }
-                ]
-              ],
-              "tags": []
-            }
-          ],
-          "thresholds": "",
-          "title": "Software",
-          "transparent": true,
-          "type": "singlestat",
-          "valueFontSize": "50%",
-          "valueMaps": [],
-          "valueName": "current"
-        },
-        {
-          "cacheTimeout": null,
-          "colorBackground": false,
-          "colorValue": false,
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
-          ],
-          "datasource": "BeastCraft",
-          "editable": true,
-          "error": false,
-          "format": "none",
-          "height": "0",
-          "id": 2,
-          "interval": null,
-          "isNew": true,
-          "links": [],
-          "maxDataPoints": 100,
-          "nullPointMode": "connected",
-          "nullText": null,
-          "postfix": "",
-          "postfixFontSize": "30%",
-          "prefix": "",
-          "prefixFontSize": "50%",
-          "span": 2,
-          "sparkline": {
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "show": true
-          },
-          "targets": [
-            {
-              "dsType": "influxdb",
-              "groupBy": [],
-              "measurement": "Ethernet_Interface_State",
-              "query": "SELECT \"value\" FROM \"Ethernet_Interface_State\" WHERE $timeFilter",
-              "refId": "A",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "value"
-                    ],
-                    "type": "field"
-                  }
-                ]
-              ],
-              "tags": []
-            }
-          ],
-          "thresholds": "",
-          "title": "Ethernet",
-          "transparent": true,
-          "type": "singlestat",
-          "valueFontSize": "50%",
-          "valueMaps": [],
-          "valueName": "current"
-        },
-        {
-          "cacheTimeout": null,
-          "colorBackground": false,
-          "colorValue": false,
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
-          ],
-          "datasource": "BeastCraft",
-          "editable": true,
-          "error": false,
-          "format": "none",
-          "height": "0",
-          "id": 11,
-          "interval": null,
-          "isNew": true,
-          "links": [],
-          "maxDataPoints": 100,
-          "nullPointMode": "connected",
-          "nullText": null,
-          "postfix": "",
-          "postfixFontSize": "30%",
-          "prefix": "",
-          "prefixFontSize": "50%",
-          "span": 2,
-          "sparkline": {
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "show": true
-          },
-          "targets": [
-            {
-              "dsType": "influxdb",
-              "groupBy": [],
-              "measurement": "Satellite_Interface_State",
-              "query": "SELECT \"value\" FROM \"Satellite_Interface_State\" WHERE $timeFilter",
-              "refId": "A",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "value"
-                    ],
-                    "type": "field"
-                  }
-                ]
-              ],
-              "tags": []
-            }
-          ],
-          "thresholds": "",
-          "title": "Satellite NIC",
-          "transparent": true,
-          "type": "singlestat",
-          "valueFontSize": "50%",
-          "valueMaps": [],
-          "valueName": "current"
-        },
-        {
-          "cacheTimeout": null,
-          "colorBackground": false,
-          "colorValue": false,
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
-          ],
-          "datasource": "BeastCraft",
-          "editable": true,
-          "error": false,
-          "format": "none",
-          "height": "0",
-          "id": 3,
-          "interval": null,
-          "isNew": true,
-          "links": [],
-          "maxDataPoints": 100,
-          "nullPointMode": "connected",
-          "nullText": null,
-          "postfix": "",
-          "postfixFontSize": "50%",
-          "prefix": "",
-          "prefixFontSize": "50%",
-          "span": 2,
-          "sparkline": {
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "show": true
-          },
-          "targets": [
-            {
-              "dsType": "influxdb",
-              "groupBy": [],
-              "measurement": "network_name",
-              "query": "SELECT \"value\" FROM \"network_name\" WHERE $timeFilter",
-              "refId": "A",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "value"
-                    ],
-                    "type": "field"
-                  }
-                ]
-              ],
-              "tags": []
-            }
-          ],
-          "thresholds": "",
-          "title": "Network",
-          "transparent": true,
-          "type": "singlestat",
-          "valueFontSize": "50%",
-          "valueMaps": [],
-          "valueName": "current"
-        }
-      ],
-      "title": "Stats"
-    },
-    {
-      "collapse": false,
-      "editable": true,
-      "height": "250px",
-      "panels": [
-        {
-          "cacheTimeout": null,
-          "colorBackground": false,
-          "colorValue": false,
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
-          ],
-          "datasource": "BeastCraft",
-          "decimals": 2,
-          "editable": true,
-          "error": false,
-          "format": "none",
-          "id": 9,
-          "interval": null,
-          "isNew": true,
-          "links": [],
-          "maxDataPoints": 100,
-          "nullPointMode": "connected",
-          "nullText": null,
-          "postfix": "",
-          "postfixFontSize": "50%",
-          "prefix": "",
-          "prefixFontSize": "50%",
-          "span": 4,
-          "sparkline": {
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "show": false
-          },
-          "targets": [
-            {
-              "dsType": "influxdb",
-              "groupBy": [],
-              "measurement": "signal_strength_dbm",
-              "query": "SELECT \"value\" FROM \"signal_strength_dbm\" WHERE $timeFilter",
-              "refId": "A",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "value"
-                    ],
-                    "type": "field"
-                  }
-                ]
-              ],
-              "tags": []
-            }
-          ],
-          "thresholds": "",
-          "title": "Signal Strength (dBm)",
-          "type": "singlestat",
-          "valueFontSize": "80%",
-          "valueMaps": [
-            {
-              "op": "=",
-              "text": "N/A",
-              "value": "null"
-            }
-          ],
-          "valueName": "current"
-        },
-        {
-          "cacheTimeout": null,
-          "colorBackground": false,
-          "colorValue": false,
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
-          ],
-          "datasource": "BeastCraft",
-          "decimals": 2,
-          "editable": true,
-          "error": false,
-          "format": "none",
-          "id": 10,
-          "interval": null,
-          "isNew": true,
-          "links": [],
-          "maxDataPoints": 100,
-          "nullPointMode": "connected",
-          "nullText": null,
-          "postfix": "%",
-          "postfixFontSize": "50%",
-          "prefix": "",
-          "prefixFontSize": "50%",
-          "span": 4,
-          "sparkline": {
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "show": false
-          },
-          "targets": [
-            {
-              "dsType": "influxdb",
-              "groupBy": [],
-              "measurement": "signal_strength",
-              "query": "SELECT \"value\" FROM \"signal_strength\" WHERE $timeFilter",
-              "refId": "A",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "value"
-                    ],
-                    "type": "field"
-                  }
-                ]
-              ],
-              "tags": []
-            }
-          ],
-          "thresholds": "",
-          "title": "Signal Strength %",
-          "type": "singlestat",
-          "valueFontSize": "80%",
-          "valueMaps": [
-            {
-              "op": "=",
-              "text": "N/A",
-              "value": "null"
-            }
-          ],
-          "valueName": "current"
-        },
-        {
-          "cacheTimeout": null,
-          "colorBackground": false,
-          "colorValue": false,
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
-          ],
-          "datasource": "BeastCraft",
-          "decimals": 2,
-          "editable": true,
-          "error": false,
-          "format": "none",
-          "id": 12,
-          "interval": null,
-          "isNew": true,
-          "links": [],
-          "maxDataPoints": 100,
-          "nullPointMode": "connected",
-          "nullText": null,
-          "postfix": "",
-          "postfixFontSize": "50%",
-          "prefix": "",
-          "prefixFontSize": "50%",
-          "span": 4,
-          "sparkline": {
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "show": false
-          },
-          "targets": [
-            {
-              "dsType": "influxdb",
-              "groupBy": [],
-              "measurement": "orbital_position",
-              "query": "SELECT \"value\" FROM \"orbital_position\" WHERE $timeFilter",
-              "refId": "A",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "value"
-                    ],
-                    "type": "field"
-                  }
-                ]
-              ],
-              "tags": []
-            }
-          ],
-          "thresholds": "",
-          "title": "Orbital Position",
-          "type": "singlestat",
-          "valueFontSize": "80%",
-          "valueMaps": [
-            {
-              "op": "=",
-              "text": "N/A",
-              "value": "null"
-            }
-          ],
-          "valueName": "current"
-        }
-      ],
-      "title": "Graphs"
-    }
-  ],
-  "time": {
-    "from": "now-1h",
-    "to": "now"
-  },
-  "timepicker": {
-    "now": true,
-    "refresh_intervals": [
-      "5s",
-      "10s",
-      "30s",
-      "1m",
-      "5m",
-      "15m",
-      "30m",
-      "1h",
-      "2h",
-      "1d"
-    ],
-    "time_options": [
-      "5m",
-      "15m",
-      "1h",
-      "6h",
-      "12h",
-      "24h",
-      "2d",
-      "7d",
-      "30d"
-    ]
-  },
-  "templating": {
-    "list": []
-  },
-  "annotations": {
-    "list": []
-  },
-  "refresh": "1m",
-  "schemaVersion": 8,
-  "version": 7,
+  "schemaVersion": 12,
+  "version": 9,
   "links": []
 }

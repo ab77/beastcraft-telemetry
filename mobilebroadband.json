@@ -1,5 +1,5 @@
 {
-  "id": 3,
+  "id": 5,
   "title": "Mobile Broadband",
   "originalTitle": "Mobile Broadband",
   "tags": [
@@ -26,10 +26,18 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
-          "datasource": null,
+          "datasource": "BeastCraft",
           "editable": true,
           "error": false,
           "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
+          "height": "100px",
           "id": 1,
           "interval": null,
           "isNew": true,
@@ -42,7 +50,7 @@
               "url": "http://dash.beastcraft.belodedenko.me/goform/goform_get_cmd_process?multi_data=1&isTest=false&sms_received_flag_flag=0&sts_received_flag_flag=0&cmd=modem_main_state%2Cpin_status%2Cloginfo%2Cnew_version_state%2Ccurrent_upgrade_state%2Cis_mandatory%2Csms_received_flag%2Csts_received_flag%2Csignalbar%2Cnetwork_type%2Cnetwork_provider%2Cppp_status%2CEX_SSID1%2Cex_wifi_status%2CEX_wifi_profile%2Cm_ssid_enable%2Csms_unread_num%2CRadioOff%2Csimcard_roam%2Clan_ipaddr%2Cstation_mac%2Cbattery_charging%2Cbattery_vol_percent%2Cbattery_pers%2Cspn_display_flag%2Cplmn_display_flag%2Cspn_name_data%2Cspn_b1_flag%2Cspn_b2_flag%2Crealtime_tx_bytes%2Crealtime_rx_bytes%2Crealtime_time%2Crealtime_tx_thrpt%2Crealtime_rx_thrpt%2Cmonthly_rx_bytes%2Cmonthly_tx_bytes%2Cmonthly_time%2Cdate_month%2Cdata_volume_limit_switch%2Cdata_volume_limit_size%2Cdata_volume_alert_percent%2Cdata_volume_limit_unit%2Croam_setting_option%2Cupg_roam_switch%2Chplmn"
             },
             {
-              "dashboard": "http://dash.beastcraft.belodedenko.me/goform//goform_set_cmd_process?isTest=false&notCallback=true&goformId=CONNECT_NETWORK",
+              "dashboard": "http://beastpi3.local.belodedenko.me/goform//goform_set_cmd_process?isTest=false&notCallback=true&goformId=CONNECT_NETWORK",
               "targetBlank": true,
               "title": "Connect",
               "type": "absolute",
@@ -55,14 +63,13 @@
               "url": "http://dash.beastcraft.belodedenko.me/goform//goform_set_cmd_process?isTest=false&notCallback=true&goformId=DISCONNECT_NETWORK"
             },
             {
-              "dashboard": "OpenWRT",
               "targetBlank": true,
               "title": "Router",
               "type": "absolute",
               "url": "http://beastroute1-web.beastcraft.belodedenko.me/"
             },
             {
-              "dashboard": "MF823",
+              "dashboard": "http:/172.17.0.1/",
               "targetBlank": true,
               "title": "Modem",
               "type": "absolute",
@@ -76,7 +83,7 @@
           "postfixFontSize": "50%",
           "prefix": "",
           "prefixFontSize": "50%",
-          "span": 4,
+          "span": 3,
           "sparkline": {
             "fillColor": "rgba(31, 118, 189, 0.18)",
             "full": false,
@@ -88,7 +95,9 @@
               "dsType": "influxdb",
               "groupBy": [],
               "measurement": "ppp_status",
-              "query": "SELECT \"value\" FROM \"ppp_status\" WHERE $timeFilter",
+              "policy": "default",
+              "query": "SELECT last(\"value\") FROM \"ppp_status\" WHERE $timeFilter",
+              "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -110,8 +119,7 @@
           "type": "singlestat",
           "valueFontSize": "80%",
           "valueMaps": [],
-          "valueName": "current",
-          "height": "0"
+          "valueName": "current"
         },
         {
           "cacheTimeout": null,
@@ -122,10 +130,18 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
-          "datasource": null,
+          "datasource": "BeastCraft",
           "editable": true,
           "error": false,
           "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
+          "height": "100px",
           "id": 8,
           "interval": null,
           "isNew": true,
@@ -165,7 +181,9 @@
               "dsType": "influxdb",
               "groupBy": [],
               "measurement": "connectionMode",
-              "query": "SELECT \"value\" FROM \"connectionMode\" WHERE $timeFilter",
+              "policy": "default",
+              "query": "SELECT last(\"value\") FROM \"connectionMode\" WHERE $timeFilter",
+              "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -187,8 +205,7 @@
           "type": "singlestat",
           "valueFontSize": "50%",
           "valueMaps": [],
-          "valueName": "current",
-          "height": "0"
+          "valueName": "current"
         },
         {
           "cacheTimeout": null,
@@ -199,10 +216,18 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
-          "datasource": null,
+          "datasource": "BeastCraft",
           "editable": true,
           "error": false,
           "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
+          "height": "100px",
           "id": 2,
           "interval": null,
           "isNew": true,
@@ -226,7 +251,9 @@
               "dsType": "influxdb",
               "groupBy": [],
               "measurement": "signalbar",
+              "policy": "default",
               "query": "SELECT \"value\" FROM \"signalbar\" WHERE $timeFilter",
+              "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -242,14 +269,13 @@
               "tags": []
             }
           ],
-          "thresholds": "0,2,3",
+          "thresholds": "2,3",
           "title": "Signal",
           "transparent": true,
           "type": "singlestat",
           "valueFontSize": "50%",
           "valueMaps": [],
-          "valueName": "current",
-          "height": "0"
+          "valueName": "current"
         },
         {
           "cacheTimeout": null,
@@ -260,10 +286,18 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
-          "datasource": null,
+          "datasource": "BeastCraft",
           "editable": true,
           "error": false,
           "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
+          "height": "100px",
           "id": 4,
           "interval": null,
           "isNew": true,
@@ -275,7 +309,7 @@
           "postfixFontSize": "50%",
           "prefix": "",
           "prefixFontSize": "50%",
-          "span": 1,
+          "span": 2,
           "sparkline": {
             "fillColor": "rgba(31, 118, 189, 0.18)",
             "full": false,
@@ -287,7 +321,9 @@
               "dsType": "influxdb",
               "groupBy": [],
               "measurement": "network_type",
-              "query": "SELECT \"value\" FROM \"network_type\" WHERE $timeFilter",
+              "policy": "default",
+              "query": "SELECT last(\"value\") FROM \"network_type\" WHERE $timeFilter",
+              "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -309,8 +345,7 @@
           "type": "singlestat",
           "valueFontSize": "50%",
           "valueMaps": [],
-          "valueName": "current",
-          "height": "0"
+          "valueName": "current"
         },
         {
           "cacheTimeout": null,
@@ -321,10 +356,18 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
-          "datasource": null,
+          "datasource": "BeastCraft",
           "editable": true,
           "error": false,
           "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
+          "height": "100px",
           "id": 3,
           "interval": null,
           "isNew": true,
@@ -348,7 +391,9 @@
               "dsType": "influxdb",
               "groupBy": [],
               "measurement": "network_provider",
-              "query": "SELECT \"value\" FROM \"network_provider\" WHERE $timeFilter",
+              "policy": "default",
+              "query": "SELECT last(\"value\") FROM \"network_provider\" WHERE $timeFilter",
+              "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -370,8 +415,7 @@
           "type": "singlestat",
           "valueFontSize": "50%",
           "valueMaps": [],
-          "valueName": "current",
-          "height": "0"
+          "valueName": "current"
         },
         {
           "cacheTimeout": null,
@@ -382,10 +426,18 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
-          "datasource": null,
+          "datasource": "BeastCraft",
           "editable": true,
           "error": false,
           "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
+          "height": "100px",
           "id": 6,
           "interval": null,
           "isNew": true,
@@ -424,7 +476,9 @@
               "dsType": "influxdb",
               "groupBy": [],
               "measurement": "roam_setting_option",
-              "query": "SELECT \"value\" FROM \"roam_setting_option\" WHERE $timeFilter",
+              "policy": "default",
+              "query": "SELECT last(\"value\") FROM \"roam_setting_option\" WHERE $timeFilter",
+              "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -446,8 +500,7 @@
           "type": "singlestat",
           "valueFontSize": "50%",
           "valueMaps": [],
-          "valueName": "current",
-          "height": "0"
+          "valueName": "current"
         }
       ],
       "title": "Stats"
@@ -460,17 +513,11 @@
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": null,
+          "datasource": "BeastCraft",
           "editable": true,
           "error": false,
           "fill": 1,
           "grid": {
-            "leftLogBase": 1,
-            "leftMax": 5,
-            "leftMin": 0,
-            "rightLogBase": 1,
-            "rightMax": null,
-            "rightMin": null,
             "threshold1": null,
             "threshold1Color": "rgba(216, 200, 27, 0.27)",
             "threshold2": null,
@@ -478,7 +525,6 @@
           },
           "id": 5,
           "isNew": true,
-          "leftYAxisLabel": "bars",
           "legend": {
             "avg": false,
             "current": false,
@@ -518,6 +564,7 @@
                 }
               ],
               "measurement": "signalbar",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"signalbar\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
               "refId": "A",
               "resultFormat": "time_series",
@@ -542,16 +589,31 @@
           "timeShift": null,
           "title": "Signal",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
           "transparent": true,
           "type": "graph",
-          "x-axis": true,
-          "y-axis": true,
-          "y_formats": [
-            "short",
-            "short"
+          "xaxis": {
+            "show": true
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": "bars",
+              "logBase": 1,
+              "max": 5,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         },
         {
@@ -563,11 +625,18 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
-          "datasource": null,
+          "datasource": "BeastCraft",
           "decimals": 2,
           "editable": true,
           "error": false,
           "format": "bytes",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 9,
           "interval": null,
           "isNew": true,
@@ -591,7 +660,9 @@
               "dsType": "influxdb",
               "groupBy": [],
               "measurement": "monthly_rx_bytes",
-              "query": "SELECT \"value\" FROM \"monthly_rx_bytes\" WHERE $timeFilter",
+              "policy": "default",
+              "query": "SELECT last(\"value\") FROM \"monthly_rx_bytes\" WHERE $timeFilter",
+              "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -629,11 +700,18 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
-          "datasource": null,
+          "datasource": "BeastCraft",
           "decimals": 2,
           "editable": true,
           "error": false,
           "format": "bytes",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
           "id": 10,
           "interval": null,
           "isNew": true,
@@ -657,7 +735,9 @@
               "dsType": "influxdb",
               "groupBy": [],
               "measurement": "monthly_tx_bytes",
-              "query": "SELECT \"value\" FROM \"monthly_tx_bytes\" WHERE $timeFilter",
+              "policy": "default",
+              "query": "SELECT last(\"value\") FROM \"monthly_tx_bytes\" WHERE $timeFilter",
+              "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -727,7 +807,7 @@
     "list": []
   },
   "refresh": "1m",
-  "schemaVersion": 8,
-  "version": 46,
+  "schemaVersion": 12,
+  "version": 13,
   "links": []
 }

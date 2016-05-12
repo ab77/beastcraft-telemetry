@@ -88,8 +88,8 @@
           "valueMaps": [
             {
               "op": "=",
-              "text": "",
-              "value": ""
+              "text": "N/A",
+              "value": "null"
             }
           ],
           "valueName": "current"
@@ -132,7 +132,7 @@
             "fillColor": "rgba(31, 118, 189, 0.18)",
             "full": false,
             "lineColor": "rgb(31, 120, 193)",
-            "show": false
+            "show": true
           },
           "targets": [
             {
@@ -166,8 +166,8 @@
           "valueMaps": [
             {
               "op": "=",
-              "text": "",
-              "value": ""
+              "text": "N/A",
+              "value": "null"
             }
           ],
           "valueName": "current"
@@ -474,7 +474,7 @@
               "tags": []
             }
           ],
-          "thresholds": "207,253",
+          "thresholds": "240,245,250",
           "title": "input.voltage",
           "transparent": true,
           "type": "singlestat",
@@ -551,7 +551,7 @@
               "tags": []
             }
           ],
-          "thresholds": "207,253",
+          "thresholds": "240,245,250",
           "title": "output.voltage",
           "transparent": true,
           "type": "singlestat",
@@ -628,7 +628,7 @@
               "tags": []
             }
           ],
-          "thresholds": "49.5,50.5",
+          "thresholds": "50.8,50.9",
           "title": "input.frequency",
           "transparent": true,
           "type": "singlestat",
@@ -1091,6 +1091,6 @@
   },
   "refresh": "1m",
   "schemaVersion": 12,
-  "version": 5,
+  "version": 8,
   "links": []
 }

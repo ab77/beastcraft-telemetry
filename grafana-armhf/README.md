@@ -12,7 +12,7 @@
 Tested with `Grafana v3.0.2` on `2016-05-12`.
 
 ```
-# update gcc ang g++
+# update gcc and g++
 update-alternatives --remove-all gcc
 update-alternatives --remove-all g++
 update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.6 20

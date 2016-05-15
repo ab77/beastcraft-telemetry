@@ -2,9 +2,13 @@ server {
 
 	listen 80;
 	server_name mf823-web.beastcraft.belodedenko.me;
-	
+
 	location / {
-		proxy_set_header Referer http://mf823.beastcraft.belodedenko.me/;
-		proxy_pass http://mf823.beastcraft.belodedenko.me/;
+                if ( $arg_cmd = 'upgrade_result' ) {
+                        return 200 '{"upgrade_result":"success"}';
+                }
+
+	        proxy_set_header Referer http://mf823.beastcraft.belodedenko.me/;
+	        proxy_pass http://mf823.beastcraft.belodedenko.me/;
 	}
 }

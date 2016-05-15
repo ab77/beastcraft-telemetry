@@ -1,5 +1,5 @@
 {
-  "id": 5,
+  "id": 2,
   "title": "GPS",
   "originalTitle": "GPS",
   "tags": [
@@ -26,12 +26,19 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
-          "datasource": null,
+          "datasource": "BeastCraft",
           "decimals": 9,
           "editable": true,
           "error": false,
           "format": "none",
-          "height": "0",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
+          "height": "100px",
           "id": 1,
           "interval": null,
           "isNew": true,
@@ -77,6 +84,7 @@
                 }
               ],
               "measurement": "lat",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"lat\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
               "refId": "A",
               "resultFormat": "time_series",
@@ -120,12 +128,19 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
-          "datasource": null,
+          "datasource": "BeastCraft",
           "decimals": 9,
           "editable": true,
           "error": false,
           "format": "none",
-          "height": "0",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
+          "height": "100px",
           "id": 2,
           "interval": null,
           "isNew": true,
@@ -170,6 +185,7 @@
                 }
               ],
               "measurement": "lon",
+              "policy": "default",
               "query": "SELECT last(\"value\") FROM \"lon\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
               "refId": "A",
               "resultFormat": "time_series",
@@ -213,12 +229,19 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
-          "datasource": null,
+          "datasource": "BeastCraft",
           "decimals": 0,
           "editable": true,
           "error": false,
           "format": "velocitykmh",
-          "height": "0",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
+          "height": "100px",
           "id": 3,
           "interval": null,
           "isNew": true,
@@ -235,7 +258,7 @@
             "fillColor": "rgba(31, 118, 189, 0.18)",
             "full": false,
             "lineColor": "rgb(31, 120, 193)",
-            "show": false
+            "show": true
           },
           "targets": [
             {
@@ -255,7 +278,9 @@
                 }
               ],
               "measurement": "speed",
-              "query": "SELECT last(\"value\") FROM \"speed\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "policy": "default",
+              "query": "SELECT \"value\" FROM \"speed\" WHERE $timeFilter",
+              "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -298,12 +323,19 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
-          "datasource": null,
+          "datasource": "BeastCraft",
           "decimals": 0,
           "editable": true,
           "error": false,
           "format": "lengthm",
-          "height": "0",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
+          "height": "100px",
           "id": 4,
           "interval": null,
           "isNew": true,
@@ -320,7 +352,7 @@
             "fillColor": "rgba(31, 118, 189, 0.18)",
             "full": false,
             "lineColor": "rgb(31, 120, 193)",
-            "show": false
+            "show": true
           },
           "targets": [
             {
@@ -340,7 +372,9 @@
                 }
               ],
               "measurement": "alt",
-              "query": "SELECT last(\"value\") FROM \"alt\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "policy": "default",
+              "query": "SELECT \"value\" FROM \"alt\" WHERE $timeFilter",
+              "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -392,11 +426,18 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
-          "datasource": null,
+          "datasource": "BeastCraft",
           "editable": true,
           "error": false,
           "format": "lengthm",
-          "height": "0",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
+          "height": "100px",
           "id": 10,
           "interval": null,
           "isNew": true,
@@ -413,7 +454,7 @@
             "fillColor": "rgba(31, 118, 189, 0.18)",
             "full": false,
             "lineColor": "rgb(31, 120, 193)",
-            "show": false
+            "show": true
           },
           "targets": [
             {
@@ -433,7 +474,9 @@
                 }
               ],
               "measurement": "epy",
-              "query": "SELECT last(\"value\") FROM \"epy\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "policy": "default",
+              "query": "SELECT \"value\" FROM \"epy\" WHERE $timeFilter",
+              "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -476,11 +519,18 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
-          "datasource": null,
+          "datasource": "BeastCraft",
           "editable": true,
           "error": false,
           "format": "lengthm",
-          "height": "0",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
+          "height": "100px",
           "id": 9,
           "interval": null,
           "isNew": true,
@@ -497,7 +547,7 @@
             "fillColor": "rgba(31, 118, 189, 0.18)",
             "full": false,
             "lineColor": "rgb(31, 120, 193)",
-            "show": false
+            "show": true
           },
           "targets": [
             {
@@ -517,7 +567,9 @@
                 }
               ],
               "measurement": "epx",
-              "query": "SELECT last(\"value\") FROM \"epx\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "policy": "default",
+              "query": "SELECT \"value\" FROM \"epx\" WHERE $timeFilter",
+              "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -560,11 +612,18 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
-          "datasource": null,
+          "datasource": "BeastCraft",
           "editable": true,
           "error": false,
           "format": "velocityms",
-          "height": "0",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
+          "height": "100px",
           "id": 12,
           "interval": null,
           "isNew": true,
@@ -581,7 +640,7 @@
             "fillColor": "rgba(31, 118, 189, 0.18)",
             "full": false,
             "lineColor": "rgb(31, 120, 193)",
-            "show": false
+            "show": true
           },
           "targets": [
             {
@@ -601,7 +660,9 @@
                 }
               ],
               "measurement": "eps",
-              "query": "SELECT last(\"value\") FROM \"eps\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "policy": "default",
+              "query": "SELECT \"value\" FROM \"eps\" WHERE $timeFilter",
+              "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -644,11 +705,18 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
-          "datasource": null,
+          "datasource": "BeastCraft",
           "editable": true,
           "error": false,
           "format": "lengthm",
-          "height": "0",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
+          "height": "100px",
           "id": 11,
           "interval": null,
           "isNew": true,
@@ -665,7 +733,7 @@
             "fillColor": "rgba(31, 118, 189, 0.18)",
             "full": false,
             "lineColor": "rgb(31, 120, 193)",
-            "show": false
+            "show": true
           },
           "targets": [
             {
@@ -685,7 +753,9 @@
                 }
               ],
               "measurement": "epv",
-              "query": "SELECT last(\"value\") FROM \"epv\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "policy": "default",
+              "query": "SELECT \"value\" FROM \"epv\" WHERE $timeFilter",
+              "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -736,11 +806,18 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
-          "datasource": null,
+          "datasource": "BeastCraft",
           "editable": true,
           "error": false,
           "format": "none",
-          "height": "0",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
+          "height": "100px",
           "id": 7,
           "interval": null,
           "isNew": true,
@@ -777,7 +854,9 @@
                 }
               ],
               "measurement": "mode",
-              "query": "SELECT last(\"value\") FROM \"mode\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "policy": "default",
+              "query": "SELECT last(\"value\") FROM \"mode\" WHERE $timeFilter",
+              "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -797,7 +876,7 @@
               "tags": []
             }
           ],
-          "thresholds": "1,2,3",
+          "thresholds": "2,3",
           "title": "Fix",
           "transparent": true,
           "type": "singlestat",
@@ -830,11 +909,18 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
-          "datasource": null,
+          "datasource": "BeastCraft",
           "editable": true,
           "error": false,
           "format": "none",
-          "height": "0",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
+          "height": "100px",
           "id": 13,
           "interval": null,
           "isNew": true,
@@ -871,7 +957,9 @@
                 }
               ],
               "measurement": "track",
-              "query": "SELECT last(\"value\") FROM \"track\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "policy": "default",
+              "query": "SELECT last(\"value\") FROM \"track\" WHERE $timeFilter",
+              "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -914,11 +1002,18 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
-          "datasource": null,
+          "datasource": "BeastCraft",
           "editable": true,
           "error": false,
           "format": "velocityms",
-          "height": "0",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
+          "height": "100px",
           "id": 14,
           "interval": null,
           "isNew": true,
@@ -935,7 +1030,7 @@
             "fillColor": "rgba(31, 118, 189, 0.18)",
             "full": false,
             "lineColor": "rgb(31, 120, 193)",
-            "show": false
+            "show": true
           },
           "targets": [
             {
@@ -955,7 +1050,9 @@
                 }
               ],
               "measurement": "climb",
-              "query": "SELECT last(\"value\") FROM \"climb\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "policy": "default",
+              "query": "SELECT \"value\" FROM \"climb\" WHERE $timeFilter",
+              "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -998,11 +1095,18 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
-          "datasource": null,
+          "datasource": "BeastCraft",
           "editable": true,
           "error": false,
           "format": "none",
-          "height": "0",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
+          "height": "100px",
           "id": 8,
           "interval": null,
           "isNew": true,
@@ -1019,7 +1123,7 @@
             "fillColor": "rgba(31, 118, 189, 0.18)",
             "full": false,
             "lineColor": "rgb(31, 120, 193)",
-            "show": false
+            "show": true
           },
           "targets": [
             {
@@ -1039,7 +1143,9 @@
                 }
               ],
               "measurement": "ept",
-              "query": "SELECT last(\"value\") FROM \"ept\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
+              "policy": "default",
+              "query": "SELECT \"value\" FROM \"ept\" WHERE $timeFilter",
+              "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
               "select": [
@@ -1084,7 +1190,7 @@
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": null,
+          "datasource": "BeastCraft",
           "decimals": 0,
           "editable": true,
           "error": false,
@@ -1103,7 +1209,6 @@
           },
           "id": 5,
           "isNew": true,
-          "leftYAxisLabel": "",
           "legend": {
             "avg": false,
             "current": false,
@@ -1122,7 +1227,6 @@
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
-          "rightYAxisLabel": "",
           "seriesOverrides": [],
           "span": 6,
           "stack": false,
@@ -1146,6 +1250,7 @@
                 }
               ],
               "measurement": "alt",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"alt\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
               "refId": "A",
               "resultFormat": "time_series",
@@ -1183,6 +1288,7 @@
                 }
               ],
               "measurement": "epv",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"epv\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
               "refId": "B",
               "resultFormat": "time_series",
@@ -1207,22 +1313,44 @@
           "timeShift": null,
           "title": "Altitude",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
           "transparent": true,
           "type": "graph",
           "x-axis": true,
+          "xaxis": {
+            "show": true
+          },
           "y-axis": true,
           "y_formats": [
-            "lengthm",
-            "none"
+            "short",
+            "short"
+          ],
+          "yaxes": [
+            {
+              "format": "lengthm",
+              "label": "",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "none",
+              "label": "",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         },
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": null,
+          "datasource": "BeastCraft",
           "decimals": 0,
           "editable": true,
           "error": false,
@@ -1241,7 +1369,6 @@
           },
           "id": 6,
           "isNew": true,
-          "leftYAxisLabel": "",
           "legend": {
             "avg": false,
             "current": false,
@@ -1260,7 +1387,6 @@
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
-          "rightYAxisLabel": "",
           "seriesOverrides": [],
           "span": 6,
           "stack": false,
@@ -1284,6 +1410,7 @@
                 }
               ],
               "measurement": "speed",
+              "policy": "default",
               "query": "SELECT mean(\"value\") FROM \"speed\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
               "refId": "A",
               "resultFormat": "time_series",
@@ -1321,6 +1448,7 @@
                 }
               ],
               "measurement": "eps",
+              "policy": "default",
               "query": "SELECT mean(\"value\")  / 1000 FROM \"eps\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
               "refId": "B",
               "resultFormat": "time_series",
@@ -1351,16 +1479,38 @@
           "timeShift": null,
           "title": "Speed",
           "tooltip": {
+            "msResolution": false,
             "shared": true,
             "value_type": "cumulative"
           },
           "transparent": true,
           "type": "graph",
           "x-axis": true,
+          "xaxis": {
+            "show": true
+          },
           "y-axis": true,
           "y_formats": [
-            "velocitykmh",
-            "none"
+            "short",
+            "short"
+          ],
+          "yaxes": [
+            {
+              "format": "velocitykmh",
+              "label": "",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "none",
+              "label": "",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
           ]
         }
       ],
@@ -1402,10 +1552,12 @@
       {
         "allFormat": "glob",
         "current": {
-          "text": "51.0,-0.1",
-          "value": "51.0,-0.1"
+          "text": "None",
+          "value": "",
+          "isNone": true
         },
-        "datasource": null,
+        "datasource": "BeastCraft",
+        "hide": 0,
         "hideLabel": false,
         "includeAll": false,
         "label": "gps_coordinates",
@@ -1414,13 +1566,14 @@
         "name": "gps_coordinates",
         "options": [
           {
-            "text": "51.0,-0.1",
-            "value": "51.0,-0.1",
+            "text": "None",
+            "value": "",
+            "isNone": true,
             "selected": true
           }
         ],
         "query": "SELECT last(\"value\") FROM \"geo\"",
-        "refresh": true,
+        "refresh": 1,
         "regex": "([0-9\\.]+,[0-9\\.\\-]+)",
         "type": "query"
       }
@@ -1430,7 +1583,7 @@
     "list": []
   },
   "refresh": "1m",
-  "schemaVersion": 8,
-  "version": 42,
+  "schemaVersion": 12,
+  "version": 15,
   "links": []
 }

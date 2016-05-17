@@ -181,7 +181,48 @@ All the API requests require the `Referer: http://<your_ZTE-MF823_modem_IP>/` re
 2. add `geo.conf` to `/etc/supervisor/conf.d/` and reload `supervisor` process
 3. import `gps.json` dashboard and modify it to suit your needs or build your own from scratch
 
-To synchronise time using GPS receiver and NTP, read the following concise article [Connecting u-blox NEO-6M GPS to Raspberry Pi](https://bigdanzblog.wordpress.com/2015/01/18/connecting-u-blox-neo-6m-gps-to-raspberry-pi/).
+To synchronise time using GPS receiver and NTP, read the following concise article [Connecting u-blox NEO-6M GPS to Raspberry Pi](https://bigdanzblog.wordpress.com/2015/01/18/connecting-u-blox-neo-6m-gps-to-raspberry-pi/). Also read about [using driver 20 for NTP](http://www.satsignal.eu/ntp/RaspberryPi-notes.html), which is the method I ended up using in the end.
+
+The relevant section from my `ntp.conf`:
+
+```
+# GPS receiver time source via /dev/gsp0, no SHaredMemory (SHM) driver
+server 127.127.20.0 mode 18 minpoll 4 maxpoll 4 prefer
+fudge 127.127.20.0 flag1 1
+fudge 127.127.20.0 flag2 0
+fudge 127.127.20.0 flag3 1
+```
+
+The `/etc/udev/rules.d/99-gpsd.rules` makes sure the device has the right permissions and the symbolic link persists on restart:
+
+```
+KERNEL=="ttyACM[0-9]*", GROUP="dialout", MODE="0666"
+KERNEL=="ttyACM0", SYMLINK+="gps0"
+```
+
+To reload `udev` rules without rebooting, run `sudo udevadm control --reload-rules`.
+
+Checking the results, it seems that the direct method with NTP driver 20 is a lot more stable than via SHM:
+
+```
+# ntpq -p
+     remote           refid      st t when poll reach   delay   offset  jitter
+==============================================================================
+*GPS_NMEA(0)     .GPS.            0 l   11   16  377    0.000   -0.218   3.547
+```
+
+My time seems to be off by about 70ms, which is good enough for my purposes.
+
+```
+# ntpdate -d time.nist.gov
+17 May 14:56:02 ntpdate[7131]: ntpdate 4.2.6p5@1.2349-o Mon Nov  2 04:29:38 UTC 2015 (1)
+transmit(128.138.141.172)
+transmit(128.138.141.172)
+...
+offset 0.073713
+
+17 May 14:56:08 ntpdate[7131]: adjust time server 128.138.141.172 offset 0.073713 sec
+```
 
 #### FortiWifi Interface Monitor
 

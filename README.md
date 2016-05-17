@@ -181,16 +181,24 @@ All the API requests require the `Referer: http://<your_ZTE-MF823_modem_IP>/` re
 2. add `geo.conf` to `/etc/supervisor/conf.d/` and reload `supervisor` process
 3. import `gps.json` dashboard and modify it to suit your needs or build your own from scratch
 
-To synchronise time using GPS receiver and NTP, read the following concise article [Connecting u-blox NEO-6M GPS to Raspberry Pi](https://bigdanzblog.wordpress.com/2015/01/18/connecting-u-blox-neo-6m-gps-to-raspberry-pi/). Also read about [using driver 20 for NTP](http://www.satsignal.eu/ntp/RaspberryPi-notes.html), which is the method I ended up using in the end.
+To synchronise time using GPS receiver and NTP using SHared Memory driver ((type 28))[http://doc.ntp.org/4.2.6/drivers/driver28.html], read the following concise article [Connecting u-blox NEO-6M GPS to Raspberry Pi](https://bigdanzblog.wordpress.com/2015/01/18/connecting-u-blox-neo-6m-gps-to-raspberry-pi/).
 
-The relevant section from my `ntp.conf`:
+In this case, `ntp.conf` will looks like this:
+
+```
+# using SHaredMemory (SHM) driver
+server 128.128.28.0
+fudge 128.128.28.0 refid GPS
+```
+
+Also read about [using driver 20 for NTP](http://www.satsignal.eu/ntp/RaspberryPi-notes.html), however I couldn't get NTP and GPSD to play together nicely in the mode, so I reverted to SHM.
+
+In that case, `ntp.conf` looks like this:
 
 ```
 # GPS receiver time source via /dev/gsp0, no SHaredMemory (SHM) driver
-server 127.127.20.0 mode 18 minpoll 4 maxpoll 4 prefer
-fudge 127.127.20.0 flag1 1
-fudge 127.127.20.0 flag2 0
-fudge 127.127.20.0 flag3 1
+server 127.127.20.0 mode 16 minpoll 4 maxpoll 4 prefer
+fudge 127.127.20.0 flag1 0 # disable PPS
 ```
 
 The `/etc/udev/rules.d/99-gpsd.rules` makes sure the device has the right permissions and the symbolic link persists on restart:
@@ -202,8 +210,7 @@ KERNEL=="ttyACM0", SYMLINK+="gps0"
 
 To reload `udev` rules without rebooting, run `sudo udevadm control --reload-rules`.
 
-Checking the results, it seems that the direct method with NTP driver 20 is a lot more stable than via SHM:
-
+Checking the results:
 ```
 # ntpq -p
      remote           refid      st t when poll reach   delay   offset  jitter

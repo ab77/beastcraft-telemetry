@@ -181,7 +181,7 @@ All the API requests require the `Referer: http://<your_ZTE-MF823_modem_IP>/` re
 2. add `geo.conf` to `/etc/supervisor/conf.d/` and reload `supervisor` process
 3. import `gps.json` dashboard and modify it to suit your needs or build your own from scratch
 
-To synchronise time using GPS receiver and NTP using SHared Memory driver ((type 28))[http://doc.ntp.org/4.2.6/drivers/driver28.html], read the following concise article [Connecting u-blox NEO-6M GPS to Raspberry Pi](https://bigdanzblog.wordpress.com/2015/01/18/connecting-u-blox-neo-6m-gps-to-raspberry-pi/).
+To synchronise time using GPS receiver and NTP using SHared Memory driver [(type 28)](http://doc.ntp.org/4.2.6/drivers/driver28.html), read the following concise article [Connecting u-blox NEO-6M GPS to Raspberry Pi](https://bigdanzblog.wordpress.com/2015/01/18/connecting-u-blox-neo-6m-gps-to-raspberry-pi/).
 
 In this case, `ntp.conf` will looks like this:
 
@@ -191,7 +191,7 @@ server 128.128.28.0
 fudge 128.128.28.0 refid GPS
 ```
 
-Also read about [using driver 20 for NTP](http://www.satsignal.eu/ntp/RaspberryPi-notes.html), however I couldn't get NTP and GPSD to play together nicely in the mode, so I reverted to SHM.
+Also read about [using driver type 20 for NTP](http://www.satsignal.eu/ntp/RaspberryPi-notes.html), however I couldn't get NTP and GPSD to play together nicely in the mode, so I reverted to SHM.
 
 In that case, `ntp.conf` looks like this:
 

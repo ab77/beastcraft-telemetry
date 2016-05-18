@@ -8,7 +8,7 @@
 
 ### Fedora/CentOS
 
-* [influxdb_0.13.0~209dd00_armhf.rpm](https://s3.eu-central-1.amazonaws.com/belodetech/influxdb_0.13.0~209dd00_armhf.rpm)
+* [influxdb_0.13.0~209dd00_armhf.rpm](https://s3.eu-central-1.amazonaws.com/belodetech/influxdb-0.13.0~209dd00.armhf.rpm)
 
 ### Build
 

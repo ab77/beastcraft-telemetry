@@ -177,7 +177,7 @@ All the API requests require the `Referer: http://<your_ZTE-MF823_modem_IP>/` re
 
 ![GPS dashboard](https://raw.githubusercontent.com/ab77/beastcraft-telemetry/master/static/gps.png)
 
-1. install `gpsd` ([docs](http://www.catb.org/gpsd/)) using [this](http://www.danmandle.com/blog/getting-gpsd-to-work-with-python/) or [this](http://blog.perrygeo.net/2007/05/27/python-gpsd-bindings/) guide.
+1. install `gpsd` ([docs](http://www.catb.org/gpsd/installation.html)) using [this](http://www.danmandle.com/blog/getting-gpsd-to-work-with-python/) or [this](http://blog.perrygeo.net/2007/05/27/python-gpsd-bindings/) guide or better still, install latest from [source](http://git.savannah.gnu.org/cgit/gpsd.git).
 2. add `geo.conf` to `/etc/supervisor/conf.d/` and reload `supervisor` process
 3. import `gps.json` dashboard and modify it to suit your needs or build your own from scratch
 

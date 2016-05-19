@@ -86,7 +86,7 @@ server {
 }
 ````
 
-The ZTE MF823 has a REST API apart from the web GUI, which we are using to communicate with the modem from within the Grafana dashboard. The full list of command sisn't published, but looking at the modem's web interface with Chrome Developer Tools, the following commands were evident.
+The ZTE MF823 has a REST API apart from the web GUI, which we are using to communicate with the modem from within the Grafana dashboard. The full list of commands isn't published, but looking at the modem's web interface with Chrome Developer Tools, the following commands were evident.
 
 ```
 # connect mobile network (HTTP GET)

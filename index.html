@@ -30,8 +30,8 @@
 <p>I've built InfluxDB and Grafanates thanks to a number of existing <a href="https://github.com/ab77/beastcraft-telemetry/blob/master/grafana-armhf/README.md#references">guides</a>.</p>
 
 <pre><code># install InfluxDB
-wget https://s3.eu-central-1.amazonaws.com/beastcraft-telemetry/influxdb_0.10.3-1_armhf.deb
-sudo dpkg -i influxdb_0.10.3-1_armhf.deb
+wget https://s3.eu-central-1.amazonaws.com/belodetech/influxdb_0.13.0~209dd00_armhf.deb
+sudo dpkg -i influxdb_0.13.0~209dd00_armhf.deb
 sudo service influxdb start
 sudo update-rc.d influxdb defaults 95 10
 </code></pre>
@@ -39,8 +39,8 @@ sudo update-rc.d influxdb defaults 95 10
 <p>Install pre-built Node.js for Raspberry Pi using the handy <a href="https://learn.adafruit.com/node-embedded-development/installing-node-dot-js">Adafruit</a> guide.</p>
 
 <pre><code># install Grafana
-wget https://s3.eu-central-1.amazonaws.com/beastcraft-telemetry/grafana_3.0.0-pre1_armhf.deb
-sudo dpkg -i grafana_3.0.0-pre1_armhf.deb
+wget https://s3.eu-central-1.amazonaws.com/belodetech/grafana_3.0.2-1463058303_armhf.deb
+sudo dpkg -i grafana_3.0.2-1463058303_armhf.deb
 sudo service grafana-server start
 sudo update-rc.d grafana-server defaults 95 10
 </code></pre>
@@ -84,6 +84,11 @@ sudo update-rc.d grafana-server defaults 95 10
 <li>import <code>ups.json</code> dashboard and modify it to suit your needs or build your own from scratch (change URLs to suit your environment)</li>
 </ol>
 
+<p>It may be nesessary to modify UDEV rules and change the default <code>dialout</code> group assigned by kernel to the USB serial device to <code>nut</code> as follows:</p>
+
+<pre><code>printf "KERNEL==\"ttyUSB0\", GROUP=\"nut\"\n" &gt; /etc/udev/rules.d/99_nut-serialups.rules 
+</code></pre>
+
 <h4>
 <a id="traffic-dashboard" class="anchor" href="#traffic-dashboard" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Traffic Dashboard</h4>
 
@@ -100,7 +105,7 @@ sudo update-rc.d grafana-server defaults 95 10
 
 <ol>
 <li>update <code>host</code> variable in <code>mobilebroadband.py</code> to match your ZTE MF823 modem IP address</li>
-<li>add <code>mobilebroadband.conf</code> to <code>/etc/supervisor/conf.d/</code> and reload <code>supervisor</code> process</li>
+<li>add <code>mobilebroadband.conf</code> to <code>/etc/supervisor/conf.d/</code>, change DNS details and reload <code>supervisor</code> process</li>
 <li>install <code>nginx</code> or <code>Caddyserver</code> and configure it as a reverse proxy for both Grafana and ZTE web GUIs (the later is required to set the <code>Referer</code> header)</li>
 <li>import <code>mobilebroadband.json</code> dashboard and modify it to suit your needs or build your own from scratch (change URLs to suit your environment)</li>
 </ol>
@@ -210,17 +215,77 @@ http://&lt;modem_IP&gt;/goform/goform_get_cmd_process?isTest=false&amp;cmd=IPPor
 <p>All the API requests require the <code>Referer: http://&lt;your_ZTE-MF823_modem_IP&gt;/</code> request header present. No additional headers are required.</p>
 
 <h4>
+<a id="satellite-internet-dashboard" class="anchor" href="#satellite-internet-dashboard" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Satellite Internet Dashboard</h4>
+
+<p><img src="https://raw.githubusercontent.com/ab77/beastcraft-telemetry/master/static/sat.png" alt="mobile dashboard"></p>
+
+<ol>
+<li>update <code>host</code> variable in <code>satinternet.py</code> to match the Newtec S3P (NTC2252) modem ipaddr</li>
+<li>add <code>satinternet.conf</code> to <code>/etc/supervisor/conf.d/</code> and reload <code>supervisor</code> process</li>
+<li>install <code>nginx</code> or <code>Caddyserver</code> and configure it as a reverse proxy for Newtec Sat3Play web GUI</li>
+<li>import <code>satinternet.json</code> dashboard and modify it to suit your needs or build your own from scratch (change URLs to suit your environment)</li>
+</ol>
+
+<h4>
 <a id="gps-dashboard" class="anchor" href="#gps-dashboard" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>GPS Dashboard</h4>
 
 <p><img src="https://raw.githubusercontent.com/ab77/beastcraft-telemetry/master/static/gps.png" alt="GPS dashboard"></p>
 
 <ol>
-<li>install <code>gpsd</code> (<a href="http://www.catb.org/gpsd/">docs</a>) using <a href="http://www.danmandle.com/blog/getting-gpsd-to-work-with-python/">this</a> or <a href="http://blog.perrygeo.net/2007/05/27/python-gpsd-bindings/">this</a> guide.</li>
+<li>install <code>gpsd</code> (<a href="http://www.catb.org/gpsd/installation.html">docs</a>) using <a href="http://www.danmandle.com/blog/getting-gpsd-to-work-with-python/">this</a> or <a href="http://blog.perrygeo.net/2007/05/27/python-gpsd-bindings/">this</a> guide or better still, install latest from <a href="http://git.savannah.gnu.org/cgit/gpsd.git">source</a>.</li>
 <li>add <code>geo.conf</code> to <code>/etc/supervisor/conf.d/</code> and reload <code>supervisor</code> process</li>
 <li>import <code>gps.json</code> dashboard and modify it to suit your needs or build your own from scratch</li>
 </ol>
 
-<p>To synchronise time using GPS receiver and NTP, read the following concise article <a href="https://bigdanzblog.wordpress.com/2015/01/18/connecting-u-blox-neo-6m-gps-to-raspberry-pi/">Connecting u-blox NEO-6M GPS to Raspberry Pi</a>.</p>
+<p>To synchronise time using GPS receiver and NTP using SHared Memory driver <a href="http://doc.ntp.org/4.2.6/drivers/driver28.html">(type 28)</a>, read the following concise article <a href="https://bigdanzblog.wordpress.com/2015/01/18/connecting-u-blox-neo-6m-gps-to-raspberry-pi/">Connecting u-blox NEO-6M GPS to Raspberry Pi</a>. I had a lot of problems with the GPSd <code>v3.06</code> in the Raspbian Wheezy repository, so I upgraded to Jessie, built GPSd <code>v3.16</code> from source and installed <code>systemd</code> services. The <code>/etc/default/gpsd</code> file looks like this:</p>
+
+<pre><code># Default settings for gpsd.
+START_DAEMON="true"
+GPSD_OPTIONS="-n"
+DEVICES="/dev/ttyACM0"
+USBAUTO="true"
+GPSD_SOCKET="/var/run/gpsd.sock"
+</code></pre>
+
+<p>Usign type 28 (SHM), <code>ntp.conf</code> looks like this:</p>
+
+<pre><code># using SHaredMemory (SHM) driver
+server 127.127.28.0 minpoll 4 maxpoll 4 iburst prefer
+fudge 127.127.28.0 time1 +0.080 flag1 1 refid GPSD stratum 1
+</code></pre>
+
+<p>I've also tried <a href="http://www.satsignal.eu/ntp/RaspberryPi-notes.html">using driver type 20 for NTP</a>, however I couldn't get NTP and GPSD to play together nicely in the mode, so I reverted to SHM. With <a href="http://doc.ntp.org/4.2.6/drivers/driver20.html">type 20</a> <code>ntp.conf</code> looks like this:</p>
+
+<pre><code># GPS receiver time source via /dev/gsp0, no SHaredMemory (SHM) driver
+server 127.127.20.0 mode 16 minpoll 4 maxpoll 4 prefer # set /dev/gps0 9600 baud
+fudge 127.127.20.0 flag1 0 # disable PPS as it isn't present with cheap USB GPS(s)
+</code></pre>
+
+<p>The <code>/etc/udev/rules.d/99-gpsd.rules</code> makes sure the device has the right permissions and the symbolic link persists on restart:</p>
+
+<pre><code>KERNEL=="ttyACM[0-9]*", GROUP="dialout", MODE="0666"
+KERNEL=="ttyACM0", SYMLINK+="gps0"
+</code></pre>
+
+<p>To reload <code>udev</code> rules without rebooting, run <code>sudo udevadm control --reload-rules</code>.</p>
+
+<p>Checking time sync. results:</p>
+
+<pre><code># ntpq -p
+     remote           refid      st t when poll reach   delay   offset  jitter
+==============================================================================
+*SHM(0)          .GPSD.           1 l    3   16  377    0.000   -1.577   1.830
+</code></pre>
+
+<p>My time seems to be off by about 80ms, which I correct with <code>time1 +0.080</code> option. The resulting accuracy means the clock is off by less than +/- 10ms, which is good enough for my purposes of keeping the time roughly in sync with the world.</p>
+
+<pre><code># ntpdate -d 0.europe.pool.ntp.org
+...
+delay 0.07957, dispersion 0.00102
+offset -0.004779
+
+19 May 10:23:48 ntpdate[2993]: adjust time server 85.25.197.197 offset -0.004779 sec
+</code></pre>
 
 <h4>
 <a id="fortiwifi-interface-monitor" class="anchor" href="#fortiwifi-interface-monitor" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>FortiWifi Interface Monitor</h4>

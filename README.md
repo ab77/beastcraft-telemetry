@@ -5,16 +5,16 @@ Santak `IPV-2012C` UPS, `DS18B20` one-wire temperature, ZTE `MF823` hostless mod
 I've built InfluxDB and Grafanates thanks to a number of existing [guides](https://github.com/ab77/beastcraft-telemetry/blob/master/grafana-armhf/README.md#references).
 
     # install InfluxDB
-    wget https://s3.eu-central-1.amazonaws.com/beastcraft-telemetry/influxdb_0.10.3-1_armhf.deb
-    sudo dpkg -i influxdb_0.10.3-1_armhf.deb
+    wget https://s3.eu-central-1.amazonaws.com/belodetech/influxdb_0.13.0~209dd00_armhf.deb
+    sudo dpkg -i influxdb_0.13.0~209dd00_armhf.deb
     sudo service influxdb start
     sudo update-rc.d influxdb defaults 95 10
 
 Install pre-built Node.js for Raspberry Pi using the handy [Adafruit](https://learn.adafruit.com/node-embedded-development/installing-node-dot-js) guide.
 
     # install Grafana
-    wget https://s3.eu-central-1.amazonaws.com/beastcraft-telemetry/grafana_3.0.0-pre1_armhf.deb
-    sudo dpkg -i grafana_3.0.0-pre1_armhf.deb
+    wget https://s3.eu-central-1.amazonaws.com/belodetech/grafana_3.0.2-1463058303_armhf.deb
+    sudo dpkg -i grafana_3.0.2-1463058303_armhf.deb
     sudo service grafana-server start
     sudo update-rc.d grafana-server defaults 95 10
     

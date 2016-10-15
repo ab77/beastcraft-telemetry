@@ -242,6 +242,17 @@ offset -0.004779
 19 May 10:23:48 ntpdate[2993]: adjust time server 85.25.197.197 offset -0.004779 sec
 ```
 
+To set initial datetime from GSP, add the following to `/etc/rc.local` to run once per boot:
+
+```
+# set initial datetime from GPS
+influx -database beastcraft \
+  --format csv \
+  -execute 'SELECT last("value") FROM "time";' | \
+  tail -1 | awk -F',' '{print $3}' | \
+  xargs date +%Y-%m-%dT%H:%M:%S.000Z -s
+```
+
 #### FortiWifi Interface Monitor
 
 A `FortiWifi` firewall can be configured as a wireless bridge as follows[n1]:

@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-ssh pi@beastpi3 sudo poweroff
+ssh pi@10.10.1.252 sudo poweroff

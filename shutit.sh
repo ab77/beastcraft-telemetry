@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 printf "shutting down BeastPi3...\n"
-./pishut.pi
+./pishut.sh
 
-printf "shutting don BeastGate2...\n"
-./fortishut.pi
+printf "shutting down BeastGate2...\n"
+./fortishut.sh
